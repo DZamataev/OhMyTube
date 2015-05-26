@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import <Objection.h>
+#import "YTAppModule.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +19,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    JSObjectionInjector *injector = [JSObjection createInjector:[[YTAppModule alloc] init]];
+    [JSObjection setDefaultInjector:injector];
+    [[JSObjection defaultInjector] injectDependencies:self];
     return YES;
 }
 

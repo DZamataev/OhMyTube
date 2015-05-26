@@ -5,6 +5,7 @@ target 'OhMyTube', :exclusive => true do
   pod "UICKeyChainStore"
   pod "JFMinimalNotifications"
   pod "M13ProgressSuite"
+  pod "XCDYouTubeKit"
 end
 
 target 'OhMyTubeTests', :exclusive => true do

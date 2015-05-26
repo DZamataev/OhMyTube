@@ -16,6 +16,7 @@
 #   define DLog(...)
 #endif
 
+static NSString * const kPushStateChangedScriptMessageName = @"PushStateChanged";
 static NSString * const kTitleChangedScriptMessageName = @"TitleChanged";
 
 @interface YTWebViewController () <WKUIDelegate, WKNavigationDelegate, WKScriptMessageHandler, UIAlertViewDelegate, UITextFieldDelegate>
@@ -24,7 +25,6 @@ static NSString * const kTitleChangedScriptMessageName = @"TitleChanged";
 @property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, strong) UIAlertView *credentialsAlertView;
 @property (nonatomic, strong) NSURL *lastProvisionalNavigationURL;
-@property (nonatomic, strong) YTNavigationList *navigationList;
 @property (nonatomic, copy) void (^authChallengeCompletionHandler)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential);
 @end
 
@@ -58,8 +58,6 @@ static NSString * const kTitleChangedScriptMessageName = @"TitleChanged";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationList = [[YTNavigationList alloc] init];
-    
     self.webView = [[WKWebView alloc] initWithFrame:self.view.frame configuration:[self webViewConfiguration]];
     self.webView.translatesAutoresizingMaskIntoConstraints = NO;
     self.webView.navigationDelegate = self;
@@ -88,6 +86,8 @@ static NSString * const kTitleChangedScriptMessageName = @"TitleChanged";
     [self.webView addObserver:self forKeyPath:@"estimatedProgress" options: NSKeyValueObservingOptionNew context:nil];
     [self.webView addObserver:self forKeyPath:@"title" options: NSKeyValueObservingOptionNew context:nil];
     [self.webView addObserver:self forKeyPath:@"loading" options: NSKeyValueObservingOptionNew context:nil];
+    [self.webView addObserver:self forKeyPath:@"canGoBack" options: NSKeyValueObservingOptionNew context:nil];
+    [self.webView addObserver:self forKeyPath:@"canGoForward" options: NSKeyValueObservingOptionNew context:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -103,6 +103,8 @@ static NSString * const kTitleChangedScriptMessageName = @"TitleChanged";
     [self.webView removeObserver:self forKeyPath:@"estimatedProgress"];
     [self.webView removeObserver:self forKeyPath:@"title"];
     [self.webView removeObserver:self forKeyPath:@"loading"];
+    [self.webView removeObserver:self forKeyPath:@"canGoBack"];
+    [self.webView removeObserver:self forKeyPath:@"canGoForward"];
     
     [self.webView.configuration.userContentController removeScriptMessageHandlerForName:kTitleChangedScriptMessageName];
 }
@@ -112,8 +114,6 @@ static NSString * const kTitleChangedScriptMessageName = @"TitleChanged";
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"URL"] && object == self.webView) {
         [self.delegate webViewController:self didUpdateURL:self.webView.URL];
-        [self recordNavigation];
-        [self updateNavigationControls];
     }
     else if ([keyPath isEqualToString:@"estimatedProgress"] && object == self.webView) {
         [self.delegate webViewController:self didUpdateEstimatedProgress:self.webView.estimatedProgress];
@@ -123,6 +123,14 @@ static NSString * const kTitleChangedScriptMessageName = @"TitleChanged";
     }
     else if ([keyPath isEqualToString:@"loading"] && object == self.webView) {
         [self.delegate webViewController:self didUpdateLoading:self.webView.loading];
+    }
+    else if ([keyPath isEqualToString:@"canGoBack"] && object == self.webView) {
+        [self updateNavigationControls];
+
+    }
+    else if ([keyPath isEqualToString:@"canGoForward"] && object == self.webView) {
+        [self updateNavigationControls];
+
     }
     else {
         // Make sure to call the superclass's implementation in the else block in case it is also implementing KVO
@@ -134,6 +142,14 @@ static NSString * const kTitleChangedScriptMessageName = @"TitleChanged";
 
 - (WKWebViewConfiguration*)webViewConfiguration {
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
+    
+    NSString *ytHistoryJS = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"__yt_history" ofType:@"js"] encoding:NSUTF8StringEncoding error:nil];
+    [configuration.userContentController addScriptMessageHandler:[[YTWKScriptMessageHandlerTrampoline alloc] initWithDelegate:self]
+                                                            name:kPushStateChangedScriptMessageName];
+    WKUserScript *ytHistoryUserScript = [[WKUserScript alloc] initWithSource:ytHistoryJS
+                                                      injectionTime:WKUserScriptInjectionTimeAtDocumentEnd
+                                                   forMainFrameOnly:YES];
+    [configuration.userContentController addUserScript:ytHistoryUserScript];
     
     // inject script that will post document title updates
     [configuration.userContentController addScriptMessageHandler:[[YTWKScriptMessageHandlerTrampoline alloc] initWithDelegate:self]
@@ -155,15 +171,11 @@ static NSString * const kTitleChangedScriptMessageName = @"TitleChanged";
 }
 
 - (void)navigateBack {
-    YTNavigationListItem *backItem = self.navigationList.backItem;
-    NSAssert(backItem, @"No back item to go back to");
-    [self loadURL:backItem.URL];
+    [self.webView goBack];
 }
 
 - (void)navigateForward {
-    YTNavigationListItem *forwardItem = self.navigationList.forwardItem;
-    NSAssert(forwardItem, @"No forward item to go forward to");
-    [self loadURL:forwardItem.URL];
+    [self.webView goForward];
 }
 
 - (void)refresh {
@@ -226,13 +238,7 @@ static NSString * const kTitleChangedScriptMessageName = @"TitleChanged";
 }
 
 - (void)updateNavigationControls {
-    [self.delegate webViewController:self didUpdateNavigationControlsWithBackButtonEnabled:self.navigationList.canGoBack andForwardButtonEnabled:self.navigationList.canGoForward];
-}
-
-- (void)recordNavigation {
-    NSURL *url = self.webView.URL;
-    NSString *title = self.webView.title;
-    [self.navigationList navigateWithItem:[[YTNavigationListItem alloc] initWithURL:url title:title initialURL:self.lastProvisionalNavigationURL]];
+    [self.delegate webViewController:self didUpdateNavigationControlsWithBackButtonEnabled:self.webView.canGoBack andForwardButtonEnabled:self.webView.canGoForward];
 }
 
 #pragma mark - Navigation
@@ -289,6 +295,7 @@ static NSString * const kTitleChangedScriptMessageName = @"TitleChanged";
  */
 - (void)webView:(WKWebView *)webView didReceiveServerRedirectForProvisionalNavigation:(WKNavigation *)navigation {
     DLog(@"%@", navigation);
+    
 }
 
 /*! @abstract Invoked when an error occurs while starting to load data for
@@ -317,6 +324,7 @@ static NSString * const kTitleChangedScriptMessageName = @"TitleChanged";
  */
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     DLog(@"%@", navigation);
+    
 }
 
 /*! @abstract Invoked when an error occurs during a committed main frame
@@ -327,6 +335,7 @@ static NSString * const kTitleChangedScriptMessageName = @"TitleChanged";
  */
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
     DLog(@"%@, %@", navigation, error);
+    
 }
 
 /*! @abstract Invoked when the web view needs to respond to an authentication challenge.
@@ -512,6 +521,12 @@ static NSString * const kTitleChangedScriptMessageName = @"TitleChanged";
     DLog(@"%@, %@", userContentController, message);
     if ([message.name isEqualToString:kTitleChangedScriptMessageName]) {
         // do nothing because we actually KVO title changes and use this only as an example
+    }
+    else if ([message.name isEqualToString:kPushStateChangedScriptMessageName]) {
+        if ([self.delegate webViewController:self shouldStopLoadingAndGoBackOnStateUpdateWithString:[message.body stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]) {
+            [self.webView stopLoading];
+            [self.webView goBack];
+        }
     }
 }
 

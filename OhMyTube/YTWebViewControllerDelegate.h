@@ -20,7 +20,7 @@
 - (void)webViewController:(YTWebViewController *)webViewController didUpdateNavigationControlsWithBackButtonEnabled:(BOOL)backButtonEnabled andForwardButtonEnabled:(BOOL)forwardButtonEnabled;
 - (void)webViewController:(YTWebViewController *)webViewController didUpdateLoading:(BOOL)loading;
 - (void)webViewController:(YTWebViewController *)webViewController didUpdateEstimatedProgress:(double)estimatedProgress;
-
+- (BOOL)webViewController:(YTWebViewController *)webViewController shouldStopLoadingAndGoBackOnStateUpdateWithString:(NSString*)stateUpdate;
 @optional
 
 

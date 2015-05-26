@@ -10,6 +10,8 @@
 #import "YTWebViewControllerDelegate.h"
 #import "YTWebViewController.h"
 
+#import "YTVideoRepositoryInterface.h"
+
 @interface YTBrowserViewController () <YTWebViewControllerDelegate>
 @property (weak, nonatomic) YTWebViewController *webViewController;
 
@@ -22,9 +24,38 @@
 @property (weak, nonatomic) IBOutlet M13ProgressViewBar *progressBar;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *subtitleLabel;
+
+@property (strong, nonatomic) id <YTVideoRepositoryInterface> videoRepository;
 @end
 
 @implementation YTBrowserViewController
+
+objection_requires_sel(@selector(videoRepository))
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        [self commonInit];
+    }
+    return self;
+}
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        [self commonInit];
+    }
+    return self;
+}
+
+-(void)awakeFromNib {
+    [super awakeFromNib];
+    [self commonInit];
+}
+
+- (void)commonInit {
+    [[JSObjection defaultInjector] injectDependencies:self];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -71,6 +102,44 @@
 
 - (IBAction)refreshPageAction:(id)sender {
     [self.webViewController refresh];
+}
+
+- (void)processVideoRequestWithURL:(NSURL*)URL allowLoading:(BOOL*)allow {
+    BOOL success = NO;
+    if ([URL.absoluteString hasPrefix:@"http://m.youtube.com/watch?"]) {
+        NSDictionary *parameters = [self dictionaryByParsingParametersFromURL:URL];
+        
+        NSString *identifier = parameters[@"v"];
+        if (identifier && identifier.length > 0) {
+            success = YES;
+            [self.videoRepository addVideoWithIdentifier:identifier];
+        }
+        
+    }
+    
+    if (success) {
+        *allow = NO;
+    }
+    else {
+        *allow = YES;
+    }
+}
+
+
+
+- (NSDictionary*)dictionaryByParsingParametersFromURL:(NSURL*)URL {
+    NSMutableDictionary *queryStrings = [[NSMutableDictionary alloc] init];
+    for (NSString *qs in [URL.query componentsSeparatedByString:@"&"]) {
+        // Get the parameter name
+        NSString *key = [[qs componentsSeparatedByString:@"="] objectAtIndex:0];
+        // Get the parameter value
+        NSString *value = [[qs componentsSeparatedByString:@"="] objectAtIndex:1];
+        value = [value stringByReplacingOccurrencesOfString:@"+" withString:@" "];
+        value = [value stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        queryStrings[key] = value;
+    }
+    return queryStrings;
 }
 
 #pragma mark - <YTWebViewControllerDelegate>
@@ -122,4 +191,20 @@
     }
 }
 
+- (BOOL)webViewController:(YTWebViewController *)webViewController shouldStopLoadingAndGoBackOnStateUpdateWithString:(NSString *)stateUpdate {
+    BOOL shouldStop = NO;
+    NSString *pushstate = @"pushstate?";
+    if ([stateUpdate hasPrefix:pushstate]) {
+        NSString *argumentURLString = [stateUpdate substringFromIndex:pushstate.length];
+        if (argumentURLString && argumentURLString.length > 0) {
+            NSURL *argumentURL = [NSURL URLWithString:argumentURLString];
+            if (argumentURL) {
+                BOOL allowLoading = YES;
+                [self processVideoRequestWithURL:argumentURL allowLoading:&allowLoading];
+                shouldStop = !allowLoading;
+            }
+        }
+    }
+    return shouldStop;
+}
 @end
