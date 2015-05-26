@@ -1,0 +1,25 @@
+PODS:
+  - Expecta (1.0.0)
+  - JFMinimalNotifications (0.0.4)
+  - M13ProgressSuite (1.2.7)
+  - Objection (1.5)
+  - Specta (1.0.0)
+  - UICKeyChainStore (2.0.4)
+
+DEPENDENCIES:
+  - Expecta
+  - JFMinimalNotifications
+  - M13ProgressSuite
+  - Objection
+  - Specta
+  - UICKeyChainStore
+
+SPEC CHECKSUMS:
+  Expecta: 32604574add2c46a36f8d2f716b6c5736eb75024
+  JFMinimalNotifications: 2ab80fde6b8588a338be68d61763cc2085f8c938
+  M13ProgressSuite: 03d194af6359da440641ba758aed5a18b0386a86
+  Objection: c016a7d5a2bd9d581f2ce5d40e5ecd83acea7cf9
+  Specta: 96fe05fe5c7348b5223f85e862904f6e832abb14
+  UICKeyChainStore: 69eb0c3a6f669bccf16ba88de3b9069b71501361
+
+COCOAPODS: 0.36.3

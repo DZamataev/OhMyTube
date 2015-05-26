@@ -1,0 +1,6 @@
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/Expecta" "${PODS_ROOT}/Headers/Public/JFMinimalNotifications" "${PODS_ROOT}/Headers/Public/M13ProgressSuite" "${PODS_ROOT}/Headers/Public/Objection" "${PODS_ROOT}/Headers/Public/Specta" "${PODS_ROOT}/Headers/Public/UICKeyChainStore"
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/Expecta" -isystem "${PODS_ROOT}/Headers/Public/JFMinimalNotifications" -isystem "${PODS_ROOT}/Headers/Public/M13ProgressSuite" -isystem "${PODS_ROOT}/Headers/Public/Objection" -isystem "${PODS_ROOT}/Headers/Public/Specta" -isystem "${PODS_ROOT}/Headers/Public/UICKeyChainStore"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"Pods-OhMyTube-JFMinimalNotifications" -l"Pods-OhMyTube-M13ProgressSuite" -l"Pods-OhMyTube-Objection" -l"Pods-OhMyTube-UICKeyChainStore" -framework "Accelerate" -framework "CoreGraphics" -framework "CoreImage" -framework "Foundation" -framework "QuartzCore" -framework "Security" -framework "UIKit"
+OTHER_LIBTOOLFLAGS = $(OTHER_LDFLAGS)
+PODS_ROOT = ${SRCROOT}/Pods
