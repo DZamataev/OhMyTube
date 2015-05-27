@@ -6,6 +6,7 @@ target 'OhMyTube', :exclusive => true do
   pod "JFMinimalNotifications"
   pod "M13ProgressSuite"
   pod "XCDYouTubeKit"
+  pod "AFNetworking"
 end
 
 target 'OhMyTubeTests', :exclusive => true do

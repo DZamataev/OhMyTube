@@ -12,6 +12,8 @@
 
 #import "YTVideoRepositoryInterface.h"
 
+#import "YTSettingsManager.h"
+
 @interface YTBrowserViewController () <YTWebViewControllerDelegate>
 @property (weak, nonatomic) YTWebViewController *webViewController;
 
@@ -19,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *navigateBackButton;
 @property (weak, nonatomic) IBOutlet UIButton *navigateForwardButton;
 @property (weak, nonatomic) IBOutlet UIButton *refreshPageButton;
+@property (weak, nonatomic) IBOutlet UIButton *downloadButton;
 
 @property (weak, nonatomic) IBOutlet UIView *topBarView;
 @property (weak, nonatomic) IBOutlet M13ProgressViewBar *progressBar;
@@ -26,11 +29,14 @@
 @property (weak, nonatomic) IBOutlet UILabel *subtitleLabel;
 
 @property (strong, nonatomic) id <YTVideoRepositoryInterface> videoRepository;
+@property (strong, nonatomic) YTSettingsManager *settingsManager;
+
+@property (strong, nonatomic) YTVideoRecord *videoToDownload;
 @end
 
 @implementation YTBrowserViewController
 
-objection_requires_sel(@selector(videoRepository))
+objection_requires_sel(@selector(videoRepository), @selector(settingsManager))
 
 - (instancetype)init {
     self = [super init];
@@ -60,6 +66,7 @@ objection_requires_sel(@selector(videoRepository))
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.downloadButton.enabled = false;
     [self.progressBar setPrimaryColor:self.progressBar.tintColor];
     [self.webViewController loadURL:[NSURL URLWithString:@"http://youtube.com/"]];
 }
@@ -67,6 +74,18 @@ objection_requires_sel(@selector(videoRepository))
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Properties
+
+- (void)setVideoToDownload:(YTVideoRecord *)videoToDownload {
+    _videoToDownload = videoToDownload;
+    if (videoToDownload != nil) {
+        self.downloadButton.enabled = YES;
+    }
+    else {
+        self.downloadButton.enabled = NO;
+    }
 }
 
 #pragma mark - Navigation
@@ -93,10 +112,12 @@ objection_requires_sel(@selector(videoRepository))
 }
 
 - (IBAction)navigateBackAction:(id)sender {
+    [self resetVideoToDownload];
     [self.webViewController navigateBack];
 }
 
 - (IBAction)navigateForwardAction:(id)sender {
+    [self resetVideoToDownload];
     [self.webViewController navigateForward];
 }
 
@@ -104,28 +125,39 @@ objection_requires_sel(@selector(videoRepository))
     [self.webViewController refresh];
 }
 
+- (IBAction)downloadAction:(id)sender {
+    if (self.videoToDownload) {
+        [self.videoRepository downloadVideo:self.videoToDownload];
+    }
+}
+
 - (void)processVideoRequestWithURL:(NSURL*)URL allowLoading:(BOOL*)allow {
-    BOOL success = NO;
+    *allow = YES;
+    [self resetVideoToDownload];
+    
     if ([URL.absoluteString hasPrefix:@"http://m.youtube.com/watch?"]) {
         NSDictionary *parameters = [self dictionaryByParsingParametersFromURL:URL];
         
         NSString *identifier = parameters[@"v"];
         if (identifier && identifier.length > 0) {
-            success = YES;
-            [self.videoRepository addVideoWithIdentifier:identifier];
+            YTBrowserViewController __weak *welf = self;
+            [self.videoRepository addVideoWithIdentifier:identifier completion:^(YTVideoRecord *video, NSError *error) {
+                if (error == nil) {
+                    welf.videoToDownload = video;
+                }
+                else {
+                    
+                }
+            }];
         }
-        
-    }
-    
-    if (success) {
-        *allow = NO;
-    }
-    else {
-        *allow = YES;
     }
 }
 
+- (void)resetVideoToDownload {
+    self.videoToDownload = nil;
+}
 
+#pragma mark - Helpers
 
 - (NSDictionary*)dictionaryByParsingParametersFromURL:(NSURL*)URL {
     NSMutableDictionary *queryStrings = [[NSMutableDictionary alloc] init];
@@ -141,6 +173,8 @@ objection_requires_sel(@selector(videoRepository))
     }
     return queryStrings;
 }
+
+
 
 #pragma mark - <YTWebViewControllerDelegate>
 

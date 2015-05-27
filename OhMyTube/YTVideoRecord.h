@@ -12,7 +12,8 @@
 @interface YTVideoRecord : NSObject
 
 @property (readonly, nonatomic) NSString *identifier;
-@property (strong, nonatomic) XCDYouTubeVideo *video;
+@property (strong, nonatomic) XCDYouTubeVideo *youTubeVideo;
+@property (strong, nonatomic) NSNumber *downloadProgress;
 
 - (instancetype)initWithIdentifier:(NSString*)identifier;
 

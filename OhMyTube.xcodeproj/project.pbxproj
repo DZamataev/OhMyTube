@@ -13,6 +13,8 @@
 		9242E1C71B14E17300F891F2 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9242E1C61B14E17300F891F2 /* MainInterface.storyboard */; };
 		9242E1CA1B14E17300F891F2 /* OpenInExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9242E1BF1B14E17300F891F2 /* OpenInExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9242E1D11B14E4D000F891F2 /* YTAppModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 9242E1D01B14E4D000F891F2 /* YTAppModule.m */; };
+		9242E1D31B15CE7500F891F2 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9242E1D21B15CE7500F891F2 /* Settings.bundle */; };
+		9242E1D61B15E1C000F891F2 /* YTSettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9242E1D51B15E1C000F891F2 /* YTSettingsManager.m */; };
 		924C30D61B14DDB7008802BC /* YTVideoRepositoryImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 924C30D51B14DDB7008802BC /* YTVideoRepositoryImpl.m */; };
 		924C30DE1B14DE9A008802BC /* YTVideoRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 924C30DD1B14DE9A008802BC /* YTVideoRecord.m */; };
 		92738A0A1B146C9E005E75DF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 92738A091B146C9E005E75DF /* main.m */; };
@@ -73,6 +75,9 @@
 		9242E1C61B14E17300F891F2 /* MainInterface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
 		9242E1CF1B14E4D000F891F2 /* YTAppModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTAppModule.h; sourceTree = "<group>"; };
 		9242E1D01B14E4D000F891F2 /* YTAppModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTAppModule.m; sourceTree = "<group>"; };
+		9242E1D21B15CE7500F891F2 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		9242E1D41B15E1C000F891F2 /* YTSettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTSettingsManager.h; sourceTree = "<group>"; };
+		9242E1D51B15E1C000F891F2 /* YTSettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTSettingsManager.m; sourceTree = "<group>"; };
 		924C30D41B14DDB7008802BC /* YTVideoRepositoryImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTVideoRepositoryImpl.h; sourceTree = "<group>"; };
 		924C30D51B14DDB7008802BC /* YTVideoRepositoryImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTVideoRepositoryImpl.m; sourceTree = "<group>"; };
 		924C30DB1B14DE07008802BC /* YTVideoRepositoryInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTVideoRepositoryInterface.h; sourceTree = "<group>"; };
@@ -204,19 +209,22 @@
 		92738A061B146C9E005E75DF /* OhMyTube */ = {
 			isa = PBXGroup;
 			children = (
+				92738A111B146C9E005E75DF /* Main.storyboard */,
+				92738A141B146C9E005E75DF /* Images.xcassets */,
+				92738A161B146C9E005E75DF /* LaunchScreen.xib */,
 				92738A0B1B146C9E005E75DF /* AppDelegate.h */,
 				92738A0C1B146C9E005E75DF /* AppDelegate.m */,
 				9242E1CF1B14E4D000F891F2 /* YTAppModule.h */,
 				9242E1D01B14E4D000F891F2 /* YTAppModule.m */,
 				92738A0E1B146C9E005E75DF /* YTRootViewController.h */,
 				92738A0F1B146C9E005E75DF /* YTRootViewController.m */,
+				9242E1D41B15E1C000F891F2 /* YTSettingsManager.h */,
+				9242E1D51B15E1C000F891F2 /* YTSettingsManager.m */,
 				924C30DA1B14DDE3008802BC /* Video Repository */,
 				92738A341B147639005E75DF /* Browse */,
 				92738A381B14767B005E75DF /* Download */,
-				92738A111B146C9E005E75DF /* Main.storyboard */,
-				92738A141B146C9E005E75DF /* Images.xcassets */,
-				92738A161B146C9E005E75DF /* LaunchScreen.xib */,
 				92738A071B146C9E005E75DF /* Supporting Files */,
+				9242E1D21B15CE7500F891F2 /* Settings.bundle */,
 			);
 			path = OhMyTube;
 			sourceTree = "<group>";
@@ -401,6 +409,7 @@
 			files = (
 				92738A131B146C9E005E75DF /* Main.storyboard in Resources */,
 				92738A181B146C9E005E75DF /* LaunchScreen.xib in Resources */,
+				9242E1D31B15CE7500F891F2 /* Settings.bundle in Resources */,
 				92738A451B14B61C005E75DF /* __yt_history.js in Resources */,
 				92738A151B146C9E005E75DF /* Images.xcassets in Resources */,
 			);
@@ -503,6 +512,7 @@
 				92738A321B14756A005E75DF /* YTWebViewController.m in Sources */,
 				92738A401B1497D7005E75DF /* YTNavigationList.m in Sources */,
 				92738A0A1B146C9E005E75DF /* main.m in Sources */,
+				9242E1D61B15E1C000F891F2 /* YTSettingsManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -723,6 +733,7 @@
 				9242E1CC1B14E17300F891F2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		927389FF1B146C9E005E75DF /* Build configuration list for PBXProject "OhMyTube" */ = {
 			isa = XCConfigurationList;

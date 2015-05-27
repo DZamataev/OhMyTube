@@ -7,9 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Objection.h>
 #import <XCDYouTubeKit/XCDYouTubeKit.h>
+#import <AFNetworking.h>
+
 #import "YTVideoRepositoryInterface.h"
-#import "YTVideoRecord.h"
 
 @interface YTVideoRepositoryImpl : NSObject <YTVideoRepositoryInterface>
 

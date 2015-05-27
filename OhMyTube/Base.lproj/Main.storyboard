@@ -289,6 +289,9 @@
                                             <constraint firstAttribute="height" constant="23" id="pda-uq-Xqg"/>
                                         </constraints>
                                         <state key="normal" image="bar_download"/>
+                                        <connections>
+                                            <action selector="downloadAction:" destination="XIF-Il-m9a" eventType="touchUpInside" id="7eI-ph-hVe"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wOL-6S-d19" userLabel="refresh">
                                         <rect key="frame" x="545" y="12" width="20" height="20"/>
@@ -343,6 +346,7 @@
                     </view>
                     <toolbarItems/>
                     <connections>
+                        <outlet property="downloadButton" destination="80P-pB-F80" id="6ue-0S-Iqe"/>
                         <outlet property="navigateBackButton" destination="ZgT-PG-roz" id="EeU-mR-HDp"/>
                         <outlet property="navigateForwardButton" destination="te9-Oj-Xum" id="5u4-xF-BTO"/>
                         <outlet property="progressBar" destination="amV-SH-Gzs" id="fGg-uo-eq4"/>

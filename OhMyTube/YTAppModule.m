@@ -11,9 +11,13 @@
 #import "YTVideoRepositoryInterface.h"
 #import "YTVideoRepositoryImpl.h"
 
+#import "YTSettingsManager.h"
+
 @implementation YTAppModule
 - (void)configure {
     YTVideoRepositoryImpl *videoRepository = [[YTVideoRepositoryImpl alloc] init];
     [self bind:videoRepository toProtocol:@protocol(YTVideoRepositoryInterface)];
+    
+    [self bindClass:[YTSettingsManager class] inScope:JSObjectionScopeSingleton];
 }
 @end
