@@ -1,5 +1,5 @@
 //
-//  YTDownloadViewController.h
+//  YTDownloadsViewController.h
 //  OhMyTube
 //
 //  Created by Denis Zamataev on 26/05/15.
@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Objection.h>
 
-@interface YTDownloadViewController : UIViewController
+@interface YTDownloadsViewController : UIViewController
 
 @end
