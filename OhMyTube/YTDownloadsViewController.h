@@ -10,5 +10,5 @@
 #import <Objection.h>
 
 @interface YTDownloadsViewController : UIViewController
-
+- (void)populateSections;
 @end

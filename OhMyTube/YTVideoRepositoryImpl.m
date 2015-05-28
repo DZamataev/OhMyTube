@@ -105,4 +105,8 @@
     NSString *fileName = [video.identifier stringByAppendingString:qualityString];
     return fileName;
 }
+
+- (NSArray *)videos {
+    return [NSArray arrayWithArray:self.collection];
+}
 @end

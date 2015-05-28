@@ -13,4 +13,6 @@
 - (void)addVideoWithIdentifier:(NSString*)identifier completion:(void (^)(YTVideoRecord *video, NSError *error))completion;
 
 - (void)downloadVideo:(YTVideoRecord*)video;
+
+- (NSArray*)videos; // array of objects of type YTVideoRecord
 @end

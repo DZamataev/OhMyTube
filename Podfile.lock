@@ -24,6 +24,9 @@ PODS:
   - JFMinimalNotifications (0.0.4)
   - M13ProgressSuite (1.2.7)
   - Objection (1.5)
+  - SDWebImage (3.7.2):
+    - SDWebImage/Core (= 3.7.2)
+  - SDWebImage/Core (3.7.2)
   - Specta (1.0.0)
   - UICKeyChainStore (2.0.4)
   - XCDYouTubeKit (2.1.3)
@@ -34,6 +37,7 @@ DEPENDENCIES:
   - JFMinimalNotifications
   - M13ProgressSuite
   - Objection
+  - SDWebImage
   - Specta
   - UICKeyChainStore
   - XCDYouTubeKit
@@ -44,6 +48,7 @@ SPEC CHECKSUMS:
   JFMinimalNotifications: 2ab80fde6b8588a338be68d61763cc2085f8c938
   M13ProgressSuite: 03d194af6359da440641ba758aed5a18b0386a86
   Objection: c016a7d5a2bd9d581f2ce5d40e5ecd83acea7cf9
+  SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
   Specta: 96fe05fe5c7348b5223f85e862904f6e832abb14
   UICKeyChainStore: 69eb0c3a6f669bccf16ba88de3b9069b71501361
   XCDYouTubeKit: ca3120218413fdd141567ca98b5418df309b1ced

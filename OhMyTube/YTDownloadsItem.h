@@ -9,5 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @interface YTDownloadsItem : NSObject
-
+@property (strong, nonatomic) NSString *title;
+@property (strong, nonatomic) NSNumber *downloadProgress;
+@property (strong, nonatomic) NSString *duration;
+@property (strong, nonatomic) NSURL *thumbnailURL;
+@property (strong, nonatomic) id userInfo;
 @end

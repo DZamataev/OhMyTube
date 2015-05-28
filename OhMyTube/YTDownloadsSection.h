@@ -9,5 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface YTDownloadsSection : NSObject
-@property (strong, nonatomic) NSMutableArray *items;
+@property (readonly, nonatomic) NSMutableArray *items;
+@property (nonatomic, strong) NSString *title;
 @end

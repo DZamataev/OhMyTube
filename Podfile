@@ -7,6 +7,7 @@ target 'OhMyTube', :exclusive => true do
   pod "M13ProgressSuite"
   pod "XCDYouTubeKit"
   pod "AFNetworking"
+  pod "SDWebImage"
 end
 
 target 'OhMyTubeTests', :exclusive => true do

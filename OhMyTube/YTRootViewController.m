@@ -8,7 +8,11 @@
 
 #import "YTRootViewController.h"
 
+#import "YTDownloadsViewController.h"
+
 @interface YTRootViewController ()
+@property (weak, nonatomic) IBOutlet YTDownloadsViewController *downloadsViewController;
+
 @property (weak, nonatomic) IBOutlet UIView *browserContainerView;
 @property (weak, nonatomic) IBOutlet UIView *downloadsContainerView;
 @property (weak, nonatomic) IBOutlet UIView *tabsView;
@@ -36,6 +40,12 @@
 
 - (void)showDownloads:(id)sender {
     [self.view bringSubviewToFront:self.downloadsContainerView];
+    [self.downloadsViewController populateSections];
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"Embed_DownloadsViewController"]) {
+        self.downloadsViewController = segue.destinationViewController;
+    }
+}
 @end

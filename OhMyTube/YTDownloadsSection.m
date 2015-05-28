@@ -9,5 +9,11 @@
 #import "YTDownloadsSection.h"
 
 @implementation YTDownloadsSection
-
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _items = [NSMutableArray new];
+    }
+    return self;
+}
 @end

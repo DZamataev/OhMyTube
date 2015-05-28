@@ -10,10 +10,12 @@
 #import "YTDownloadsSection.h"
 #import "YTDownloadsItem.h"
 
+#import "YTDownloadsTableViewCell.h"
+
 #import "YTVideoRepositoryInterface.h"
 
-@interface YTDownloadsViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@interface YTDownloadsViewController () <UITableViewDataSource, UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (strong, nonatomic) NSMutableArray *sections;
 
@@ -49,10 +51,15 @@ objection_requires_sel(@selector(videoRepository))
     [[JSObjection defaultInjector] injectDependencies:self];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tableView.estimatedRowHeight = 120;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
     // Do any additional setup after loading the view.
-    self.sections = [NSMutableArray new];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -60,7 +67,32 @@ objection_requires_sel(@selector(videoRepository))
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    [self.tableView reloadData];
+}
+
 #pragma mark - Actions
+
+- (void)populateSections {
+    self.sections = [NSMutableArray new];
+    YTDownloadsSection *firstSection = [[YTDownloadsSection alloc] init];
+    [self.sections addObject:firstSection];
+    
+    NSDateComponentsFormatter *dateComponentsFormatter = [[NSDateComponentsFormatter alloc] init];
+    
+    NSArray *videos = [self.videoRepository videos];
+    for (YTVideoRecord *video in videos) {
+        YTDownloadsItem *item = [YTDownloadsItem new];
+        item.title = video.youTubeVideo.title;
+        item.duration = [dateComponentsFormatter stringFromTimeInterval:video.youTubeVideo.duration];
+        item.thumbnailURL = video.youTubeVideo.mediumThumbnailURL;
+        item.userInfo = video;
+        [firstSection.items addObject:item];
+    }
+    
+    [self.tableView reloadData];
+}
 
 #pragma mark - Navigation
 
@@ -81,43 +113,32 @@ objection_requires_sel(@selector(videoRepository))
     return section.items[indexPath.item];
 }
 
-#pragma mark - <UICollectionViewDataSource>
+#pragma mark - <UITableViewDataSource>
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self sectionAtIndex:section].items.count;
 }
 
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.sections.count;
 }
 
-// The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *reuseIdentifier = @"Cell";
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
+    
+    YTDownloadsTableViewCell *downloadsCell = (YTDownloadsTableViewCell*)cell;
+    [downloadsCell configureWithItem:[self itemAtIndex:indexPath]];
+    
     return cell;
 }
 
-
-// The view that is returned must be retrieved from a call to -dequeueReusableSupplementaryViewOfKind:withReuseIdentifier:forIndexPath:
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    NSString *reuseIdentifier;
-    UICollectionReusableView *view;
-    
-    if (kind == UICollectionElementKindSectionHeader) {
-        reuseIdentifier = @"Header";
-        view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-    }
-    
-    if (kind == UICollectionElementKindSectionFooter) {
-        reuseIdentifier = @"Footer";
-        view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-    }
-    
-    return view;
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return [self sectionAtIndex:section].title;
 }
 
-#pragma mark - <UICollectionViewDelegate>
+#pragma mark - <UITableViewDelegate>
+
 
 @end
 
