@@ -14,7 +14,6 @@ static const NSString *PlayerStatusContext;
 
 @interface YTVideoPlayerViewController ()
 {
-    NSDateFormatter *_dateFormatter;
 }
 @property (strong, nonatomic) AVPlayer *player;
 @property (strong, nonatomic) AVPlayerItem *playerItem;
@@ -63,7 +62,7 @@ static const NSString *PlayerStatusContext;
 }
 
 
-#pragma mark - Actions
+#pragma mark - Public Actions
 
 - (void)prepareAndPlayAutomatically:(BOOL)playAutomatically {
     if (self.player) {
@@ -127,7 +126,7 @@ static const NSString *PlayerStatusContext;
     return [self.player rate] > 0.0f;
 }
 
-#pragma mark - Private
+#pragma mark - Private Actions
 
 - (void)syncUI {
     if ([self isPlaying]) {
@@ -291,15 +290,22 @@ static const NSString *PlayerStatusContext;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAVPlayerItemPlaybackStalled:)
                                                  name:AVPlayerItemPlaybackStalledNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleApplicationDidEnterBackground:)
+                                                 name:UIApplicationDidEnterBackgroundNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleApplicationDidBecomeActive:)
+                                                 name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 - (void)resignNotifications {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemFailedToPlayToEndTimeNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemPlaybackStalledNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
 }
 
-#pragma mark - AVPlayer Notification Handlers
+#pragma mark - Notification Handlers
 
 - (void)handleAVPlayerItemDidPlayToEndTime:(NSNotification *)notification {
     [self stop];
@@ -317,6 +323,17 @@ static const NSString *PlayerStatusContext;
     [self onPlaybackStalled];
 }
 
+- (void)handleApplicationDidEnterBackground:(NSNotification *)notification {
+    if (self.isBackgroundPlaybackEnabled) {
+        self.playerView.player = nil;
+    }
+}
+
+- (void)handleApplicationDidBecomeActive:(NSNotification *)notification {
+    if (self.isBackgroundPlaybackEnabled) {
+        self.playerView.player = self.player;
+    }
+}
 #pragma mark - KVO
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

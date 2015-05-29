@@ -19,6 +19,7 @@
 @property (weak, nonatomic) id<YTVideoPlayerViewControllerDelegate> delegate;
 
 @property (strong, nonatomic) NSURL *videoURL;
+@property (assign, nonatomic) BOOL isBackgroundPlaybackEnabled; // defaults to NO
 
 @property (weak, nonatomic) IBOutlet YTPlayerView *playerView;
 

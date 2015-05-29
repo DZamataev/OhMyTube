@@ -23,6 +23,7 @@
     // Do any additional setup after loading the view.
     NSAssert(self.video != nil, @"Video must be set beforehand");
     self.videoPlayerViewController.videoURL = self.video.fileURL;
+    self.videoPlayerViewController.isBackgroundPlaybackEnabled = YES;
     [self.videoPlayerViewController prepareAndPlayAutomatically:YES];
 }
 
