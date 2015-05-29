@@ -1,0 +1,1 @@
+PODS_OHMYTUBE_PBJVIDEOPLAYER_OTHER_LDFLAGS = -framework "AVFoundation" -framework "CoreGraphics" -framework "Foundation" -framework "QuartzCore" -framework "UIKit"

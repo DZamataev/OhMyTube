@@ -7,18 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "YTVideoRecord.h"
+#import "YTVideo.h"
 
 @protocol YTVideoRepositoryInterface <NSObject>
-- (void)addVideoWithIdentifier:(NSString *)identifier completion:(void (^)(YTVideoRecord *video, NSError *error))completion;
+- (void)addVideoWithIdentifier:(NSString *)identifier completion:(void (^)(YTVideo *video, NSError *error))completion;
 
-- (void)downloadVideo:(YTVideoRecord *)video;
+- (void)downloadVideo:(YTVideo *)video;
 
-- (void)stopDownloadForVideo:(YTVideoRecord *)video;
+- (void)stopDownloadForVideo:(YTVideo *)video;
 
-- (void)deleteVideo:(YTVideoRecord *)video;
+- (void)deleteVideo:(YTVideo *)video;
 
-- (void)stopDownloadAndDeleteVideo:(YTVideoRecord *)video;
+- (void)stopDownloadAndDeleteVideo:(YTVideo *)video;
 
-- (NSArray *)videos; // array of objects of type YTVideoRecord
+- (NSArray *)videos; // array of objects of type YTVideo
 @end

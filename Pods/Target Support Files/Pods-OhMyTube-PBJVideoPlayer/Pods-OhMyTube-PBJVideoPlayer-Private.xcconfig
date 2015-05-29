@@ -1,0 +1,6 @@
+#include "Pods-OhMyTube-PBJVideoPlayer.xcconfig"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/PBJVideoPlayer" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/Expecta" "${PODS_ROOT}/Headers/Public/JFMinimalNotifications" "${PODS_ROOT}/Headers/Public/KVOController" "${PODS_ROOT}/Headers/Public/M13ProgressSuite" "${PODS_ROOT}/Headers/Public/Objection" "${PODS_ROOT}/Headers/Public/PBJVideoPlayer" "${PODS_ROOT}/Headers/Public/SDWebImage" "${PODS_ROOT}/Headers/Public/Specta" "${PODS_ROOT}/Headers/Public/UICKeyChainStore" "${PODS_ROOT}/Headers/Public/XCDYouTubeKit"
+OTHER_LDFLAGS = ${PODS_OHMYTUBE_PBJVIDEOPLAYER_OTHER_LDFLAGS} -ObjC
+PODS_ROOT = ${SRCROOT}
+SKIP_INSTALL = YES

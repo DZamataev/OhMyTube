@@ -9,6 +9,7 @@ target 'OhMyTube', :exclusive => true do
   pod "AFNetworking"
   pod "SDWebImage"
   pod "KVOController"
+  pod "PBJVideoPlayer"
 end
 
 target 'OhMyTubeTests', :exclusive => true do

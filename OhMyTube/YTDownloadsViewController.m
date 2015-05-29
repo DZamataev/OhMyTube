@@ -11,6 +11,8 @@
 
 #import "YTDownloadsTableViewCell.h"
 
+#import "YTVideoViewController.h"
+
 #import "YTVideoRepositoryInterface.h"
 
 @interface YTDownloadsViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -20,8 +22,11 @@
 
 @property (strong, nonatomic) id<YTVideoRepositoryInterface> videoRepository;
 
+@property (strong, nonatomic) YTVideo *selectedItem;
 
 @property (strong, nonatomic) NSDateComponentsFormatter *dateComponentsFormatter;
+
+@property (weak, nonatomic) YTVideoViewController *videoViewController;
 @end
 
 @implementation YTDownloadsViewController
@@ -89,12 +94,27 @@ objection_requires_sel(@selector(videoRepository))
     [self.tableView reloadData];
 }
 
+- (void)playVideoWithItem:(YTVideo*)item {
+    if (item.isDownloaded) {
+        self.selectedItem = item;
+        [self performSegueWithIdentifier:@"Present_VideoViewController" sender:nil];
+    }
+}
+
+- (IBAction)unwindFromVideo:(UIStoryboardSegue*)segue {
+    
+}
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"Present_VideoViewController"]) {
+        self.videoViewController = segue.destinationViewController;
+        self.videoViewController.video = self.selectedItem;
+    }
 }
 
 #pragma mark - Helpers
@@ -103,7 +123,7 @@ objection_requires_sel(@selector(videoRepository))
     return self.sections[sectionIndex];
 }
 
-- (YTVideoRecord*)itemAtIndex:(NSIndexPath *)indexPath {
+- (YTVideo*)itemAtIndex:(NSIndexPath *)indexPath {
     YTTableSection *section = [self sectionAtIndex:indexPath.section];
     return section.items[indexPath.item];
 }
@@ -113,7 +133,7 @@ objection_requires_sel(@selector(videoRepository))
     [section.items removeObjectAtIndex:indexPath.row];
 }
 
-- (void)configureCell:(YTDownloadsTableViewCell*)cell withItem:(YTVideoRecord*)item {
+- (void)configureCell:(YTDownloadsTableViewCell*)cell withItem:(YTVideo*)item {
     [cell.progressBar setShowPercentage:NO];
     
     cell.titleLabel.text = item.title;
@@ -123,7 +143,7 @@ objection_requires_sel(@selector(videoRepository))
     
     [cell.KVOController observe:item keyPath:@"downloadProgress"
                         options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew
-                          block:^(YTDownloadsTableViewCell *cell, YTVideoRecord *item, NSDictionary *change) {
+                          block:^(YTDownloadsTableViewCell *cell, YTVideo *item, NSDictionary *change) {
                               NSNumber *downloadProgress = change[NSKeyValueChangeNewKey];
                               if (downloadProgress != nil && [downloadProgress respondsToSelector:@selector(floatValue)]) {
                                   if (downloadProgress.floatValue < 1.0f) {
@@ -168,6 +188,10 @@ objection_requires_sel(@selector(videoRepository))
 }
 
 #pragma mark - <UITableViewDelegate>
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self playVideoWithItem:[self itemAtIndex:indexPath]];
+}
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;

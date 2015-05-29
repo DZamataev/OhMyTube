@@ -1,5 +1,5 @@
 //
-//  YTVideoRecord.h
+//  YTVideo.h
 //  OhMyTube
 //
 //  Created by Denis Zamataev on 26/05/15.
@@ -9,11 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <XCDYouTubeKit/XCDYouTubeKit.h>
 
-@interface YTVideoRecord : NSObject
+@interface YTVideo : NSObject
 
 @property (readonly, nonatomic) NSString *identifier;
 @property (strong, nonatomic) NSNumber *downloadProgress;
-@property (strong, nonatomic) NSURL *fileURL;
+@property (strong, nonatomic) NSString *fileName;
 @property (strong, nonatomic) NSString *qualityString;
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSNumber *duration;
@@ -22,6 +22,8 @@
 @property (strong, nonatomic) XCDYouTubeVideo *youTubeVideo;
 
 @property (readonly, nonatomic) BOOL isDownloaded;
+@property (readonly, nonatomic) NSString *filePath;
+@property (readonly, nonatomic) NSURL *fileURL;
 
 - (instancetype)initWithIdentifier:(NSString*)identifier;
 

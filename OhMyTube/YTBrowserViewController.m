@@ -31,7 +31,7 @@
 @property (strong, nonatomic) id <YTVideoRepositoryInterface> videoRepository;
 @property (strong, nonatomic) YTSettingsManager *settingsManager;
 
-@property (strong, nonatomic) YTVideoRecord *videoToDownload;
+@property (strong, nonatomic) YTVideo *videoToDownload;
 @end
 
 @implementation YTBrowserViewController
@@ -79,7 +79,7 @@ objection_requires_sel(@selector(videoRepository), @selector(settingsManager))
 
 #pragma mark - Properties
 
-- (void)setVideoToDownload:(YTVideoRecord *)videoToDownload {
+- (void)setVideoToDownload:(YTVideo *)videoToDownload {
     _videoToDownload = videoToDownload;
     if (videoToDownload != nil) {
         self.downloadButton.enabled = YES;
@@ -142,7 +142,7 @@ objection_requires_sel(@selector(videoRepository), @selector(settingsManager))
         NSString *identifier = parameters[@"v"];
         if (identifier && identifier.length > 0) {
             YTBrowserViewController __weak *welf = self;
-            [self.videoRepository addVideoWithIdentifier:identifier completion:^(YTVideoRecord *video, NSError *error) {
+            [self.videoRepository addVideoWithIdentifier:identifier completion:^(YTVideo *video, NSError *error) {
                 if (error == nil) {
                     welf.videoToDownload = video;
                 }

@@ -25,6 +25,7 @@ PODS:
   - KVOController (1.0.3)
   - M13ProgressSuite (1.2.7)
   - Objection (1.5)
+  - PBJVideoPlayer (0.2.0)
   - SDWebImage (3.7.2):
     - SDWebImage/Core (= 3.7.2)
   - SDWebImage/Core (3.7.2)
@@ -39,6 +40,7 @@ DEPENDENCIES:
   - KVOController
   - M13ProgressSuite
   - Objection
+  - PBJVideoPlayer
   - SDWebImage
   - Specta
   - UICKeyChainStore
@@ -51,6 +53,7 @@ SPEC CHECKSUMS:
   KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
   M13ProgressSuite: 03d194af6359da440641ba758aed5a18b0386a86
   Objection: c016a7d5a2bd9d581f2ce5d40e5ecd83acea7cf9
+  PBJVideoPlayer: 60e8601398ba0fc1e38c431863c9222b4f4b7153
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
   Specta: 96fe05fe5c7348b5223f85e862904f6e832abb14
   UICKeyChainStore: 69eb0c3a6f669bccf16ba88de3b9069b71501361

@@ -45,7 +45,7 @@
         NSDictionary *downloadDict = welf.downloadsInProgress[@(downloadTaskInProgress.taskIdentifier)];
         if (downloadDict != nil) {
             NSURLSessionDownloadTask *downloadTask = downloadDict[@"task"];
-            YTVideoRecord *video = downloadDict[@"video"];
+            YTVideo *video = downloadDict[@"video"];
             if (downloadTask != nil && video != nil) {
                 double progress = (double)totalBytesWritten / (double)totalBytesExpectedToWrite;
                 video.downloadProgress = @(progress);
@@ -78,14 +78,14 @@
     return qualityString;
 }
 
-- (NSString*)fileNameForVideo:(YTVideoRecord *)video quality:(XCDYouTubeVideoQuality)videoQuality {
+- (NSString*)fileNameForVideo:(YTVideo *)video quality:(XCDYouTubeVideoQuality)videoQuality {
     NSString *qualityString = [self qualityStringForQuality:videoQuality];
     
     NSString *fileName = [NSString stringWithFormat:@"%@-%@.mp4", video.identifier, qualityString];
     return fileName;
 }
 
-- (NSNumber*)bestPossibleQualityForVideo:(YTVideoRecord *)video {
+- (NSNumber*)bestPossibleQualityForVideo:(YTVideo *)video {
     NSNumber *quality;
     NSArray *qualityOptionsArray = @[@(XCDYouTubeVideoQualityHD720), @(XCDYouTubeVideoQualityMedium360), @(XCDYouTubeVideoQualitySmall240)];
     for (NSNumber *qualityNumber in qualityOptionsArray) {
@@ -98,7 +98,7 @@
     return quality;
 }
 
-- (NSURL*)bestPossibleThumbnailURLForVideo:(YTVideoRecord *)video {
+- (NSURL*)bestPossibleThumbnailURLForVideo:(YTVideo *)video {
     NSURL *thumbnailURL;
     if (video.youTubeVideo.largeThumbnailURL != nil) {
         thumbnailURL = video.youTubeVideo.largeThumbnailURL;
@@ -126,7 +126,7 @@
     NSAssert(success, @"Saving tabs must be successful");
 }
 
-- (void)getYouTubeVideoForVideo:(YTVideoRecord *)video completion:(void (^)(YTVideoRecord *, NSError *))completion {
+- (void)getYouTubeVideoForVideo:(YTVideo *)video completion:(void (^)(YTVideo *, NSError *))completion {
     [[XCDYouTubeClient defaultClient] getVideoWithIdentifier:video.identifier completionHandler:^(XCDYouTubeVideo *youTubeVideo, NSError *error) {
         if (error == nil) {
             video.youTubeVideo = youTubeVideo;
@@ -139,10 +139,10 @@
 }
 
 - (void)restartDownloadsIfNeeded {
-    for (YTVideoRecord *video in self.collection) {
+    for (YTVideo *video in self.collection) {
         if (video.isDownloaded == NO) {
             YTVideoRepositoryImpl __weak *welf = self;
-            [self getYouTubeVideoForVideo:video completion:^(YTVideoRecord *video, NSError *error) {
+            [self getYouTubeVideoForVideo:video completion:^(YTVideo *video, NSError *error) {
                 if (error == nil) {
                     [welf downloadVideo:video];
                 }
@@ -156,19 +156,19 @@
 
 #pragma mark - <YTVideoRepositoryInterface>
 
-- (void)addVideoWithIdentifier:(NSString *)videoIdentifier completion:(void (^)(YTVideoRecord *, NSError *))completion  {
+- (void)addVideoWithIdentifier:(NSString *)videoIdentifier completion:(void (^)(YTVideo *, NSError *))completion  {
     NSAssert(videoIdentifier, @"Identifier must be non-nil");
     
-    YTVideoRecord *newRecord = [[YTVideoRecord alloc] initWithIdentifier:videoIdentifier];
+    YTVideo *newRecord = [[YTVideo alloc] initWithIdentifier:videoIdentifier];
     [self.collection addObject:newRecord];
     [self saveCollection];
     
-    [self getYouTubeVideoForVideo:newRecord completion:^(YTVideoRecord *video, NSError *error) {
+    [self getYouTubeVideoForVideo:newRecord completion:^(YTVideo *video, NSError *error) {
         completion(video, error);
     }];
 }
 
-- (void)downloadVideo:(YTVideoRecord *)video {
+- (void)downloadVideo:(YTVideo *)video {
     NSAssert(video, @"Video must be non-nil");
     NSAssert(video.youTubeVideo, @"Video must have youTubeVideo property");
     
@@ -184,12 +184,9 @@
     NSString *fileName = [self fileNameForVideo:video quality:qualityNumber.unsignedIntegerValue];
     NSAssert(fileName, @"File name must be defined");
     
-    NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
-                                                                          inDomain:NSUserDomainMask
-                                                                 appropriateForURL:nil
-                                                                            create:NO
-                                                                             error:nil];
-    NSURL *fileURL = [documentsDirectoryURL URLByAppendingPathComponent:fileName];
+    NSArray *paths = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
+    NSURL *documentsURL = [paths lastObject];
+    NSURL *fileURL = [documentsURL URLByAppendingPathComponent:fileName];
     
     NSNumber *duration = @(video.youTubeVideo.duration);
     
@@ -197,7 +194,7 @@
     
     video.title = video.youTubeVideo.title;
     video.qualityString = qualityString;
-    video.fileURL = fileURL;
+    video.fileName = fileName;
     video.duration = duration;
     video.thumbnailURL = thumbnailURL;
     [self saveCollection];
@@ -224,12 +221,12 @@
     [downloadTask resume];
 }
 
-- (void)stopDownloadForVideo:(YTVideoRecord *)videoToStopDownload {
+- (void)stopDownloadForVideo:(YTVideo *)videoToStopDownload {
     NSArray *allDownloadsInProgressKeys = [self.downloadsInProgress allKeys];
     id keyToRemove;
     for (id key in allDownloadsInProgressKeys) {
         NSDictionary *downloadDict =self.downloadsInProgress[key];
-        YTVideoRecord *video = downloadDict[@"video"];
+        YTVideo *video = downloadDict[@"video"];
         NSURLSessionDownloadTask *task = downloadDict[@"task"];
         if (video == videoToStopDownload) {
             keyToRemove = key;
@@ -241,7 +238,7 @@
     }
 }
 
-- (void)deleteVideo:(YTVideoRecord *)videoToDelete {
+- (void)deleteVideo:(YTVideo *)videoToDelete {
     if (videoToDelete.fileURL) {
         NSError *error;
         [[NSFileManager defaultManager] removeItemAtURL:videoToDelete.fileURL error:&error];
@@ -252,7 +249,7 @@
     [self.collection removeObject:videoToDelete];
 }
 
-- (void)stopDownloadAndDeleteVideo:(YTVideoRecord *)video {
+- (void)stopDownloadAndDeleteVideo:(YTVideo *)video {
     [self stopDownloadForVideo:video];
     [self deleteVideo:video];
 }
