@@ -11,11 +11,5 @@
 @protocol YTVideoPlayerViewControllerDelegate <NSObject>
 - (void)playerDidPause;
 - (void)playerDidResume;
-- (void)playerDidEndPlaying;
-- (void)playerWillEnterFullscreen;
-- (void)playerDidEnterFullscreen;
-- (void)playerWillLeaveFullscreen;
-- (void)playerDidLeaveFullscreen;
-- (void)playerFailedToPlayToEnd;
 - (void)playerStalled;
 @end

@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="YTVideoPlayerViewController">
             <connections>
+                <outlet property="activityIndicatorView" destination="M0K-8Q-vIw" id="a4Q-eI-m8o"/>
                 <outlet property="currentTimeLabel" destination="nci-GB-6YN" id="EaE-rZ-ROK"/>
                 <outlet property="fullscreenButton" destination="Ba7-Io-2c5" id="1HY-Nd-h2J"/>
                 <outlet property="pauseButton" destination="9zm-dn-EbA" id="2rU-qn-FfY"/>
                 <outlet property="playButton" destination="ArK-79-Cut" id="i5f-RL-U6s"/>
+                <outlet property="playerView" destination="lw1-po-bea" id="8JJ-kk-vFJ"/>
                 <outlet property="progressIndicator" destination="H4R-1c-U9J" id="QoY-Em-NIE"/>
                 <outlet property="remainingTimeLabel" destination="YiH-9G-eQ4" id="FZ3-SS-2Jt"/>
                 <outlet property="toolbarView" destination="Omr-8F-wN5" id="lHr-fx-hBl"/>
-                <outlet property="videoContainerView" destination="lw1-po-bea" id="VAJ-Z3-q0g"/>
                 <outlet property="view" destination="iN0-l3-epB" id="5lv-e0-0dE"/>
             </connections>
         </placeholder>
@@ -22,18 +23,13 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lw1-po-bea" userLabel="Video Container View">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lw1-po-bea" userLabel="PlayerView" customClass="YTPlayerView">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vcy-Qv-fpB">
-                    <rect key="frame" x="150" y="150" width="300" height="300"/>
-                    <color key="backgroundColor" red="0.40000000000000002" green="1" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="300" id="Ggv-Tu-MzK"/>
-                        <constraint firstAttribute="width" constant="300" id="hzS-h6-aBV"/>
-                    </constraints>
-                </view>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="M0K-8Q-vIw">
+                    <rect key="frame" x="282" y="282" width="37" height="37"/>
+                </activityIndicatorView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Omr-8F-wN5" userLabel="ToolbarView">
                     <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                     <subviews>
@@ -44,41 +40,41 @@
                                 <constraint firstAttribute="height" constant="1" id="owc-p8-yXw"/>
                             </constraints>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ArK-79-Cut">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ArK-79-Cut" userLabel="Play Button">
                             <rect key="frame" x="8" y="7" width="30" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="30" id="UFY-Ed-uK0"/>
                             </constraints>
                             <state key="normal" image="ytvideoplayer_play.png"/>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9zm-dn-EbA">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9zm-dn-EbA" userLabel="Pause Button">
                             <rect key="frame" x="8" y="7" width="30" height="30"/>
                             <state key="normal" image="ytvideoplayer_pause.png"/>
                         </button>
-                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="H4R-1c-U9J" customClass="YTProgressIndicatorSlider">
-                            <rect key="frame" x="94" y="7" width="412" height="31"/>
-                        </slider>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ba7-Io-2c5">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ba7-Io-2c5" userLabel="Fullscreen Button">
                             <rect key="frame" x="562" y="7" width="30" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="30" id="lkV-UI-sc0"/>
                             </constraints>
                             <state key="normal" image="ytvideoplayer_expand.png"/>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="03:15" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YiH-9G-eQ4">
+                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="H4R-1c-U9J" customClass="YTProgressIndicatorSlider">
+                            <rect key="frame" x="94" y="7" width="412" height="31"/>
+                        </slider>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="03:15" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YiH-9G-eQ4" userLabel="Remaining Time Label">
                             <rect key="frame" x="512" y="13" width="39" height="18"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:05" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nci-GB-6YN">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:05" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nci-GB-6YN" userLabel="Current Time Label">
                             <rect key="frame" x="58" y="13" width="30" height="18"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="1" alpha="0.45000000000000001" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="9zr-st-gcb" secondAttribute="trailing" id="7DT-TX-qJ7"/>
                         <constraint firstItem="YiH-9G-eQ4" firstAttribute="leading" secondItem="H4R-1c-U9J" secondAttribute="trailing" constant="8" id="BtW-yk-mbE"/>
@@ -88,8 +84,7 @@
                         <constraint firstItem="H4R-1c-U9J" firstAttribute="top" secondItem="Omr-8F-wN5" secondAttribute="top" constant="7" id="LuH-dy-ajB"/>
                         <constraint firstItem="ArK-79-Cut" firstAttribute="leading" secondItem="9zm-dn-EbA" secondAttribute="leading" id="QM1-IC-yHw"/>
                         <constraint firstItem="9zr-st-gcb" firstAttribute="leading" secondItem="Omr-8F-wN5" secondAttribute="leading" id="Qif-0M-So3"/>
-                        <constraint firstItem="H4R-1c-U9J" firstAttribute="leading" secondItem="ArK-79-Cut" secondAttribute="trailing" constant="58" id="VLY-pf-mtL"/>
-                        <constraint firstItem="Ba7-Io-2c5" firstAttribute="leading" secondItem="H4R-1c-U9J" secondAttribute="trailing" constant="58" id="WAv-Vc-f76"/>
+                        <constraint firstItem="Ba7-Io-2c5" firstAttribute="leading" secondItem="YiH-9G-eQ4" secondAttribute="trailing" constant="11" id="Thy-C5-JOJ"/>
                         <constraint firstAttribute="trailing" secondItem="Ba7-Io-2c5" secondAttribute="trailing" constant="8" id="aL6-qJ-fGr"/>
                         <constraint firstItem="Ba7-Io-2c5" firstAttribute="top" secondItem="Omr-8F-wN5" secondAttribute="top" constant="7" id="b0y-MC-HkV"/>
                         <constraint firstItem="H4R-1c-U9J" firstAttribute="centerY" secondItem="YiH-9G-eQ4" secondAttribute="centerY" id="csh-pI-xO4"/>
@@ -99,22 +94,25 @@
                         <constraint firstAttribute="bottom" secondItem="ArK-79-Cut" secondAttribute="bottom" constant="7" id="kZD-zd-3Bh"/>
                         <constraint firstAttribute="bottom" secondItem="H4R-1c-U9J" secondAttribute="bottom" constant="7" id="kk1-V1-Bxn"/>
                         <constraint firstAttribute="bottom" secondItem="Ba7-Io-2c5" secondAttribute="bottom" constant="7" id="xmG-NU-cQg"/>
+                        <constraint firstItem="nci-GB-6YN" firstAttribute="leading" secondItem="ArK-79-Cut" secondAttribute="trailing" constant="20" id="yrQ-ye-POt"/>
                         <constraint firstAttribute="height" constant="44" id="z5w-Ym-pfk"/>
                     </constraints>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="centerX" secondItem="vcy-Qv-fpB" secondAttribute="centerX" id="0GQ-jX-JCj"/>
-                <constraint firstAttribute="centerY" secondItem="vcy-Qv-fpB" secondAttribute="centerY" id="4vx-Rc-buW"/>
                 <constraint firstItem="lw1-po-bea" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="5H6-r4-aG7"/>
                 <constraint firstAttribute="bottom" secondItem="Omr-8F-wN5" secondAttribute="bottom" id="Cdn-5G-hTs"/>
                 <constraint firstItem="lw1-po-bea" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="NVz-YS-ZJS"/>
                 <constraint firstAttribute="trailing" secondItem="lw1-po-bea" secondAttribute="trailing" id="Ooq-pe-Chq"/>
                 <constraint firstAttribute="trailing" secondItem="Omr-8F-wN5" secondAttribute="trailing" id="Zp2-jD-lfg"/>
+                <constraint firstAttribute="centerY" secondItem="M0K-8Q-vIw" secondAttribute="centerY" id="cLF-D0-0VL"/>
                 <constraint firstAttribute="bottom" secondItem="lw1-po-bea" secondAttribute="bottom" id="ds8-Z4-FSd"/>
+                <constraint firstAttribute="centerX" secondItem="M0K-8Q-vIw" secondAttribute="centerX" id="fCf-h3-Jrf"/>
                 <constraint firstItem="Omr-8F-wN5" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="fJd-zg-MAQ"/>
             </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <point key="canvasLocation" x="429" y="436"/>
         </view>
     </objects>
     <resources>

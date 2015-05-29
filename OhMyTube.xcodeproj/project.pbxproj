@@ -47,6 +47,7 @@
 		9276A7B01B18C1F20029072C /* YTVideoPlayerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9276A79D1B18C1F20029072C /* YTVideoPlayerViewController.xib */; };
 		9276A7B11B18C1F20029072C /* YTProgressIndicatorSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 9276A7A01B18C1F20029072C /* YTProgressIndicatorSlider.m */; };
 		9276A7B21B18C1F20029072C /* YTVideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9276A7A21B18C1F20029072C /* YTVideoPlayerViewController.m */; };
+		9299ABA31B18EEBA00C33F6A /* YTPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9299ABA21B18EEBA00C33F6A /* YTPlayerView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -146,6 +147,8 @@
 		9276A7A11B18C1F20029072C /* YTVideoPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTVideoPlayerViewController.h; sourceTree = "<group>"; };
 		9276A7A21B18C1F20029072C /* YTVideoPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTVideoPlayerViewController.m; sourceTree = "<group>"; };
 		9276A7A31B18C1F20029072C /* YTVideoPlayerViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTVideoPlayerViewControllerDelegate.h; sourceTree = "<group>"; };
+		9299ABA11B18EEBA00C33F6A /* YTPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTPlayerView.h; sourceTree = "<group>"; };
+		9299ABA21B18EEBA00C33F6A /* YTPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTPlayerView.m; sourceTree = "<group>"; };
 		B24B8D9CF43D234FB48D900D /* libPods-OhMyTube.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OhMyTube.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE1DB224DEE6B04465472B29 /* Pods-OhMyTubeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OhMyTubeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-OhMyTubeTests/Pods-OhMyTubeTests.release.xcconfig"; sourceTree = "<group>"; };
 		E0B2B4069C66A6D7699FC8E5 /* Pods-OhMyTubeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OhMyTubeTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OhMyTubeTests/Pods-OhMyTubeTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -354,11 +357,13 @@
 		9276A79E1B18C1F20029072C /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				9276A79F1B18C1F20029072C /* YTProgressIndicatorSlider.h */,
-				9276A7A01B18C1F20029072C /* YTProgressIndicatorSlider.m */,
+				9276A7A31B18C1F20029072C /* YTVideoPlayerViewControllerDelegate.h */,
 				9276A7A11B18C1F20029072C /* YTVideoPlayerViewController.h */,
 				9276A7A21B18C1F20029072C /* YTVideoPlayerViewController.m */,
-				9276A7A31B18C1F20029072C /* YTVideoPlayerViewControllerDelegate.h */,
+				9299ABA11B18EEBA00C33F6A /* YTPlayerView.h */,
+				9299ABA21B18EEBA00C33F6A /* YTPlayerView.m */,
+				9276A79F1B18C1F20029072C /* YTProgressIndicatorSlider.h */,
+				9276A7A01B18C1F20029072C /* YTProgressIndicatorSlider.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -596,6 +601,7 @@
 				924C30D61B14DDB7008802BC /* YTVideoRepositoryImpl.m in Sources */,
 				92738A331B14756A005E75DF /* YTWKScriptMessageHandlerTrampoline.m in Sources */,
 				92738A101B146C9E005E75DF /* YTRootViewController.m in Sources */,
+				9299ABA31B18EEBA00C33F6A /* YTPlayerView.m in Sources */,
 				9242E1D11B14E4D000F891F2 /* YTAppModule.m in Sources */,
 				92738A371B147670005E75DF /* YTBrowserViewController.m in Sources */,
 				9242E1D91B15F8F700F891F2 /* YTTableSection.m in Sources */,

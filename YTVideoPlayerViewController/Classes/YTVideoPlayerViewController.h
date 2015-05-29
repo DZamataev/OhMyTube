@@ -12,6 +12,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 
 #import "YTVideoPlayerViewControllerDelegate.h"
+#import "YTPlayerView.h"
 #import "YTProgressIndicatorSlider.h"
 
 @interface YTVideoPlayerViewController : UIViewController
@@ -19,7 +20,9 @@
 
 @property (strong, nonatomic) NSURL *videoURL;
 
-@property (weak, nonatomic) IBOutlet UIView *videoContainerView;
+@property (weak, nonatomic) IBOutlet YTPlayerView *playerView;
+
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorView;
 
 @property (weak, nonatomic) IBOutlet UIView *toolbarView;
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
