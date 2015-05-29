@@ -7,8 +7,7 @@
 //
 
 #import "YTDownloadsViewController.h"
-#import "YTDownloadsSection.h"
-#import "YTDownloadsItem.h"
+#import "YTTableSection.h"
 
 #import "YTDownloadsTableViewCell.h"
 
@@ -20,6 +19,9 @@
 @property (strong, nonatomic) NSMutableArray *sections;
 
 @property (strong, nonatomic) id<YTVideoRepositoryInterface> videoRepository;
+
+
+@property (strong, nonatomic) NSDateComponentsFormatter *dateComponentsFormatter;
 @end
 
 @implementation YTDownloadsViewController
@@ -49,6 +51,7 @@ objection_requires_sel(@selector(videoRepository))
 
 - (void)commonInit {
     [[JSObjection defaultInjector] injectDependencies:self];
+    self.dateComponentsFormatter = [[NSDateComponentsFormatter alloc] init];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -76,28 +79,12 @@ objection_requires_sel(@selector(videoRepository))
 
 - (void)populateSections {
     self.sections = [NSMutableArray new];
-    YTDownloadsSection *firstSection = [[YTDownloadsSection alloc] init];
+    YTTableSection *firstSection = [[YTTableSection alloc] init];
     [self.sections addObject:firstSection];
     
-    NSDateComponentsFormatter *dateComponentsFormatter = [[NSDateComponentsFormatter alloc] init];
-    
     NSArray *videos = [self.videoRepository videos];
-    for (YTVideoRecord *video in videos) {
-        YTDownloadsItem *item = [YTDownloadsItem new];
-        item.title = video.youTubeVideo.title;
-        item.duration = [dateComponentsFormatter stringFromTimeInterval:video.youTubeVideo.duration];
-        item.thumbnailURL = video.youTubeVideo.mediumThumbnailURL;
-        item.userInfo = video;
-        [item.KVOController observe:video keyPath:@"downloadProgress"
-                            options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew
-                              block:^(YTDownloadsItem *item, YTVideoRecord *video, NSDictionary *change) {
-                                  NSNumber *downloadProgress = change[NSKeyValueChangeNewKey];
-                                  if (downloadProgress) {
-                                      item.downloadProgress = downloadProgress;
-                                  }
-                              }];
-        [firstSection.items addObject:item];
-    }
+    
+    [firstSection.items addObjectsFromArray:videos];
     
     [self.tableView reloadData];
 }
@@ -112,13 +99,49 @@ objection_requires_sel(@selector(videoRepository))
 
 #pragma mark - Helpers
 
-- (YTDownloadsSection*)sectionAtIndex:(NSInteger)sectionIndex {
+- (YTTableSection*)sectionAtIndex:(NSInteger)sectionIndex {
     return self.sections[sectionIndex];
 }
 
-- (YTDownloadsItem*)itemAtIndex:(NSIndexPath*)indexPath {
-    YTDownloadsSection *section = [self sectionAtIndex:indexPath.section];
+- (YTVideoRecord*)itemAtIndex:(NSIndexPath *)indexPath {
+    YTTableSection *section = [self sectionAtIndex:indexPath.section];
     return section.items[indexPath.item];
+}
+
+- (void)removeItemAtIndexPath:(NSIndexPath *)indexPath {
+    YTTableSection *section = [self sectionAtIndex:indexPath.section];
+    [section.items removeObjectAtIndex:indexPath.row];
+}
+
+- (void)configureCell:(YTDownloadsTableViewCell*)cell withItem:(YTVideoRecord*)item {
+    [cell.progressBar setShowPercentage:NO];
+    
+    cell.titleLabel.text = item.title;
+    cell.durationLabel.text = [self.dateComponentsFormatter stringFromTimeInterval:item.duration.doubleValue];
+    cell.qualityLabel.text = item.qualityString;
+    [cell.thumbnailImageView sd_setImageWithURL:item.thumbnailURL];
+    
+    [cell.KVOController observe:item keyPath:@"downloadProgress"
+                        options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew
+                          block:^(YTDownloadsTableViewCell *cell, YTVideoRecord *item, NSDictionary *change) {
+                              NSNumber *downloadProgress = change[NSKeyValueChangeNewKey];
+                              if (downloadProgress != nil && [downloadProgress respondsToSelector:@selector(floatValue)]) {
+                                  if (downloadProgress.floatValue < 1.0f) {
+                                      [cell.progressBar setProgress:downloadProgress.floatValue animated:YES];
+                                  }
+                                  else {
+                                      [UIView animateWithDuration:0.3f animations:^{
+                                          cell.progressBar.alpha = 0.0f;
+                                      }];
+                                  }
+                              }
+                          }];
+    
+    [cell setOnPrepareForReuse:^(YTDownloadsTableViewCell *cell) {
+        [cell.KVOController unobserveAll];
+        cell.progressBar.alpha = 1.0f;
+        [cell.progressBar setProgress:0.0f animated:NO];
+    }];
 }
 
 #pragma mark - <UITableViewDataSource>
@@ -135,8 +158,7 @@ objection_requires_sel(@selector(videoRepository))
     NSString *reuseIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
     
-    YTDownloadsTableViewCell *downloadsCell = (YTDownloadsTableViewCell*)cell;
-    [downloadsCell configureWithItem:[self itemAtIndex:indexPath]];
+    [self configureCell:(YTDownloadsTableViewCell*)cell withItem:[self itemAtIndex:indexPath]];
     
     return cell;
 }
@@ -147,6 +169,17 @@ objection_requires_sel(@selector(videoRepository))
 
 #pragma mark - <UITableViewDelegate>
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [self.videoRepository stopDownloadAndDeleteVideo:[self itemAtIndex:indexPath]];
+        [self removeItemAtIndexPath:indexPath];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+    }
+}
 
 @end
 

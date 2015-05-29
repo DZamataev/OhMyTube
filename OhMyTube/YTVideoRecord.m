@@ -22,6 +22,9 @@
     [aCoder encodeObject:_downloadProgress forKey:@"downloadProgress"];
     [aCoder encodeObject:_fileURL forKey:@"fileURL"];
     [aCoder encodeObject:_qualityString forKey:@"qualityString"];
+    [aCoder encodeObject:_title forKey:@"title"];
+    [aCoder encodeObject:_duration forKey:@"duration"];
+    [aCoder encodeObject:_thumbnailURL forKey:@"thumbnailURL"];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -29,10 +32,13 @@
     _downloadProgress = [aDecoder decodeObjectForKey:@"downloadProgress"];
     _fileURL = [aDecoder decodeObjectForKey:@"fileURL"];
     _qualityString = [aDecoder decodeObjectForKey:@"qualityString"];
+    _title = [aDecoder decodeObjectForKey:@"title"];
+    _duration = [aDecoder decodeObjectForKey:@"duration"];
+    _thumbnailURL = [aDecoder decodeObjectForKey:@"thumbnailURL"];
     return self;
 }
 
 - (BOOL)isDownloaded {
-    return (self.fileURL != nil);
+    return (self.fileURL != nil && self.fileURL.absoluteString.length > 0 && self.downloadProgress.doubleValue >= 1.0);
 }
 @end

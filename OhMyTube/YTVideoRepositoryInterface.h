@@ -10,9 +10,15 @@
 #import "YTVideoRecord.h"
 
 @protocol YTVideoRepositoryInterface <NSObject>
-- (void)addVideoWithIdentifier:(NSString*)identifier completion:(void (^)(YTVideoRecord *video, NSError *error))completion;
+- (void)addVideoWithIdentifier:(NSString *)identifier completion:(void (^)(YTVideoRecord *video, NSError *error))completion;
 
-- (void)downloadVideo:(YTVideoRecord*)video;
+- (void)downloadVideo:(YTVideoRecord *)video;
 
-- (NSArray*)videos; // array of objects of type YTVideoRecord
+- (void)stopDownloadForVideo:(YTVideoRecord *)video;
+
+- (void)deleteVideo:(YTVideoRecord *)video;
+
+- (void)stopDownloadAndDeleteVideo:(YTVideoRecord *)video;
+
+- (NSArray *)videos; // array of objects of type YTVideoRecord
 @end

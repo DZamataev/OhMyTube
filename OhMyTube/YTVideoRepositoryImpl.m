@@ -98,6 +98,20 @@
     return quality;
 }
 
+- (NSURL*)bestPossibleThumbnailURLForVideo:(YTVideoRecord *)video {
+    NSURL *thumbnailURL;
+    if (video.youTubeVideo.largeThumbnailURL != nil) {
+        thumbnailURL = video.youTubeVideo.largeThumbnailURL;
+    }
+    else if (video.youTubeVideo.mediumThumbnailURL != nil) {
+        thumbnailURL = video.youTubeVideo.mediumThumbnailURL;
+    }
+    else if (video.youTubeVideo.smallThumbnailURL != nil) {
+        thumbnailURL = video.youTubeVideo.smallThumbnailURL;
+    }
+    return thumbnailURL;
+}
+
 - (NSString*)collectionFilePath {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -177,20 +191,70 @@
                                                                              error:nil];
     NSURL *fileURL = [documentsDirectoryURL URLByAppendingPathComponent:fileName];
     
-    YTVideoRepositoryImpl __weak *welf = self;
+    NSNumber *duration = @(video.youTubeVideo.duration);
     
+    NSURL *thumbnailURL = [self bestPossibleThumbnailURLForVideo:video];
+    
+    video.title = video.youTubeVideo.title;
+    video.qualityString = qualityString;
+    video.fileURL = fileURL;
+    video.duration = duration;
+    video.thumbnailURL = thumbnailURL;
+    [self saveCollection];
+    
+    YTVideoRepositoryImpl __weak *welf = self;
     NSURLRequest *request = [NSURLRequest requestWithURL:streamURL];
     NSURLSessionDownloadTask *downloadTask = [self.httpSessionManager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
         return fileURL;
     } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
-        NSLog(@"File downloaded to: %@", filePath);
-        video.fileURL = fileURL;
-        video.qualityString = qualityString;
+        if (error == nil) {
+            NSLog(@"File downloaded to: %@", filePath);
+        }
+        else if (error.code == NSURLErrorCancelled) {
+            NSLog(@"Cancelled download: %@", fileName);
+        }
+        else {
+            NSLog(@"Error downloading file: %@", error);
+        }
+
         [welf.downloadsInProgress removeObjectForKey:@(downloadTask.taskIdentifier)];
         [welf saveCollection];
     }];
     [self.downloadsInProgress setObject:@{@"task":downloadTask, @"video":video} forKey:@(downloadTask.taskIdentifier)];
     [downloadTask resume];
+}
+
+- (void)stopDownloadForVideo:(YTVideoRecord *)videoToStopDownload {
+    NSArray *allDownloadsInProgressKeys = [self.downloadsInProgress allKeys];
+    id keyToRemove;
+    for (id key in allDownloadsInProgressKeys) {
+        NSDictionary *downloadDict =self.downloadsInProgress[key];
+        YTVideoRecord *video = downloadDict[@"video"];
+        NSURLSessionDownloadTask *task = downloadDict[@"task"];
+        if (video == videoToStopDownload) {
+            keyToRemove = key;
+            [task cancel];
+        }
+    }
+    if (keyToRemove) {
+        [self.downloadsInProgress removeObjectForKey:keyToRemove];
+    }
+}
+
+- (void)deleteVideo:(YTVideoRecord *)videoToDelete {
+    if (videoToDelete.fileURL) {
+        NSError *error;
+        [[NSFileManager defaultManager] removeItemAtURL:videoToDelete.fileURL error:&error];
+        if (error){
+            NSLog(@"Error removing file: %@", error);
+        }
+    }
+    [self.collection removeObject:videoToDelete];
+}
+
+- (void)stopDownloadAndDeleteVideo:(YTVideoRecord *)video {
+    [self stopDownloadForVideo:video];
+    [self deleteVideo:video];
 }
 
 - (NSArray *)videos {

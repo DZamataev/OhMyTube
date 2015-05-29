@@ -1,5 +1,5 @@
 //
-//  YTDownloadsSection.h
+//  YTTableSection.h
 //  OhMyTube
 //
 //  Created by Denis Zamataev on 27/05/15.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface YTDownloadsSection : NSObject
+@interface YTTableSection : NSObject
 @property (readonly, nonatomic) NSMutableArray *items;
 @property (nonatomic, strong) NSString *title;
 @end

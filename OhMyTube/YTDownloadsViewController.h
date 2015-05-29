@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Objection.h>
 #import <KVOController/FBKVOController.h>
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface YTDownloadsViewController : UIViewController
 - (void)populateSections;

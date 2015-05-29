@@ -15,6 +15,9 @@
 @property (strong, nonatomic) NSNumber *downloadProgress;
 @property (strong, nonatomic) NSURL *fileURL;
 @property (strong, nonatomic) NSString *qualityString;
+@property (strong, nonatomic) NSString *title;
+@property (strong, nonatomic) NSNumber *duration;
+@property (strong, nonatomic) NSURL *thumbnailURL;
 
 @property (strong, nonatomic) XCDYouTubeVideo *youTubeVideo;
 

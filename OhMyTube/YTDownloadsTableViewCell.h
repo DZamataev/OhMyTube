@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <M13ProgressSuite/M13ProgressViewBar.h>
-#import <SDWebImage/UIImageView+WebCache.h>
-
-#import "YTDownloadsItem.h"
 
 @interface YTDownloadsTableViewCell : UITableViewCell
-- (void)configureWithItem:(YTDownloadsItem*)item;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *durationLabel;
+@property (weak, nonatomic) IBOutlet UILabel *qualityLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *thumbnailImageView;
+@property (weak, nonatomic) IBOutlet M13ProgressViewBar *progressBar;
+@property (nonatomic, copy) void (^onPrepareForReuse)(YTDownloadsTableViewCell *cell);
 @end

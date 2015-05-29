@@ -399,8 +399,14 @@
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="duration" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pqx-My-QbK">
-                                                            <rect key="frame" x="531" y="73" width="64" height="21"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="quality" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pqx-My-QbK">
+                                                            <rect key="frame" x="544" y="73" width="51" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="duration" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wzu-nt-zcw">
+                                                            <rect key="frame" x="133" y="73" width="64" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
@@ -415,7 +421,9 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
+                                                        <constraint firstItem="Xi5-yQ-xin" firstAttribute="top" secondItem="wzu-nt-zcw" secondAttribute="bottom" constant="4" id="0Qc-Pa-Nf9"/>
                                                         <constraint firstItem="Xi5-yQ-xin" firstAttribute="leading" secondItem="XEg-KD-FvG" secondAttribute="trailing" constant="8" id="2NX-HZ-pQt"/>
+                                                        <constraint firstItem="wzu-nt-zcw" firstAttribute="top" secondItem="N1n-Jq-NDs" secondAttribute="bottom" constant="2" id="EMf-g7-r9M"/>
                                                         <constraint firstItem="N1n-Jq-NDs" firstAttribute="leading" secondItem="9eh-eW-tiB" secondAttribute="leading" constant="133" id="JiO-9g-Kiv"/>
                                                         <constraint firstItem="XEg-KD-FvG" firstAttribute="leading" secondItem="9eh-eW-tiB" secondAttribute="leading" constant="5" id="OUQ-8w-8Ex"/>
                                                         <constraint firstItem="XEg-KD-FvG" firstAttribute="top" secondItem="9eh-eW-tiB" secondAttribute="top" constant="10" id="VN7-kF-5fG"/>
@@ -425,6 +433,7 @@
                                                         <constraint firstAttribute="bottom" secondItem="Xi5-yQ-xin" secondAttribute="bottom" constant="10" id="f4S-FQ-uey"/>
                                                         <constraint firstAttribute="trailing" secondItem="Xi5-yQ-xin" secondAttribute="trailing" constant="5" id="feN-ZT-WB7"/>
                                                         <constraint firstAttribute="trailing" secondItem="N1n-Jq-NDs" secondAttribute="trailing" constant="5" id="jf6-Kf-rWo"/>
+                                                        <constraint firstItem="wzu-nt-zcw" firstAttribute="leading" secondItem="XEg-KD-FvG" secondAttribute="trailing" constant="8" id="rLa-6g-4yL"/>
                                                         <constraint firstItem="N1n-Jq-NDs" firstAttribute="top" secondItem="9eh-eW-tiB" secondAttribute="top" constant="10" id="wex-Mz-b36"/>
                                                         <constraint firstAttribute="bottom" secondItem="XEg-KD-FvG" secondAttribute="bottom" constant="10" id="xjv-cl-BfM"/>
                                                     </constraints>
@@ -438,8 +447,9 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="durationLabel" destination="pqx-My-QbK" id="S9W-OJ-GSv"/>
+                                            <outlet property="durationLabel" destination="wzu-nt-zcw" id="4Uz-Bt-0eI"/>
                                             <outlet property="progressBar" destination="Xi5-yQ-xin" id="x2L-A6-5VZ"/>
+                                            <outlet property="qualityLabel" destination="pqx-My-QbK" id="Cu8-GL-rsE"/>
                                             <outlet property="thumbnailImageView" destination="XEg-KD-FvG" id="5zm-dK-eBp"/>
                                             <outlet property="titleLabel" destination="N1n-Jq-NDs" id="pbp-Uq-xOl"/>
                                         </connections>
