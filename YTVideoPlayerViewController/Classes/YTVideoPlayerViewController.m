@@ -188,9 +188,14 @@ static const NSString *PlayerStatusContext;
     else {
         self.progressIndicator.hidden = NO;
         
-        CGFloat current = self.isSeeking ?
-        self.progressIndicator.value * duration :         // If seeking, reflects the position of the slider
-        CMTimeGetSeconds(self.player.currentTime);             // Otherwise, use the actual video position
+        CGFloat current;
+        if (self.isSeeking) {
+            current = self.progressIndicator.value * duration;
+        }
+        else {
+            // Otherwise, use the actual video position
+            current = CMTimeGetSeconds(self.player.currentTime);
+        }
         
         [self.progressIndicator setValue:(current / duration)];
         [self.progressIndicator setSecondaryValue:([self availableDuration] / duration)];
@@ -245,11 +250,12 @@ static const NSString *PlayerStatusContext;
     
     [self.player addObserver:self forKeyPath:@"status"
                      options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:&PlayerStatusContext];
-    CMTime period = CMTimeMake(1, 2);
+    
     YTVideoPlayerViewController __weak *welf = self;
-    [self.player addPeriodicTimeObserverForInterval:period  queue:nil usingBlock:^(CMTime time) {
+    [self.player addPeriodicTimeObserverForInterval:CMTimeMake(1, 1)  queue:nil usingBlock:^(CMTime time) {
         [welf updateProgressIndicator:welf];
     }];
+    
     self.playerView.player = self.player;
     self.playerView.videoFillMode = AVLayerVideoGravityResizeAspect;
     
@@ -312,6 +318,7 @@ static const NSString *PlayerStatusContext;
 
 - (void)handleAVPlayerItemPlaybackStalled:(NSNotification *)notification {
     [self pause];
+    [self.activityIndicatorView startAnimating];
 }
 
 #pragma mark - KVO
