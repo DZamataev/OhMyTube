@@ -22,6 +22,10 @@ static const NSString *PlayerStatusContext;
 @property (assign, nonatomic) BOOL isFullscreen;
 @property (assign, nonatomic) CGRect initialFrame;
 
+// Remote command center targets
+@property (strong, nonatomic) id playCommandTarget;
+@property (strong, nonatomic) id pauseCommandTarget;
+
 @end
 
 @implementation YTVideoPlayerViewController
@@ -35,6 +39,7 @@ static const NSString *PlayerStatusContext;
     [self setupNotifications];
     [self setupAudioSession];
     [self setupPlayer];
+    [self setupRemoteCommandCenter];
     [self syncUI];
 }
 
@@ -46,6 +51,7 @@ static const NSString *PlayerStatusContext;
 - (void)dealloc {
     [self resignNotifications];
     [self resignKVO];
+    [self resignRemoteCommandCenter];
 }
 
 -(void)viewWillLayoutSubviews {
@@ -273,6 +279,25 @@ static const NSString *PlayerStatusContext;
     [self.progressIndicator addTarget:self action:@selector(seek:) forControlEvents:UIControlEventValueChanged];
     [self.progressIndicator addTarget:self action:@selector(startSeeking:) forControlEvents:UIControlEventTouchDown];
     [self.progressIndicator addTarget:self action:@selector(endSeeking:) forControlEvents:UIControlEventTouchUpInside|UIControlEventTouchUpOutside];
+}
+
+- (void)setupRemoteCommandCenter {
+    YTVideoPlayerViewController __weak *welf = self;
+    MPRemoteCommandCenter *commandCenter = [MPRemoteCommandCenter sharedCommandCenter];
+    self.playCommandTarget = [commandCenter.playCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent *event) {
+        [welf play];
+        return MPRemoteCommandHandlerStatusSuccess;
+    }];
+    self.pauseCommandTarget = [commandCenter.pauseCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent *event) {
+        [welf pause];
+        return MPRemoteCommandHandlerStatusSuccess;
+    }];
+}
+
+- (void)resignRemoteCommandCenter {
+    MPRemoteCommandCenter *commandCenter = [MPRemoteCommandCenter sharedCommandCenter];
+    [commandCenter.playCommand removeTarget:self.playCommandTarget];
+    [commandCenter.pauseCommand removeTarget:self.pauseCommandTarget];
 }
 
 - (void)resignKVO {
