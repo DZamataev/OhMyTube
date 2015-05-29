@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <Objection.h>
+#import <KVOController/FBKVOController.h>
 
 @interface YTDownloadsViewController : UIViewController
 - (void)populateSections;

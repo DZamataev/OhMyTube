@@ -16,8 +16,8 @@
 		9242E1D31B15CE7500F891F2 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9242E1D21B15CE7500F891F2 /* Settings.bundle */; };
 		9242E1D61B15E1C000F891F2 /* YTSettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9242E1D51B15E1C000F891F2 /* YTSettingsManager.m */; };
 		9242E1D91B15F8F700F891F2 /* YTDownloadsSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9242E1D81B15F8F700F891F2 /* YTDownloadsSection.m */; };
-		9242E1DC1B15F90A00F891F2 /* YTDownloadsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9242E1DB1B15F90A00F891F2 /* YTDownloadsItem.m */; };
 		9242E1DF1B16087B00F891F2 /* YTDownloadsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9242E1DE1B16087B00F891F2 /* YTDownloadsTableViewCell.m */; };
+		9242E1E21B17532700F891F2 /* YTDownloadsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9242E1E11B17532700F891F2 /* YTDownloadsItem.m */; };
 		924C30D61B14DDB7008802BC /* YTVideoRepositoryImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 924C30D51B14DDB7008802BC /* YTVideoRepositoryImpl.m */; };
 		924C30DE1B14DE9A008802BC /* YTVideoRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 924C30DD1B14DE9A008802BC /* YTVideoRecord.m */; };
 		92738A0A1B146C9E005E75DF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 92738A091B146C9E005E75DF /* main.m */; };
@@ -31,8 +31,6 @@
 		92738A331B14756A005E75DF /* YTWKScriptMessageHandlerTrampoline.m in Sources */ = {isa = PBXBuildFile; fileRef = 92738A301B14756A005E75DF /* YTWKScriptMessageHandlerTrampoline.m */; };
 		92738A371B147670005E75DF /* YTBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92738A361B147670005E75DF /* YTBrowserViewController.m */; };
 		92738A3B1B147692005E75DF /* YTDownloadsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92738A3A1B147692005E75DF /* YTDownloadsViewController.m */; };
-		92738A401B1497D7005E75DF /* YTNavigationList.m in Sources */ = {isa = PBXBuildFile; fileRef = 92738A3D1B1497D7005E75DF /* YTNavigationList.m */; };
-		92738A411B1497D7005E75DF /* YTNavigationListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 92738A3F1B1497D7005E75DF /* YTNavigationListItem.m */; };
 		92738A451B14B61C005E75DF /* __yt_history.js in Resources */ = {isa = PBXBuildFile; fileRef = 92738A441B14B61C005E75DF /* __yt_history.js */; };
 /* End PBXBuildFile section */
 
@@ -83,10 +81,10 @@
 		9242E1D51B15E1C000F891F2 /* YTSettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTSettingsManager.m; sourceTree = "<group>"; };
 		9242E1D71B15F8F700F891F2 /* YTDownloadsSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTDownloadsSection.h; sourceTree = "<group>"; };
 		9242E1D81B15F8F700F891F2 /* YTDownloadsSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTDownloadsSection.m; sourceTree = "<group>"; };
-		9242E1DA1B15F90A00F891F2 /* YTDownloadsItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTDownloadsItem.h; sourceTree = "<group>"; };
-		9242E1DB1B15F90A00F891F2 /* YTDownloadsItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTDownloadsItem.m; sourceTree = "<group>"; };
 		9242E1DD1B16087B00F891F2 /* YTDownloadsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTDownloadsTableViewCell.h; sourceTree = "<group>"; };
 		9242E1DE1B16087B00F891F2 /* YTDownloadsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTDownloadsTableViewCell.m; sourceTree = "<group>"; };
+		9242E1E01B17532700F891F2 /* YTDownloadsItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTDownloadsItem.h; sourceTree = "<group>"; };
+		9242E1E11B17532700F891F2 /* YTDownloadsItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTDownloadsItem.m; sourceTree = "<group>"; };
 		924C30D41B14DDB7008802BC /* YTVideoRepositoryImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTVideoRepositoryImpl.h; sourceTree = "<group>"; };
 		924C30D51B14DDB7008802BC /* YTVideoRepositoryImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTVideoRepositoryImpl.m; sourceTree = "<group>"; };
 		924C30DB1B14DE07008802BC /* YTVideoRepositoryInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTVideoRepositoryInterface.h; sourceTree = "<group>"; };
@@ -114,10 +112,6 @@
 		92738A361B147670005E75DF /* YTBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTBrowserViewController.m; sourceTree = "<group>"; };
 		92738A391B147692005E75DF /* YTDownloadsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTDownloadsViewController.h; sourceTree = "<group>"; };
 		92738A3A1B147692005E75DF /* YTDownloadsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTDownloadsViewController.m; sourceTree = "<group>"; };
-		92738A3C1B1497D7005E75DF /* YTNavigationList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTNavigationList.h; sourceTree = "<group>"; };
-		92738A3D1B1497D7005E75DF /* YTNavigationList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTNavigationList.m; sourceTree = "<group>"; };
-		92738A3E1B1497D7005E75DF /* YTNavigationListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTNavigationListItem.h; sourceTree = "<group>"; };
-		92738A3F1B1497D7005E75DF /* YTNavigationListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTNavigationListItem.m; sourceTree = "<group>"; };
 		92738A441B14B61C005E75DF /* __yt_history.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = __yt_history.js; sourceTree = "<group>"; };
 		B24B8D9CF43D234FB48D900D /* libPods-OhMyTube.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OhMyTube.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE1DB224DEE6B04465472B29 /* Pods-OhMyTubeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OhMyTubeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-OhMyTubeTests/Pods-OhMyTubeTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -230,8 +224,8 @@
 				9242E1D41B15E1C000F891F2 /* YTSettingsManager.h */,
 				9242E1D51B15E1C000F891F2 /* YTSettingsManager.m */,
 				924C30DA1B14DDE3008802BC /* Video Repository */,
-				92738A341B147639005E75DF /* Browse */,
-				92738A381B14767B005E75DF /* Download */,
+				92738A341B147639005E75DF /* Browser */,
+				92738A381B14767B005E75DF /* Downloads */,
 				92738A071B146C9E005E75DF /* Supporting Files */,
 				9242E1D21B15CE7500F891F2 /* Settings.bundle */,
 			);
@@ -264,7 +258,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		92738A341B147639005E75DF /* Browse */ = {
+		92738A341B147639005E75DF /* Browser */ = {
 			isa = PBXGroup;
 			children = (
 				92738A441B14B61C005E75DF /* __yt_history.js */,
@@ -275,27 +269,23 @@
 				92738A2E1B14756A005E75DF /* YTWebViewController.m */,
 				92738A2F1B14756A005E75DF /* YTWKScriptMessageHandlerTrampoline.h */,
 				92738A301B14756A005E75DF /* YTWKScriptMessageHandlerTrampoline.m */,
-				92738A3C1B1497D7005E75DF /* YTNavigationList.h */,
-				92738A3D1B1497D7005E75DF /* YTNavigationList.m */,
-				92738A3E1B1497D7005E75DF /* YTNavigationListItem.h */,
-				92738A3F1B1497D7005E75DF /* YTNavigationListItem.m */,
 			);
-			name = Browse;
+			name = Browser;
 			sourceTree = "<group>";
 		};
-		92738A381B14767B005E75DF /* Download */ = {
+		92738A381B14767B005E75DF /* Downloads */ = {
 			isa = PBXGroup;
 			children = (
 				92738A391B147692005E75DF /* YTDownloadsViewController.h */,
 				92738A3A1B147692005E75DF /* YTDownloadsViewController.m */,
 				9242E1D71B15F8F700F891F2 /* YTDownloadsSection.h */,
 				9242E1D81B15F8F700F891F2 /* YTDownloadsSection.m */,
-				9242E1DA1B15F90A00F891F2 /* YTDownloadsItem.h */,
-				9242E1DB1B15F90A00F891F2 /* YTDownloadsItem.m */,
+				9242E1E01B17532700F891F2 /* YTDownloadsItem.h */,
+				9242E1E11B17532700F891F2 /* YTDownloadsItem.m */,
 				9242E1DD1B16087B00F891F2 /* YTDownloadsTableViewCell.h */,
 				9242E1DE1B16087B00F891F2 /* YTDownloadsTableViewCell.m */,
 			);
-			name = Download;
+			name = Downloads;
 			sourceTree = "<group>";
 		};
 		D05369310A9FDE7D1098F240 /* Frameworks */ = {
@@ -518,17 +508,15 @@
 				924C30D61B14DDB7008802BC /* YTVideoRepositoryImpl.m in Sources */,
 				92738A331B14756A005E75DF /* YTWKScriptMessageHandlerTrampoline.m in Sources */,
 				92738A101B146C9E005E75DF /* YTRootViewController.m in Sources */,
-				92738A411B1497D7005E75DF /* YTNavigationListItem.m in Sources */,
+				9242E1E21B17532700F891F2 /* YTDownloadsItem.m in Sources */,
 				9242E1D11B14E4D000F891F2 /* YTAppModule.m in Sources */,
 				92738A371B147670005E75DF /* YTBrowserViewController.m in Sources */,
 				9242E1D91B15F8F700F891F2 /* YTDownloadsSection.m in Sources */,
-				9242E1DC1B15F90A00F891F2 /* YTDownloadsItem.m in Sources */,
 				92738A3B1B147692005E75DF /* YTDownloadsViewController.m in Sources */,
 				9242E1DF1B16087B00F891F2 /* YTDownloadsTableViewCell.m in Sources */,
 				92738A0D1B146C9E005E75DF /* AppDelegate.m in Sources */,
 				924C30DE1B14DE9A008802BC /* YTVideoRecord.m in Sources */,
 				92738A321B14756A005E75DF /* YTWebViewController.m in Sources */,
-				92738A401B1497D7005E75DF /* YTNavigationList.m in Sources */,
 				92738A0A1B146C9E005E75DF /* main.m in Sources */,
 				9242E1D61B15E1C000F891F2 /* YTSettingsManager.m in Sources */,
 			);

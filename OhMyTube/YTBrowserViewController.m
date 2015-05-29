@@ -68,6 +68,7 @@ objection_requires_sel(@selector(videoRepository), @selector(settingsManager))
     // Do any additional setup after loading the view.
     self.downloadButton.enabled = false;
     [self.progressBar setPrimaryColor:self.progressBar.tintColor];
+    [self.progressBar setShowPercentage:NO];
     [self.webViewController loadURL:[NSURL URLWithString:@"http://youtube.com/"]];
 }
 

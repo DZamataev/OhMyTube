@@ -88,6 +88,14 @@ objection_requires_sel(@selector(videoRepository))
         item.duration = [dateComponentsFormatter stringFromTimeInterval:video.youTubeVideo.duration];
         item.thumbnailURL = video.youTubeVideo.mediumThumbnailURL;
         item.userInfo = video;
+        [item.KVOController observe:video keyPath:@"downloadProgress"
+                            options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew
+                              block:^(YTDownloadsItem *item, YTVideoRecord *video, NSDictionary *change) {
+                                  NSNumber *downloadProgress = change[NSKeyValueChangeNewKey];
+                                  if (downloadProgress) {
+                                      item.downloadProgress = downloadProgress;
+                                  }
+                              }];
         [firstSection.items addObject:item];
     }
     

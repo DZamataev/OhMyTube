@@ -15,9 +15,33 @@
 @end
 
 @implementation YTDownloadsTableViewCell
+- (void)prepareForReuse {
+    [self.KVOController unobserveAll];
+    self.progressBar.alpha = 1.0f;
+    [self.progressBar setProgress:0.0f animated:NO];
+}
+
 - (void)configureWithItem:(YTDownloadsItem *)item {
+    [self.progressBar setShowPercentage:NO];
+    
     self.titleLabel.text = item.title;
     self.durationLabel.text = item.duration;
     [self.thumbnailImageView sd_setImageWithURL:item.thumbnailURL];
+    
+    [self.KVOController observe:item keyPath:@"downloadProgress"
+                        options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew
+                          block:^(YTDownloadsTableViewCell *cell, YTDownloadsItem *item, NSDictionary *change) {
+                              NSNumber *downloadProgress = change[NSKeyValueChangeNewKey];
+                              if (downloadProgress != nil && [downloadProgress respondsToSelector:@selector(floatValue)]) {
+                                  if (downloadProgress.floatValue < 1.0f) {
+                                      [cell.progressBar setProgress:downloadProgress.floatValue animated:YES];
+                                  }
+                                  else {
+                                      [UIView animateWithDuration:0.3f animations:^{
+                                          cell.progressBar.alpha = 0.0f;
+                                      }];
+                                  }
+                              }
+                          }];
 }
 @end

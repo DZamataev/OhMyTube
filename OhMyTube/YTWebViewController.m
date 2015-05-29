@@ -8,7 +8,6 @@
 
 #import "YTWebViewController.h"
 #import "YTWKScriptMessageHandlerTrampoline.h"
-#import "YTNavigationList.h"
 
 #ifdef DEBUG
 #   define DLog(fmt, ...) NSLog((@"%s [Line %d] [URL %@]=>\n        " fmt), __PRETTY_FUNCTION__, __LINE__, self.webView.URL.absoluteString, ##__VA_ARGS__);

@@ -54,6 +54,12 @@
 #define COCOAPODS_VERSION_MINOR_JFMinimalNotifications 0
 #define COCOAPODS_VERSION_PATCH_JFMinimalNotifications 4
 
+// KVOController
+#define COCOAPODS_POD_AVAILABLE_KVOController
+#define COCOAPODS_VERSION_MAJOR_KVOController 1
+#define COCOAPODS_VERSION_MINOR_KVOController 0
+#define COCOAPODS_VERSION_PATCH_KVOController 3
+
 // M13ProgressSuite
 #define COCOAPODS_POD_AVAILABLE_M13ProgressSuite
 #define COCOAPODS_VERSION_MAJOR_M13ProgressSuite 1

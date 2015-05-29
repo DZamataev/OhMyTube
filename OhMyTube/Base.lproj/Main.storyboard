@@ -385,10 +385,6 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9eh-eW-tiB" userLabel="BackgroundView">
                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="110"/>
                                                     <subviews>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EAW-dt-gdO" userLabel="SelectedBackgroundView">
-                                                            <rect key="frame" x="0.0" y="0.0" width="600" height="110"/>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                        </view>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XEg-KD-FvG">
                                                             <rect key="frame" x="5" y="10" width="120" height="90"/>
                                                             <constraints>
@@ -417,45 +413,21 @@
                                                             </constraints>
                                                         </view>
                                                     </subviews>
-                                                    <color key="backgroundColor" red="0.93671522269999996" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstItem="Xi5-yQ-xin" firstAttribute="leading" secondItem="XEg-KD-FvG" secondAttribute="trailing" constant="8" id="2NX-HZ-pQt"/>
-                                                        <constraint firstItem="Xi5-yQ-xin" firstAttribute="top" relation="greaterThanOrEqual" secondItem="pqx-My-QbK" secondAttribute="bottom" constant="3" id="7YI-5i-D1F"/>
-                                                        <constraint firstAttribute="bottom" secondItem="N1n-Jq-NDs" secondAttribute="bottom" constant="39" id="8PV-H9-4Zs"/>
                                                         <constraint firstItem="N1n-Jq-NDs" firstAttribute="leading" secondItem="9eh-eW-tiB" secondAttribute="leading" constant="133" id="JiO-9g-Kiv"/>
-                                                        <constraint firstItem="Xi5-yQ-xin" firstAttribute="top" relation="greaterThanOrEqual" secondItem="pqx-My-QbK" secondAttribute="bottom" constant="8" id="Kr3-lS-gol"/>
-                                                        <constraint firstAttribute="bottom" secondItem="EAW-dt-gdO" secondAttribute="bottom" id="MEP-DX-FUu"/>
                                                         <constraint firstItem="XEg-KD-FvG" firstAttribute="leading" secondItem="9eh-eW-tiB" secondAttribute="leading" constant="5" id="OUQ-8w-8Ex"/>
-                                                        <constraint firstItem="N1n-Jq-NDs" firstAttribute="leading" secondItem="XEg-KD-FvG" secondAttribute="trailing" constant="8" id="Ruo-au-s3r"/>
-                                                        <constraint firstItem="pqx-My-QbK" firstAttribute="top" secondItem="N1n-Jq-NDs" secondAttribute="bottom" constant="2" id="T4O-NO-oAu"/>
                                                         <constraint firstItem="XEg-KD-FvG" firstAttribute="top" secondItem="9eh-eW-tiB" secondAttribute="top" constant="10" id="VN7-kF-5fG"/>
                                                         <constraint firstItem="Xi5-yQ-xin" firstAttribute="top" secondItem="pqx-My-QbK" secondAttribute="bottom" constant="4" id="YHe-YF-cPw"/>
                                                         <constraint firstItem="pqx-My-QbK" firstAttribute="top" secondItem="N1n-Jq-NDs" secondAttribute="bottom" constant="2" id="bhe-qM-oHE"/>
                                                         <constraint firstAttribute="trailing" secondItem="pqx-My-QbK" secondAttribute="trailing" constant="5" id="d02-Rc-gsO"/>
                                                         <constraint firstAttribute="bottom" secondItem="Xi5-yQ-xin" secondAttribute="bottom" constant="10" id="f4S-FQ-uey"/>
                                                         <constraint firstAttribute="trailing" secondItem="Xi5-yQ-xin" secondAttribute="trailing" constant="5" id="feN-ZT-WB7"/>
-                                                        <constraint firstItem="EAW-dt-gdO" firstAttribute="leading" secondItem="9eh-eW-tiB" secondAttribute="leading" id="iZh-Ck-lvq"/>
                                                         <constraint firstAttribute="trailing" secondItem="N1n-Jq-NDs" secondAttribute="trailing" constant="5" id="jf6-Kf-rWo"/>
-                                                        <constraint firstAttribute="trailing" secondItem="EAW-dt-gdO" secondAttribute="trailing" id="k9v-uC-nVw"/>
-                                                        <constraint firstAttribute="bottom" secondItem="pqx-My-QbK" secondAttribute="bottom" constant="16" id="kj9-FG-Lqb"/>
-                                                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="pqx-My-QbK" secondAttribute="bottom" constant="10" id="lT5-ow-BYm"/>
-                                                        <constraint firstItem="pqx-My-QbK" firstAttribute="top" secondItem="N1n-Jq-NDs" secondAttribute="bottom" constant="8" id="nmS-KH-P09"/>
-                                                        <constraint firstItem="EAW-dt-gdO" firstAttribute="top" secondItem="9eh-eW-tiB" secondAttribute="top" id="vrL-cg-iJW"/>
                                                         <constraint firstItem="N1n-Jq-NDs" firstAttribute="top" secondItem="9eh-eW-tiB" secondAttribute="top" constant="10" id="wex-Mz-b36"/>
                                                         <constraint firstAttribute="bottom" secondItem="XEg-KD-FvG" secondAttribute="bottom" constant="10" id="xjv-cl-BfM"/>
                                                     </constraints>
-                                                    <variation key="default">
-                                                        <mask key="constraints">
-                                                            <exclude reference="8PV-H9-4Zs"/>
-                                                            <exclude reference="Ruo-au-s3r"/>
-                                                            <exclude reference="7YI-5i-D1F"/>
-                                                            <exclude reference="Kr3-lS-gol"/>
-                                                            <exclude reference="T4O-NO-oAu"/>
-                                                            <exclude reference="kj9-FG-Lqb"/>
-                                                            <exclude reference="lT5-ow-BYm"/>
-                                                            <exclude reference="nmS-KH-P09"/>
-                                                        </mask>
-                                                    </variation>
                                                 </view>
                                             </subviews>
                                             <constraints>
