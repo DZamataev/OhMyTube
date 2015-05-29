@@ -32,7 +32,21 @@
 		92738A3B1B147692005E75DF /* YTDownloadsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92738A3A1B147692005E75DF /* YTDownloadsViewController.m */; };
 		92738A451B14B61C005E75DF /* __yt_history.js in Resources */ = {isa = PBXBuildFile; fileRef = 92738A441B14B61C005E75DF /* __yt_history.js */; };
 		9276A77D1B1876260029072C /* YTVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9276A77C1B1876260029072C /* YTVideoViewController.m */; };
-		9276A7801B18A3200029072C /* YTVideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9276A77F1B18A3200029072C /* YTVideoPlayerViewController.m */; };
+		9276A7A41B18C1F20029072C /* ytvideoplayer_expand@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9276A7911B18C1F20029072C /* ytvideoplayer_expand@1x.png */; };
+		9276A7A51B18C1F20029072C /* ytvideoplayer_expand@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9276A7921B18C1F20029072C /* ytvideoplayer_expand@2x.png */; };
+		9276A7A61B18C1F20029072C /* ytvideoplayer_expand@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9276A7931B18C1F20029072C /* ytvideoplayer_expand@3x.png */; };
+		9276A7A71B18C1F20029072C /* ytvideoplayer_pause@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9276A7941B18C1F20029072C /* ytvideoplayer_pause@1x.png */; };
+		9276A7A81B18C1F20029072C /* ytvideoplayer_pause@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9276A7951B18C1F20029072C /* ytvideoplayer_pause@2x.png */; };
+		9276A7A91B18C1F20029072C /* ytvideoplayer_pause@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9276A7961B18C1F20029072C /* ytvideoplayer_pause@3x.png */; };
+		9276A7AA1B18C1F20029072C /* ytvideoplayer_play@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9276A7971B18C1F20029072C /* ytvideoplayer_play@1x.png */; };
+		9276A7AB1B18C1F20029072C /* ytvideoplayer_play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9276A7981B18C1F20029072C /* ytvideoplayer_play@2x.png */; };
+		9276A7AC1B18C1F20029072C /* ytvideoplayer_play@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9276A7991B18C1F20029072C /* ytvideoplayer_play@3x.png */; };
+		9276A7AD1B18C1F20029072C /* ytvideoplayer_shrink@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9276A79A1B18C1F20029072C /* ytvideoplayer_shrink@1x.png */; };
+		9276A7AE1B18C1F20029072C /* ytvideoplayer_shrink@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9276A79B1B18C1F20029072C /* ytvideoplayer_shrink@2x.png */; };
+		9276A7AF1B18C1F20029072C /* ytvideoplayer_shrink@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9276A79C1B18C1F20029072C /* ytvideoplayer_shrink@3x.png */; };
+		9276A7B01B18C1F20029072C /* YTVideoPlayerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9276A79D1B18C1F20029072C /* YTVideoPlayerViewController.xib */; };
+		9276A7B11B18C1F20029072C /* YTProgressIndicatorSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 9276A7A01B18C1F20029072C /* YTProgressIndicatorSlider.m */; };
+		9276A7B21B18C1F20029072C /* YTVideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9276A7A21B18C1F20029072C /* YTVideoPlayerViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,8 +128,24 @@
 		92738A441B14B61C005E75DF /* __yt_history.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = __yt_history.js; sourceTree = "<group>"; };
 		9276A77B1B1876260029072C /* YTVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTVideoViewController.h; sourceTree = "<group>"; };
 		9276A77C1B1876260029072C /* YTVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTVideoViewController.m; sourceTree = "<group>"; };
-		9276A77E1B18A3200029072C /* YTVideoPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTVideoPlayerViewController.h; sourceTree = "<group>"; };
-		9276A77F1B18A3200029072C /* YTVideoPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTVideoPlayerViewController.m; sourceTree = "<group>"; };
+		9276A7911B18C1F20029072C /* ytvideoplayer_expand@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ytvideoplayer_expand@1x.png"; sourceTree = "<group>"; };
+		9276A7921B18C1F20029072C /* ytvideoplayer_expand@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ytvideoplayer_expand@2x.png"; sourceTree = "<group>"; };
+		9276A7931B18C1F20029072C /* ytvideoplayer_expand@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ytvideoplayer_expand@3x.png"; sourceTree = "<group>"; };
+		9276A7941B18C1F20029072C /* ytvideoplayer_pause@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ytvideoplayer_pause@1x.png"; sourceTree = "<group>"; };
+		9276A7951B18C1F20029072C /* ytvideoplayer_pause@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ytvideoplayer_pause@2x.png"; sourceTree = "<group>"; };
+		9276A7961B18C1F20029072C /* ytvideoplayer_pause@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ytvideoplayer_pause@3x.png"; sourceTree = "<group>"; };
+		9276A7971B18C1F20029072C /* ytvideoplayer_play@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ytvideoplayer_play@1x.png"; sourceTree = "<group>"; };
+		9276A7981B18C1F20029072C /* ytvideoplayer_play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ytvideoplayer_play@2x.png"; sourceTree = "<group>"; };
+		9276A7991B18C1F20029072C /* ytvideoplayer_play@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ytvideoplayer_play@3x.png"; sourceTree = "<group>"; };
+		9276A79A1B18C1F20029072C /* ytvideoplayer_shrink@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ytvideoplayer_shrink@1x.png"; sourceTree = "<group>"; };
+		9276A79B1B18C1F20029072C /* ytvideoplayer_shrink@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ytvideoplayer_shrink@2x.png"; sourceTree = "<group>"; };
+		9276A79C1B18C1F20029072C /* ytvideoplayer_shrink@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ytvideoplayer_shrink@3x.png"; sourceTree = "<group>"; };
+		9276A79D1B18C1F20029072C /* YTVideoPlayerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YTVideoPlayerViewController.xib; sourceTree = "<group>"; };
+		9276A79F1B18C1F20029072C /* YTProgressIndicatorSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTProgressIndicatorSlider.h; sourceTree = "<group>"; };
+		9276A7A01B18C1F20029072C /* YTProgressIndicatorSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTProgressIndicatorSlider.m; sourceTree = "<group>"; };
+		9276A7A11B18C1F20029072C /* YTVideoPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTVideoPlayerViewController.h; sourceTree = "<group>"; };
+		9276A7A21B18C1F20029072C /* YTVideoPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTVideoPlayerViewController.m; sourceTree = "<group>"; };
+		9276A7A31B18C1F20029072C /* YTVideoPlayerViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTVideoPlayerViewControllerDelegate.h; sourceTree = "<group>"; };
 		B24B8D9CF43D234FB48D900D /* libPods-OhMyTube.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OhMyTube.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE1DB224DEE6B04465472B29 /* Pods-OhMyTubeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OhMyTubeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-OhMyTubeTests/Pods-OhMyTubeTests.release.xcconfig"; sourceTree = "<group>"; };
 		E0B2B4069C66A6D7699FC8E5 /* Pods-OhMyTubeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OhMyTubeTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OhMyTubeTests/Pods-OhMyTubeTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -193,6 +223,7 @@
 		927389FB1B146C9E005E75DF = {
 			isa = PBXGroup;
 			children = (
+				9276A7861B18AC1C0029072C /* YTVideoPlayerViewController */,
 				92738A061B146C9E005E75DF /* OhMyTube */,
 				92738A201B146C9E005E75DF /* OhMyTubeTests */,
 				9242E1C01B14E17300F891F2 /* OpenInExtension */,
@@ -287,10 +318,49 @@
 				9242E1DE1B16087B00F891F2 /* YTDownloadsTableViewCell.m */,
 				9276A77B1B1876260029072C /* YTVideoViewController.h */,
 				9276A77C1B1876260029072C /* YTVideoViewController.m */,
-				9276A77E1B18A3200029072C /* YTVideoPlayerViewController.h */,
-				9276A77F1B18A3200029072C /* YTVideoPlayerViewController.m */,
 			);
 			name = Downloads;
+			sourceTree = "<group>";
+		};
+		9276A7861B18AC1C0029072C /* YTVideoPlayerViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9276A7901B18C1F20029072C /* Assets */,
+				9276A79E1B18C1F20029072C /* Classes */,
+			);
+			path = YTVideoPlayerViewController;
+			sourceTree = "<group>";
+		};
+		9276A7901B18C1F20029072C /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				9276A7911B18C1F20029072C /* ytvideoplayer_expand@1x.png */,
+				9276A7921B18C1F20029072C /* ytvideoplayer_expand@2x.png */,
+				9276A7931B18C1F20029072C /* ytvideoplayer_expand@3x.png */,
+				9276A7941B18C1F20029072C /* ytvideoplayer_pause@1x.png */,
+				9276A7951B18C1F20029072C /* ytvideoplayer_pause@2x.png */,
+				9276A7961B18C1F20029072C /* ytvideoplayer_pause@3x.png */,
+				9276A7971B18C1F20029072C /* ytvideoplayer_play@1x.png */,
+				9276A7981B18C1F20029072C /* ytvideoplayer_play@2x.png */,
+				9276A7991B18C1F20029072C /* ytvideoplayer_play@3x.png */,
+				9276A79A1B18C1F20029072C /* ytvideoplayer_shrink@1x.png */,
+				9276A79B1B18C1F20029072C /* ytvideoplayer_shrink@2x.png */,
+				9276A79C1B18C1F20029072C /* ytvideoplayer_shrink@3x.png */,
+				9276A79D1B18C1F20029072C /* YTVideoPlayerViewController.xib */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		9276A79E1B18C1F20029072C /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				9276A79F1B18C1F20029072C /* YTProgressIndicatorSlider.h */,
+				9276A7A01B18C1F20029072C /* YTProgressIndicatorSlider.m */,
+				9276A7A11B18C1F20029072C /* YTVideoPlayerViewController.h */,
+				9276A7A21B18C1F20029072C /* YTVideoPlayerViewController.m */,
+				9276A7A31B18C1F20029072C /* YTVideoPlayerViewControllerDelegate.h */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		D05369310A9FDE7D1098F240 /* Frameworks */ = {
@@ -418,10 +488,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				92738A131B146C9E005E75DF /* Main.storyboard in Resources */,
+				9276A7AB1B18C1F20029072C /* ytvideoplayer_play@2x.png in Resources */,
+				9276A7A61B18C1F20029072C /* ytvideoplayer_expand@3x.png in Resources */,
+				9276A7AC1B18C1F20029072C /* ytvideoplayer_play@3x.png in Resources */,
+				9276A7A91B18C1F20029072C /* ytvideoplayer_pause@3x.png in Resources */,
 				92738A181B146C9E005E75DF /* LaunchScreen.xib in Resources */,
+				9276A7B01B18C1F20029072C /* YTVideoPlayerViewController.xib in Resources */,
+				9276A7A71B18C1F20029072C /* ytvideoplayer_pause@1x.png in Resources */,
+				9276A7AF1B18C1F20029072C /* ytvideoplayer_shrink@3x.png in Resources */,
+				9276A7AE1B18C1F20029072C /* ytvideoplayer_shrink@2x.png in Resources */,
 				9242E1D31B15CE7500F891F2 /* Settings.bundle in Resources */,
+				9276A7A51B18C1F20029072C /* ytvideoplayer_expand@2x.png in Resources */,
 				92738A451B14B61C005E75DF /* __yt_history.js in Resources */,
+				9276A7AD1B18C1F20029072C /* ytvideoplayer_shrink@1x.png in Resources */,
 				92738A151B146C9E005E75DF /* Images.xcassets in Resources */,
+				9276A7A41B18C1F20029072C /* ytvideoplayer_expand@1x.png in Resources */,
+				9276A7A81B18C1F20029072C /* ytvideoplayer_pause@2x.png in Resources */,
+				9276A7AA1B18C1F20029072C /* ytvideoplayer_play@1x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -518,13 +601,14 @@
 				9242E1D91B15F8F700F891F2 /* YTTableSection.m in Sources */,
 				92738A3B1B147692005E75DF /* YTDownloadsViewController.m in Sources */,
 				9242E1DF1B16087B00F891F2 /* YTDownloadsTableViewCell.m in Sources */,
+				9276A7B21B18C1F20029072C /* YTVideoPlayerViewController.m in Sources */,
+				9276A7B11B18C1F20029072C /* YTProgressIndicatorSlider.m in Sources */,
 				92738A0D1B146C9E005E75DF /* AppDelegate.m in Sources */,
 				9276A77D1B1876260029072C /* YTVideoViewController.m in Sources */,
 				924C30DE1B14DE9A008802BC /* YTVideo.m in Sources */,
 				92738A321B14756A005E75DF /* YTWebViewController.m in Sources */,
 				92738A0A1B146C9E005E75DF /* main.m in Sources */,
 				9242E1D61B15E1C000F891F2 /* YTSettingsManager.m in Sources */,
-				9276A7801B18A3200029072C /* YTVideoPlayerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

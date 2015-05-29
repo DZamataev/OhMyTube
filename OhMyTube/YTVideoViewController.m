@@ -9,10 +9,11 @@
 #import "YTVideoViewController.h"
 #import "YTVideoPlayerViewController.h"
 
-@interface YTVideoViewController () <PBJVideoPlayerControllerDelegate>
+@interface YTVideoViewController ()
+@property (weak, nonatomic) YTVideoPlayerViewController *videoPlayerViewController;
+
 @property (weak, nonatomic) IBOutlet UIView *videoContainerView;
 
-@property (weak, nonatomic) YTVideoPlayerViewController *videoPlayerViewController;
 @end
 
 @implementation YTVideoViewController
@@ -21,9 +22,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     NSAssert(self.video != nil, @"Video must be set beforehand");
-
-    self.videoPlayerViewController.videoPath = self.video.filePath;
-    [self.videoPlayerViewController playFromBeginning];
+    self.videoPlayerViewController.videoURL = self.video.fileURL;
+    [self.videoPlayerViewController prepareAndPlayAutomatically:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,31 +38,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"Embed_VideoPlayerViewController"]) {
         self.videoPlayerViewController = segue.destinationViewController;
-        self.videoPlayerViewController.delegate = self;
     }
-}
-
-
-#pragma mark - <PBJVideoPlayerControllerDelegate>
-
-- (void)videoPlayerReady:(PBJVideoPlayerController *)videoPlayer {
-    
-}
-
-- (void)videoPlayerPlaybackStateDidChange:(PBJVideoPlayerController *)videoPlayer {
-    
-}
-
-- (void)videoPlayerPlaybackWillStartFromBeginning:(PBJVideoPlayerController *)videoPlayer {
-    
-}
-
-- (void)videoPlayerPlaybackDidEnd:(PBJVideoPlayerController *)videoPlayer {
-    
-}
-
-- (void)videoPlayerBufferringStateDidChange:(PBJVideoPlayerController *)videoPlayer {
-    
 }
 
 

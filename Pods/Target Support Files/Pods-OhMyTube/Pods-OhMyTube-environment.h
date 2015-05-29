@@ -48,6 +48,12 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking_UIKit 5
 #define COCOAPODS_VERSION_PATCH_AFNetworking_UIKit 4
 
+// GUIPlayerView
+#define COCOAPODS_POD_AVAILABLE_GUIPlayerView
+#define COCOAPODS_VERSION_MAJOR_GUIPlayerView 0
+#define COCOAPODS_VERSION_MINOR_GUIPlayerView 0
+#define COCOAPODS_VERSION_PATCH_GUIPlayerView 4
+
 // JFMinimalNotifications
 #define COCOAPODS_POD_AVAILABLE_JFMinimalNotifications
 #define COCOAPODS_VERSION_MAJOR_JFMinimalNotifications 0
@@ -71,12 +77,6 @@
 #define COCOAPODS_VERSION_MAJOR_Objection 1
 #define COCOAPODS_VERSION_MINOR_Objection 5
 #define COCOAPODS_VERSION_PATCH_Objection 0
-
-// PBJVideoPlayer
-#define COCOAPODS_POD_AVAILABLE_PBJVideoPlayer
-#define COCOAPODS_VERSION_MAJOR_PBJVideoPlayer 0
-#define COCOAPODS_VERSION_MINOR_PBJVideoPlayer 2
-#define COCOAPODS_VERSION_PATCH_PBJVideoPlayer 0
 
 // SDWebImage
 #define COCOAPODS_POD_AVAILABLE_SDWebImage

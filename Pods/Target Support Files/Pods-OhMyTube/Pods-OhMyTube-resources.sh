@@ -50,6 +50,34 @@ install_resource()
       ;;
   esac
 }
+if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_resource "GUIPlayerView/GUIPlayerView/Resources/gui_expand@1x.png"
+  install_resource "GUIPlayerView/GUIPlayerView/Resources/gui_expand@2x.png"
+  install_resource "GUIPlayerView/GUIPlayerView/Resources/gui_expand@3x.png"
+  install_resource "GUIPlayerView/GUIPlayerView/Resources/gui_pause@1x.png"
+  install_resource "GUIPlayerView/GUIPlayerView/Resources/gui_pause@2x.png"
+  install_resource "GUIPlayerView/GUIPlayerView/Resources/gui_pause@3x.png"
+  install_resource "GUIPlayerView/GUIPlayerView/Resources/gui_play@1x.png"
+  install_resource "GUIPlayerView/GUIPlayerView/Resources/gui_play@2x.png"
+  install_resource "GUIPlayerView/GUIPlayerView/Resources/gui_play@3x.png"
+  install_resource "GUIPlayerView/GUIPlayerView/Resources/gui_shrink@1x.png"
+  install_resource "GUIPlayerView/GUIPlayerView/Resources/gui_shrink@2x.png"
+  install_resource "GUIPlayerView/GUIPlayerView/Resources/gui_shrink@3x.png"
+fi
+if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_resource "GUIPlayerView/GUIPlayerView/Resources/gui_expand@1x.png"
+  install_resource "GUIPlayerView/GUIPlayerView/Resources/gui_expand@2x.png"
+  install_resource "GUIPlayerView/GUIPlayerView/Resources/gui_expand@3x.png"
+  install_resource "GUIPlayerView/GUIPlayerView/Resources/gui_pause@1x.png"
+  install_resource "GUIPlayerView/GUIPlayerView/Resources/gui_pause@2x.png"
+  install_resource "GUIPlayerView/GUIPlayerView/Resources/gui_pause@3x.png"
+  install_resource "GUIPlayerView/GUIPlayerView/Resources/gui_play@1x.png"
+  install_resource "GUIPlayerView/GUIPlayerView/Resources/gui_play@2x.png"
+  install_resource "GUIPlayerView/GUIPlayerView/Resources/gui_play@3x.png"
+  install_resource "GUIPlayerView/GUIPlayerView/Resources/gui_shrink@1x.png"
+  install_resource "GUIPlayerView/GUIPlayerView/Resources/gui_shrink@2x.png"
+  install_resource "GUIPlayerView/GUIPlayerView/Resources/gui_shrink@3x.png"
+fi
 
 rsync -avr --copy-links --no-relative --exclude '*/.svn/*' --files-from="$RESOURCES_TO_COPY" / "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
 if [[ "${ACTION}" == "install" ]]; then
