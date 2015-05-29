@@ -107,31 +107,24 @@ static const NSString *PlayerStatusContext;
 - (void)play {
     [self.player play];
     [self syncUI];
-    if ([self.delegate respondsToSelector:@selector(playerDidResume)]) {
-        [self.delegate playerDidResume];
-    }
+    [self onResume];
 }
 
 - (void)pause {
     [self.player pause];
     [self syncUI];
-    if ([self.delegate respondsToSelector:@selector(playerDidPause)]) {
-        [self.delegate playerDidPause];
-    }
+    [self onPause];
 }
 
 - (void)stop {
     [self.player pause];
     [self.player seekToTime:kCMTimeZero];
     [self syncUI];
+    [self onStop];
 }
 
 - (BOOL)isPlaying {
     return [self.player rate] > 0.0f;
-}
-
-- (void)clean {
-    
 }
 
 #pragma mark - Private
@@ -310,15 +303,18 @@ static const NSString *PlayerStatusContext;
 
 - (void)handleAVPlayerItemDidPlayToEndTime:(NSNotification *)notification {
     [self stop];
+    [self onDidPlayToEndTime];
 }
 
 - (void)handleAVPlayerItemFailedToPlayToEndTime:(NSNotification *)notification {
     [self stop];
+    [self onFailedToPlayToEndTime];
 }
 
 - (void)handleAVPlayerItemPlaybackStalled:(NSNotification *)notification {
     [self pause];
     [self.activityIndicatorView startAnimating];
+    [self onPlaybackStalled];
 }
 
 #pragma mark - KVO
@@ -351,6 +347,44 @@ static const NSString *PlayerStatusContext;
     else {
         // Make sure to call the superclass's implementation in the else block in case it is also implementing KVO
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
+
+#pragma mark - Delegate invocations
+
+- (void)onResume {
+    if ([self.delegate respondsToSelector:@selector(playerDidResume)]) {
+        [self.delegate playerDidResume];
+    }
+}
+
+- (void)onPause {
+    if ([self.delegate respondsToSelector:@selector(playerDidPause)]) {
+        [self.delegate playerDidPause];
+    }
+}
+
+- (void)onStop {
+    if ([self.delegate respondsToSelector:@selector(playerDidStop)]) {
+        [self.delegate playerDidStop];
+    }
+}
+
+- (void)onDidPlayToEndTime {
+    if ([self.delegate respondsToSelector:@selector(playerDidPlayToEndTime)]) {
+        [self.delegate playerDidPlayToEndTime];
+    }
+}
+
+- (void)onFailedToPlayToEndTime {
+    if ([self.delegate respondsToSelector:@selector(playerFailedToPlayToEndTime)]) {
+        [self.delegate playerFailedToPlayToEndTime];
+    }
+}
+
+- (void)onPlaybackStalled {
+    if ([self.delegate respondsToSelector:@selector(playerPlaybackStalled)]) {
+        [self.delegate playerPlaybackStalled];
     }
 }
 @end
