@@ -20,7 +20,12 @@ static const NSString *PlayerStatusContext;
 
 @property (assign, nonatomic) BOOL isSeeking;
 @property (assign, nonatomic) BOOL isFullscreen;
+@property (assign, nonatomic) BOOL isControlsHidden;
 @property (assign, nonatomic) CGRect initialFrame;
+@property (strong, nonatomic) NSTimer *idleTimer;
+
+// Player time observer target
+@property (strong, nonatomic) id playerTimeObservationTarget;
 
 // Remote command center targets
 @property (strong, nonatomic) id playCommandTarget;
@@ -34,6 +39,9 @@ static const NSString *PlayerStatusContext;
     [super viewDidLoad];
     
     self.initialFrame = self.view.frame;
+    self.viewsToHideOnIdle = [NSMutableArray new];
+    [self.viewsToHideOnIdle addObject:self.toolbarView];
+    self.timeIntervalBeforeHidingViewsOnIdle = 3.0;
     
     [self setupActions];
     [self setupNotifications];
@@ -52,6 +60,7 @@ static const NSString *PlayerStatusContext;
     [self resignNotifications];
     [self resignKVO];
     [self resignRemoteCommandCenter];
+    [self resignPlayer];
 }
 
 -(void)viewWillLayoutSubviews {
@@ -71,6 +80,9 @@ static const NSString *PlayerStatusContext;
 #pragma mark - Public Actions
 
 - (void)prepareAndPlayAutomatically:(BOOL)playAutomatically {
+    
+    [self.activityIndicatorView startAnimating];
+    
     if (self.player) {
         [self stop];
     }
@@ -111,12 +123,14 @@ static const NSString *PlayerStatusContext;
 
 - (void)play {
     [self.player play];
+    [self startIdleCountdown];
     [self syncUI];
-    [self onResume];
+    [self onPlay];
 }
 
 - (void)pause {
     [self.player pause];
+    [self stopIdleCountdown];
     [self syncUI];
     [self onPause];
 }
@@ -124,6 +138,7 @@ static const NSString *PlayerStatusContext;
 - (void)stop {
     [self.player pause];
     [self.player seekToTime:kCMTimeZero];
+    [self stopIdleCountdown];
     [self syncUI];
     [self onStop];
 }
@@ -131,8 +146,6 @@ static const NSString *PlayerStatusContext;
 - (BOOL)isPlaying {
     return [self.player rate] > 0.0f;
 }
-
-#pragma mark - Private Actions
 
 - (void)syncUI {
     if ([self isPlaying]) {
@@ -148,6 +161,21 @@ static const NSString *PlayerStatusContext;
         
         self.pauseButton.hidden = YES;
         self.pauseButton.enabled = NO;
+    }
+    
+    if ([self isFullscreen]) {
+        self.fullscreenExpandButton.hidden = YES;
+        self.fullscreenExpandButton.enabled = NO;
+        
+        self.fullscreenShrinkButton.hidden = NO;
+        self.fullscreenShrinkButton.enabled = YES;
+    }
+    else {
+        self.fullscreenExpandButton.hidden = NO;
+        self.fullscreenExpandButton.enabled = YES;
+        
+        self.fullscreenShrinkButton.hidden = YES;
+        self.fullscreenShrinkButton.enabled = NO;
     }
 }
 
@@ -167,10 +195,12 @@ static const NSString *PlayerStatusContext;
 }
 
 - (void)startSeeking:(id)sender {
+    [self stopIdleCountdown];
     self.isSeeking = YES;
 }
 
 - (void)endSeeking:(id)sender {
+    [self startIdleCountdown];
     self.isSeeking = NO;
 }
 
@@ -208,6 +238,50 @@ static const NSString *PlayerStatusContext;
         
     }
 }
+
+- (void)startIdleCountdown {
+    [self.idleTimer invalidate];
+    self.idleTimer = [NSTimer scheduledTimerWithTimeInterval:self.timeIntervalBeforeHidingViewsOnIdle
+                                                      target:self selector:@selector(hideControls)
+                                                    userInfo:nil repeats:NO];
+}
+
+- (void)stopIdleCountdown {
+    [self.idleTimer invalidate];
+}
+
+- (void)hideControls {
+    NSArray *views = self.viewsToHideOnIdle;
+    [UIView animateWithDuration:0.3f animations:^{
+        for (UIView *view in views) {
+            view.alpha = 0.0;
+        }
+    }];
+    self.isControlsHidden = YES;
+}
+
+- (void)showControls {
+    NSArray *views = self.viewsToHideOnIdle;
+    [UIView animateWithDuration:0.3f animations:^{
+        for (UIView *view in views) {
+            view.alpha = 1.0;
+        }
+    }];
+    self.isControlsHidden = NO;
+}
+
+- (void)toggleControls {
+    if (self.isControlsHidden) {
+        [self showControls];
+    }
+    else {
+        [self hideControls];
+    }
+    [self stopIdleCountdown];
+}
+
+
+#pragma mark - Private Actions
 
 - (NSTimeInterval)availableDuration {
     NSTimeInterval result = 0;
@@ -250,13 +324,18 @@ static const NSString *PlayerStatusContext;
                      options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:&PlayerStatusContext];
     
     YTVideoPlayerViewController __weak *welf = self;
-    [self.player addPeriodicTimeObserverForInterval:CMTimeMake(1, 1)  queue:nil usingBlock:^(CMTime time) {
+    self.playerTimeObservationTarget = [self.player addPeriodicTimeObserverForInterval:CMTimeMake(1, 1)  queue:nil usingBlock:^(CMTime time) {
         [welf updateProgressIndicator:welf];
     }];
     
     self.playerView.player = self.player;
     self.playerView.videoFillMode = AVLayerVideoGravityResizeAspect;
     
+}
+
+- (void)resignPlayer {
+    [self.player removeTimeObserver:self.playerTimeObservationTarget];
+    self.playerTimeObservationTarget = nil;
 }
 
 - (void)setupAudioSession {
@@ -272,13 +351,24 @@ static const NSString *PlayerStatusContext;
 }
 
 - (void)setupActions {
+    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleControls)];
+    [self.playerView addGestureRecognizer:tapGR];
+    
     [self.playButton addTarget:self action:@selector(play) forControlEvents:UIControlEventTouchUpInside];
     [self.pauseButton addTarget:self action:@selector(pause) forControlEvents:UIControlEventTouchUpInside];
-    [self.fullscreenButton addTarget:self action:@selector(toggleFullscreen:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.fullscreenShrinkButton addTarget:self action:@selector(toggleFullscreen:) forControlEvents:UIControlEventTouchUpInside];
+    [self.fullscreenExpandButton addTarget:self action:@selector(toggleFullscreen:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.progressIndicator addTarget:self action:@selector(seek:) forControlEvents:UIControlEventValueChanged];
     [self.progressIndicator addTarget:self action:@selector(startSeeking:) forControlEvents:UIControlEventTouchDown];
     [self.progressIndicator addTarget:self action:@selector(endSeeking:) forControlEvents:UIControlEventTouchUpInside|UIControlEventTouchUpOutside];
+}
+
+- (void)resignKVO {
+    [self.playerItem removeObserver:self forKeyPath:@"status" context:&ItemStatusContext];
+    [self.player removeObserver:self forKeyPath:@"rate" context:&PlayerRateContext];
+    [self.player removeObserver:self forKeyPath:@"status" context:&PlayerStatusContext];
 }
 
 - (void)setupRemoteCommandCenter {
@@ -298,12 +388,8 @@ static const NSString *PlayerStatusContext;
     MPRemoteCommandCenter *commandCenter = [MPRemoteCommandCenter sharedCommandCenter];
     [commandCenter.playCommand removeTarget:self.playCommandTarget];
     [commandCenter.pauseCommand removeTarget:self.pauseCommandTarget];
-}
-
-- (void)resignKVO {
-    [self.playerItem removeObserver:self forKeyPath:@"status" context:&ItemStatusContext];
-    [self.player removeObserver:self forKeyPath:@"rate" context:&PlayerRateContext];
-    [self.player removeObserver:self forKeyPath:@"status" context:&PlayerStatusContext];
+    self.playCommandTarget = nil;
+    self.pauseCommandTarget = nil;
 }
 
 - (void)setupNotifications {
@@ -394,9 +480,9 @@ static const NSString *PlayerStatusContext;
 
 #pragma mark - Delegate invocations
 
-- (void)onResume {
-    if ([self.delegate respondsToSelector:@selector(playerDidResume)]) {
-        [self.delegate playerDidResume];
+- (void)onPlay {
+    if ([self.delegate respondsToSelector:@selector(playerDidPlay)]) {
+        [self.delegate playerDidPlay];
     }
 }
 

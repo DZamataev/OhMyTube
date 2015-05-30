@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @protocol YTVideoPlayerViewControllerDelegate <NSObject>
-- (void)playerDidResume;
+- (void)playerDidPlay;
 - (void)playerDidPause;
 - (void)playerDidStop;
 - (void)playerDidPlayToEndTime;
