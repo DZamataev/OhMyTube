@@ -41,7 +41,7 @@ static const NSString *PlayerStatusContext;
     self.initialFrame = self.view.frame;
     self.viewsToHideOnIdle = [NSMutableArray new];
     [self.viewsToHideOnIdle addObject:self.toolbarView];
-    self.timeIntervalBeforeHidingViewsOnIdle = 3.0;
+    self.delayBeforeHidingViewsOnIdle = 3.0;
     
     [self setupActions];
     [self setupNotifications];
@@ -69,6 +69,31 @@ static const NSString *PlayerStatusContext;
 
 #pragma mark - Properties
 
+- (NSTimeInterval)availableDuration {
+    NSTimeInterval result = 0;
+    NSArray *loadedTimeRanges = self.player.currentItem.loadedTimeRanges;
+    
+    if ([loadedTimeRanges count] > 0) {
+        CMTimeRange timeRange = [[loadedTimeRanges objectAtIndex:0] CMTimeRangeValue];
+        Float64 startSeconds = CMTimeGetSeconds(timeRange.start);
+        Float64 durationSeconds = CMTimeGetSeconds(timeRange.duration);
+        result = startSeconds + durationSeconds;
+    }
+    
+    return result;
+}
+
+- (NSTimeInterval)currentPlaybackTime {
+    CMTime time = self.player.currentTime;
+    if (CMTIME_IS_VALID(time)) {
+        return time.value / time.timescale;
+    }
+    return 0;
+}
+
+- (BOOL)isPlaying {
+    return [self.player rate] > 0.0f;
+}
 
 #pragma mark - Navigation
 
@@ -115,6 +140,7 @@ static const NSString *PlayerStatusContext;
             else {
                 // You should deal with the error appropriately.
                 NSLog(@"Error, the asset is not playable: %@", error);
+                [self onFailedToLoadAssetWithError:error];
             }
         });
         
@@ -126,6 +152,7 @@ static const NSString *PlayerStatusContext;
     [self startIdleCountdown];
     [self syncUI];
     [self onPlay];
+    [self updateNowPlayingInfo];
 }
 
 - (void)pause {
@@ -133,6 +160,7 @@ static const NSString *PlayerStatusContext;
     [self stopIdleCountdown];
     [self syncUI];
     [self onPause];
+    [self updateNowPlayingInfo];
 }
 
 - (void)stop {
@@ -141,10 +169,7 @@ static const NSString *PlayerStatusContext;
     [self stopIdleCountdown];
     [self syncUI];
     [self onStop];
-}
-
-- (BOOL)isPlaying {
-    return [self.player rate] > 0.0f;
+    [self updateNowPlayingInfo];
 }
 
 - (void)syncUI {
@@ -241,7 +266,7 @@ static const NSString *PlayerStatusContext;
 
 - (void)startIdleCountdown {
     [self.idleTimer invalidate];
-    self.idleTimer = [NSTimer scheduledTimerWithTimeInterval:self.timeIntervalBeforeHidingViewsOnIdle
+    self.idleTimer = [NSTimer scheduledTimerWithTimeInterval:self.delayBeforeHidingViewsOnIdle
                                                       target:self selector:@selector(hideControls)
                                                     userInfo:nil repeats:NO];
 }
@@ -280,22 +305,23 @@ static const NSString *PlayerStatusContext;
     [self stopIdleCountdown];
 }
 
+- (void)updateNowPlayingInfo
+{
+    NSMutableDictionary *nowPlayingInfo = [self gatherNowPlayingInfo];
+    [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = nowPlayingInfo;
+}
+
+- (NSMutableDictionary *)gatherNowPlayingInfo {
+    NSMutableDictionary *nowPlayingInfo = [[NSMutableDictionary alloc] init];
+    [nowPlayingInfo setObject:[NSNumber numberWithDouble:self.player.rate] forKey:MPNowPlayingInfoPropertyPlaybackRate];
+    [nowPlayingInfo setObject:[NSNumber numberWithDouble:self.currentPlaybackTime] forKey:MPNowPlayingInfoPropertyElapsedPlaybackTime];
+    [self onGatherNowPlayingInfo:nowPlayingInfo];
+    return nowPlayingInfo;
+}
 
 #pragma mark - Private Actions
 
-- (NSTimeInterval)availableDuration {
-    NSTimeInterval result = 0;
-    NSArray *loadedTimeRanges = self.player.currentItem.loadedTimeRanges;
-    
-    if ([loadedTimeRanges count] > 0) {
-        CMTimeRange timeRange = [[loadedTimeRanges objectAtIndex:0] CMTimeRangeValue];
-        Float64 startSeconds = CMTimeGetSeconds(timeRange.start);
-        Float64 durationSeconds = CMTimeGetSeconds(timeRange.duration);
-        result = startSeconds + durationSeconds;
-    }
-    
-    return result;
-}
+#pragma mark - Helpers
 
 - (NSString *)stringFromTimeInterval:(NSTimeInterval)time {
     NSString *string = [NSString stringWithFormat:@"%02li:%02li:%02li",
@@ -311,8 +337,6 @@ static const NSString *PlayerStatusContext;
     
     return string;
 }
-
-#pragma mark - Helpers
 
 - (void)setupPlayer {
     self.player = [[AVPlayer alloc] initWithPlayerItem:nil];
@@ -480,6 +504,12 @@ static const NSString *PlayerStatusContext;
 
 #pragma mark - Delegate invocations
 
+- (void)onFailedToLoadAssetWithError:(NSError*)error {
+    if ([self.delegate respondsToSelector:@selector(playerFailedToLoadAssetWithError:)]) {
+        [self.delegate playerFailedToLoadAssetWithError:error];
+    }
+}
+
 - (void)onPlay {
     if ([self.delegate respondsToSelector:@selector(playerDidPlay)]) {
         [self.delegate playerDidPlay];
@@ -515,4 +545,11 @@ static const NSString *PlayerStatusContext;
         [self.delegate playerPlaybackStalled];
     }
 }
+
+- (void)onGatherNowPlayingInfo:(NSMutableDictionary *)nowPlayingInfo {
+    if ([self.delegate respondsToSelector:@selector(playerGatherNowPlayingInfo:)]) {
+        [self.delegate playerGatherNowPlayingInfo:nowPlayingInfo];
+    }
+}
+
 @end

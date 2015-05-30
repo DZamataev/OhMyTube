@@ -21,7 +21,12 @@
 @property (strong, nonatomic) NSURL *videoURL;
 @property (assign, nonatomic) BOOL isBackgroundPlaybackEnabled; // defaults to NO
 @property (strong, nonatomic) NSMutableArray *viewsToHideOnIdle; // has toolbarView by default
-@property (assign, nonatomic) NSTimeInterval timeIntervalBeforeHidingViewsOnIdle; // defaults to 3 seconds
+@property (assign, nonatomic) NSTimeInterval delayBeforeHidingViewsOnIdle; // defaults to 3 seconds
+
+// Readonly properties
+@property (readonly, nonatomic) NSTimeInterval currentPlaybackTime;
+@property (readonly, nonatomic) NSTimeInterval availableDuration;
+@property (readonly, nonatomic) BOOL isPlaying;
 
 // Interface Builder Outlets
 @property (weak, nonatomic) IBOutlet YTPlayerView *playerView;
@@ -46,8 +51,6 @@
 
 - (void)stop;
 
-- (BOOL)isPlaying;
-
 - (void)syncUI;
 
 - (void)toggleFullscreen:(id)sender;
@@ -67,4 +70,8 @@
 - (void)hideControls;
 
 - (void)showControls;
+
+- (void)updateNowPlayingInfo;
+
+- (NSMutableDictionary *)gatherNowPlayingInfo;
 @end

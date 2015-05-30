@@ -9,7 +9,7 @@
 #import "YTVideoViewController.h"
 #import "YTVideoPlayerViewController.h"
 
-@interface YTVideoViewController ()
+@interface YTVideoViewController () <YTVideoPlayerViewControllerDelegate>
 @property (weak, nonatomic) YTVideoPlayerViewController *videoPlayerViewController;
 
 @property (weak, nonatomic) IBOutlet UIView *videoContainerView;
@@ -41,7 +41,15 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"Embed_VideoPlayerViewController"]) {
         self.videoPlayerViewController = segue.destinationViewController;
+        self.videoPlayerViewController.delegate = self;
     }
+}
+
+#pragma mark - Video Player View Controller Delegate
+
+- (void)playerGatherNowPlayingInfo:(NSMutableDictionary *)nowPlayingInfo {
+//    [nowPlayingInfo setObject: forKey:MPMediaItemPropertyArtist];
+    [nowPlayingInfo setObject:self.video.title forKey:MPMediaItemPropertyTitle];
 }
 
 
