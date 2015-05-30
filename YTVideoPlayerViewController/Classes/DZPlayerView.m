@@ -1,14 +1,14 @@
 //
-//  YTPlayerView.m
+//  DZPlayerView.m
 //  OhMyTube
 //
 //  Created by Denis on 5/29/15.
 //  Copyright (c) 2015 Mysterious Organization. All rights reserved.
 //
 
-#import "YTPlayerView.h"
+#import "DZPlayerView.h"
 
-@implementation YTPlayerView
+@implementation DZPlayerView
 
 - (void)layoutSubviews {
     [super layoutSubviews];

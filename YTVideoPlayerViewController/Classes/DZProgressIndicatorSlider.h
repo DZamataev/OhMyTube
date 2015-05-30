@@ -1,5 +1,5 @@
 //
-//  YTProgressIndicatorSlider.h
+//  DZProgressIndicatorSlider.h
 //  OhMyTube
 //
 //  Created by Denis Zamataev on 29/05/15.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface YTProgressIndicatorSlider : UISlider
+@interface DZProgressIndicatorSlider : UISlider
 
 @property (weak, nonatomic) IBOutlet UIProgressView *progressView;
 

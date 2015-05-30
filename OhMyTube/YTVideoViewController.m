@@ -7,10 +7,10 @@
 //
 
 #import "YTVideoViewController.h"
-#import "YTVideoPlayerViewController.h"
+#import "DZVideoPlayerViewController.h"
 
-@interface YTVideoViewController () <YTVideoPlayerViewControllerDelegate>
-@property (weak, nonatomic) YTVideoPlayerViewController *videoPlayerViewController;
+@interface YTVideoViewController () <DZVideoPlayerViewControllerDelegate>
+@property (weak, nonatomic) DZVideoPlayerViewController *videoPlayerViewController;
 
 @property (weak, nonatomic) IBOutlet UIView *videoContainerView;
 

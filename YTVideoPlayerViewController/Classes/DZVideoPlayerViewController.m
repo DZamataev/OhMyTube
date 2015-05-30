@@ -1,18 +1,18 @@
 //
-//  YTVideoPlayerViewController.m
+//  DZVideoPlayerViewController.m
 //  OhMyTube
 //
 //  Created by Denis Zamataev on 29/05/15.
 //  Copyright (c) 2015 Mysterious Organization. All rights reserved.
 //
 
-#import "YTVideoPlayerViewController.h"
+#import "DZVideoPlayerViewController.h"
 
 static const NSString *ItemStatusContext;
 static const NSString *PlayerRateContext;
 static const NSString *PlayerStatusContext;
 
-@interface YTVideoPlayerViewController ()
+@interface DZVideoPlayerViewController ()
 {
 }
 @property (strong, nonatomic) AVPlayer *player;
@@ -33,7 +33,7 @@ static const NSString *PlayerStatusContext;
 
 @end
 
-@implementation YTVideoPlayerViewController
+@implementation DZVideoPlayerViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -327,7 +327,7 @@ static const NSString *PlayerStatusContext;
     [self.player addObserver:self forKeyPath:@"status"
                      options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:&PlayerStatusContext];
     
-    YTVideoPlayerViewController __weak *welf = self;
+    DZVideoPlayerViewController __weak *welf = self;
     self.playerTimeObservationTarget = [self.player addPeriodicTimeObserverForInterval:CMTimeMake(1, 1)  queue:nil usingBlock:^(CMTime time) {
         [welf updateProgressIndicator:welf];
     }];
@@ -376,7 +376,7 @@ static const NSString *PlayerStatusContext;
 }
 
 - (void)setupRemoteCommandCenter {
-    YTVideoPlayerViewController __weak *welf = self;
+    DZVideoPlayerViewController __weak *welf = self;
     MPRemoteCommandCenter *commandCenter = [MPRemoteCommandCenter sharedCommandCenter];
     self.playCommandTarget = [commandCenter.playCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent *event) {
         [welf play];

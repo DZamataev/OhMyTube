@@ -1,5 +1,5 @@
 //
-//  YTPlayerView.h
+//  DZPlayerView.h
 //  OhMyTube
 //
 //  Created by Denis on 5/29/15.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 
-@interface YTPlayerView : UIView
+@interface DZPlayerView : UIView
 @property (nonatomic) AVPlayer *player;
 @property (nonatomic, readonly) AVPlayerLayer *playerLayer;
 

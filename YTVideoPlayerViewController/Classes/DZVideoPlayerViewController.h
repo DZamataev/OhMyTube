@@ -1,5 +1,5 @@
 //
-//  YTVideoPlayerViewController.h
+//  DZVideoPlayerViewController.h
 //  OhMyTube
 //
 //  Created by Denis Zamataev on 29/05/15.
@@ -11,12 +11,12 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import <MediaPlayer/MediaPlayer.h>
 
-#import "YTVideoPlayerViewControllerDelegate.h"
-#import "YTPlayerView.h"
-#import "YTProgressIndicatorSlider.h"
+#import "DZVideoPlayerViewControllerDelegate.h"
+#import "DZPlayerView.h"
+#import "DZProgressIndicatorSlider.h"
 
-@interface YTVideoPlayerViewController : UIViewController
-@property (weak, nonatomic) id<YTVideoPlayerViewControllerDelegate> delegate;
+@interface DZVideoPlayerViewController : UIViewController
+@property (weak, nonatomic) id<DZVideoPlayerViewControllerDelegate> delegate;
 
 @property (strong, nonatomic) NSURL *videoURL;
 @property (assign, nonatomic) BOOL isBackgroundPlaybackEnabled; // defaults to NO
@@ -29,14 +29,14 @@
 @property (readonly, nonatomic) BOOL isPlaying;
 
 // Interface Builder Outlets
-@property (weak, nonatomic) IBOutlet YTPlayerView *playerView;
+@property (weak, nonatomic) IBOutlet DZPlayerView *playerView;
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorView;
 
 @property (weak, nonatomic) IBOutlet UIView *toolbarView;
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
 @property (weak, nonatomic) IBOutlet UIButton *pauseButton;
-@property (weak, nonatomic) IBOutlet YTProgressIndicatorSlider *progressIndicator;
+@property (weak, nonatomic) IBOutlet DZProgressIndicatorSlider *progressIndicator;
 @property (weak, nonatomic) IBOutlet UILabel *currentTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *remainingTimeLabel;
 @property (weak, nonatomic) IBOutlet UIButton *fullscreenExpandButton;

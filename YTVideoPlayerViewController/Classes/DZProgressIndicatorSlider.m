@@ -1,18 +1,18 @@
 //
-//  YTProgressIndicatorSlider.m
+//  DZProgressIndicatorSlider.m
 //  OhMyTube
 //
 //  Created by Denis Zamataev on 29/05/15.
 //  Copyright (c) 2015 Mysterious Organization. All rights reserved.
 //
 
-#import "YTProgressIndicatorSlider.h"
+#import "DZProgressIndicatorSlider.h"
 
-@interface YTProgressIndicatorSlider ()
+@interface DZProgressIndicatorSlider ()
 
 @end
 
-@implementation YTProgressIndicatorSlider
+@implementation DZProgressIndicatorSlider
 
 - (instancetype)init {
     self = [super init];

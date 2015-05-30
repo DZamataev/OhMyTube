@@ -1,5 +1,5 @@
 //
-//  YTVideoPlayerViewControllerDelegate.h
+//  DZVideoPlayerViewControllerDelegate.h
 //  OhMyTube
 //
 //  Created by Denis Zamataev on 29/05/15.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol YTVideoPlayerViewControllerDelegate <NSObject>
+@protocol DZVideoPlayerViewControllerDelegate <NSObject>
 
 @optional
 
