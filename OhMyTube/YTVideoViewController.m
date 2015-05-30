@@ -7,7 +7,6 @@
 //
 
 #import "YTVideoViewController.h"
-#import "DZVideoPlayerViewController.h"
 
 @interface YTVideoViewController () <DZVideoPlayerViewControllerDelegate>
 @property (weak, nonatomic) DZVideoPlayerViewController *videoPlayerViewController;
@@ -45,10 +44,47 @@
     }
 }
 
-#pragma mark - Video Player View Controller Delegate
+#pragma mark - <DZVideoPlayerViewControllerDelegate>
+
+- (void)playerFailedToLoadAssetWithError:(NSError *)error {
+
+}
+
+- (void)playerDidPlay {
+    
+}
+
+- (void)playerDidPause {
+    
+}
+
+- (void)playerDidStop {
+    
+}
+
+- (void)playerDidToggleFullscreen {
+    if (self.videoPlayerViewController.isFullscreen) {
+        // TODO: implement expand videoPlayerViewController to fullscreen
+    }
+    else {
+        // TODO: implement shrink videoPlayerViewController from fullscreen
+    }
+}
+
+- (void)playerDidPlayToEndTime {
+    
+}
+
+- (void)playerFailedToPlayToEndTime {
+    
+}
+
+- (void)playerPlaybackStalled {
+    
+}
 
 - (void)playerGatherNowPlayingInfo:(NSMutableDictionary *)nowPlayingInfo {
-//    [nowPlayingInfo setObject: forKey:MPMediaItemPropertyArtist];
+//    [nowPlayingInfo setObject:self.video.author forKey:MPMediaItemPropertyArtist];
     [nowPlayingInfo setObject:self.video.title forKey:MPMediaItemPropertyTitle];
 }
 

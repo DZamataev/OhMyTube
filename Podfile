@@ -1,6 +1,8 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
 target 'OhMyTube', :exclusive => true do
+  pod "DZVideoPlayerViewController"
+    
   pod "Objection"
   pod "UICKeyChainStore"
   pod "JFMinimalNotifications"
@@ -9,7 +11,6 @@ target 'OhMyTube', :exclusive => true do
   pod "AFNetworking"
   pod "SDWebImage"
   pod "KVOController"
-  pod "GUIPlayerView"
 end
 
 target 'OhMyTubeTests', :exclusive => true do

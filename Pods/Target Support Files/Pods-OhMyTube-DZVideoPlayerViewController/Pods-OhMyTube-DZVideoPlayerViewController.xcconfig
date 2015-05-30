@@ -1,0 +1,1 @@
+PODS_OHMYTUBE_DZVIDEOPLAYERVIEWCONTROLLER_OTHER_LDFLAGS = -framework "AVFoundation" -framework "AudioToolbox"

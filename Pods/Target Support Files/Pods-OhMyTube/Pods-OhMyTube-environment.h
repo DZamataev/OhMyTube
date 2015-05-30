@@ -48,11 +48,11 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking_UIKit 5
 #define COCOAPODS_VERSION_PATCH_AFNetworking_UIKit 4
 
-// GUIPlayerView
-#define COCOAPODS_POD_AVAILABLE_GUIPlayerView
-#define COCOAPODS_VERSION_MAJOR_GUIPlayerView 0
-#define COCOAPODS_VERSION_MINOR_GUIPlayerView 0
-#define COCOAPODS_VERSION_PATCH_GUIPlayerView 4
+// DZVideoPlayerViewController
+#define COCOAPODS_POD_AVAILABLE_DZVideoPlayerViewController
+#define COCOAPODS_VERSION_MAJOR_DZVideoPlayerViewController 0
+#define COCOAPODS_VERSION_MINOR_DZVideoPlayerViewController 1
+#define COCOAPODS_VERSION_PATCH_DZVideoPlayerViewController 2
 
 // JFMinimalNotifications
 #define COCOAPODS_POD_AVAILABLE_JFMinimalNotifications

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <DZVideoPlayerViewController.h>
 
 #import "YTVideoRepositoryInterface.h"
 
