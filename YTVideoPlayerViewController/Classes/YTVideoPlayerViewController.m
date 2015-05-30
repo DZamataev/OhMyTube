@@ -205,12 +205,9 @@ static const NSString *PlayerStatusContext;
 }
 
 - (void)toggleFullscreen:(id)sender {
-    if (self.isFullscreen) {
-        
-    }
-    else {
-        
-    }
+    self.isFullscreen = !self.isFullscreen;
+    [self onToggleFullscreen];
+    [self startIdleCountdown];
 }
 
 - (void)seek:(UISlider *)slider {
@@ -321,23 +318,6 @@ static const NSString *PlayerStatusContext;
 
 #pragma mark - Private Actions
 
-#pragma mark - Helpers
-
-- (NSString *)stringFromTimeInterval:(NSTimeInterval)time {
-    NSString *string = [NSString stringWithFormat:@"%02li:%02li:%02li",
-                        lround(floor(time / 3600.)) % 100,
-                        lround(floor(time / 60.)) % 60,
-                        lround(floor(time)) % 60];
-    
-    NSString *extraZeroes = @"00:";
-    
-    if ([string hasPrefix:extraZeroes]) {
-        string = [string substringFromIndex:extraZeroes.length];
-    }
-    
-    return string;
-}
-
 - (void)setupPlayer {
     self.player = [[AVPlayer alloc] initWithPlayerItem:nil];
     
@@ -440,6 +420,23 @@ static const NSString *PlayerStatusContext;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
 }
 
+#pragma mark - Helpers
+
+- (NSString *)stringFromTimeInterval:(NSTimeInterval)time {
+    NSString *string = [NSString stringWithFormat:@"%02li:%02li:%02li",
+                        lround(floor(time / 3600.)) % 100,
+                        lround(floor(time / 60.)) % 60,
+                        lround(floor(time)) % 60];
+    
+    NSString *extraZeroes = @"00:";
+    
+    if ([string hasPrefix:extraZeroes]) {
+        string = [string substringFromIndex:extraZeroes.length];
+    }
+    
+    return string;
+}
+
 #pragma mark - Notification Handlers
 
 - (void)handleAVPlayerItemDidPlayToEndTime:(NSNotification *)notification {
@@ -537,6 +534,12 @@ static const NSString *PlayerStatusContext;
 - (void)onFailedToPlayToEndTime {
     if ([self.delegate respondsToSelector:@selector(playerFailedToPlayToEndTime)]) {
         [self.delegate playerFailedToPlayToEndTime];
+    }
+}
+
+- (void)onToggleFullscreen {
+    if ([self.delegate respondsToSelector:@selector(playerDidToggleFullscreen)]) {
+        [self.delegate playerDidToggleFullscreen];
     }
 }
 

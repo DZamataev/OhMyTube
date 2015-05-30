@@ -10,51 +10,44 @@
 
 @interface YTProgressIndicatorSlider ()
 
-@property (strong, nonatomic) UIProgressView *progressView;
-
 @end
 
 @implementation YTProgressIndicatorSlider
 
-@synthesize progressView;
-
-- (instancetype)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
-    [self setup];
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        [self commonInit];
+    }
     return self;
 }
 
-- (void)setup {
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self commonInit];
+    }
+    return self;
+}
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    [self commonInit];
+}
+
+- (void)commonInit {
     [self setMaximumTrackTintColor:[UIColor clearColor]];
     
-    progressView = [UIProgressView new];
-    [progressView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [progressView setClipsToBounds:YES];
-    [[progressView layer] setCornerRadius:1.0f];
+    [[self.progressView layer] setCornerRadius:1.0f];
     
     CGFloat hue, sat, bri;
     [[self tintColor] getHue:&hue saturation:&sat brightness:&bri alpha:nil];
-    [progressView setTintColor:[UIColor colorWithHue:hue saturation:(sat * 0.6f) brightness:bri alpha:1]];
-    
-    [self addSubview:progressView];
-    
-    NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[PV]|"
-                                                                   options:0
-                                                                   metrics:nil
-                                                                     views:@{@"PV" : progressView}];
-    
-    [self addConstraints:constraints];
-    
-    constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(20)-[PV]"
-                                                          options:0
-                                                          metrics:nil
-                                                            views:@{@"PV" : progressView}];
-    
-    [self addConstraints:constraints];
+    [self.progressView setTintColor:[UIColor colorWithHue:hue saturation:(sat * 0.6f) brightness:bri alpha:1]];
+
 }
 
 - (void)setSecondaryValue:(float)value {
-    [progressView setProgress:value];
+    [self.progressView setProgress:value];
 }
 
 - (void)setTintColor:(UIColor *)tintColor {
@@ -62,11 +55,11 @@
     
     CGFloat hue, sat, bri;
     [[self tintColor] getHue:&hue saturation:&sat brightness:&bri alpha:nil];
-    [progressView setTintColor:[UIColor colorWithHue:hue saturation:(sat * 0.6f) brightness:bri alpha:1]];
+    [self.progressView setTintColor:[UIColor colorWithHue:hue saturation:(sat * 0.6f) brightness:bri alpha:1]];
 }
 
 - (void)setSecondaryTintColor:(UIColor *)tintColor {
-    [progressView setTintColor:tintColor];
+    [self.progressView setTintColor:tintColor];
 }
 
 @end

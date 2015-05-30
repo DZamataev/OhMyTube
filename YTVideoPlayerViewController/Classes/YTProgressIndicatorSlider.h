@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface YTProgressIndicatorSlider : UISlider
+
+@property (weak, nonatomic) IBOutlet UIProgressView *progressView;
+
 - (void)setSecondaryValue:(float)value;
 - (void)setSecondaryTintColor:(UIColor *)tintColor;
 @end
