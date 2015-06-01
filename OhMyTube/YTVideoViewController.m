@@ -13,6 +13,9 @@
 
 @property (weak, nonatomic) IBOutlet DZVideoPlayerViewControllerContainerView *videoContainerView;
 
+@property (weak, nonatomic) IBOutlet UIView *topToolbarView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topToolbarViewVerticalOffsetConstraint;
+
 @end
 
 @implementation YTVideoViewController
@@ -36,6 +39,27 @@
 - (void)dealloc {
     
 }
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    
+    if (size.width > size.height) {
+        // landscape-like size
+        self.topToolbarViewVerticalOffsetConstraint.constant = - CGRectGetHeight(self.topToolbarView.bounds);
+    }
+    else {
+        // portrait-like size
+        self.topToolbarViewVerticalOffsetConstraint.constant = 0;
+    }
+    
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        [self.topToolbarView layoutIfNeeded];
+    } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+    }];
+    
+}
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation

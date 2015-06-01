@@ -20,7 +20,7 @@ PODS:
   - AFNetworking/UIKit (2.5.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - DZVideoPlayerViewController (0.1.4)
+  - DZVideoPlayerViewController (0.1.5)
   - Expecta (1.0.0)
   - JFMinimalNotifications (0.0.4)
   - KVOController (1.0.3)
@@ -48,7 +48,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
-  DZVideoPlayerViewController: e91f3289f4ea823ad02c2243a0d2633289bb4c6b
+  DZVideoPlayerViewController: 20c12c9e232ba4fdb41ee68c068cf34c6aded8e1
   Expecta: 32604574add2c46a36f8d2f716b6c5736eb75024
   JFMinimalNotifications: 2ab80fde6b8588a338be68d61763cc2085f8c938
   KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf

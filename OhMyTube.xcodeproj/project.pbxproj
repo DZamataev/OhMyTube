@@ -226,6 +226,7 @@
 				924C30DA1B14DDE3008802BC /* Video Repository */,
 				92738A341B147639005E75DF /* Browser */,
 				92738A381B14767B005E75DF /* Downloads */,
+				92FD2CF91B1C9BA800B7836B /* Video */,
 				92738A071B146C9E005E75DF /* Supporting Files */,
 				9242E1D21B15CE7500F891F2 /* Settings.bundle */,
 			);
@@ -282,10 +283,17 @@
 				9242E1D81B15F8F700F891F2 /* YTTableSection.m */,
 				9242E1DD1B16087B00F891F2 /* YTDownloadsTableViewCell.h */,
 				9242E1DE1B16087B00F891F2 /* YTDownloadsTableViewCell.m */,
+			);
+			name = Downloads;
+			sourceTree = "<group>";
+		};
+		92FD2CF91B1C9BA800B7836B /* Video */ = {
+			isa = PBXGroup;
+			children = (
 				9276A77B1B1876260029072C /* YTVideoViewController.h */,
 				9276A77C1B1876260029072C /* YTVideoViewController.m */,
 			);
-			name = Downloads;
+			name = Video;
 			sourceTree = "<group>";
 		};
 		D05369310A9FDE7D1098F240 /* Frameworks */ = {
