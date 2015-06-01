@@ -25,6 +25,4 @@ FOUNDATION_EXPORT NSString *const YTVideoRepositoryEntityUpdateNotification;
 - (void)stopDownloadAndDeleteVideo:(YTVideo *)video;
 
 - (NSArray *)allVideos; // array of objects of type YTVideo
-
-- (NSArray *)downloadingAndDownloadedVideos; // array of objects of type YTVideo
 @end

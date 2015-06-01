@@ -138,8 +138,10 @@ objection_requires_sel(@selector(videoRepository), @selector(settingsManager))
 - (IBAction)downloadAction:(id)sender {
     if (self.videoToDownload) {
         [self.videoRepository downloadVideo:self.videoToDownload started:^(YTVideo *video, NSError *error) {
+            YTBrowserViewController __weak *welf = self;
             if (error == nil) {
                 [self fireMinimalNotification:NSLocalizedString(@"Video download started", nil) subtitle:nil style:JFMinimalNotificationStyleSuccess];
+                welf.downloadButton.enabled = NO;
             }
             else {
                 [self fireMinimalNotification:NSLocalizedString(@"Error", bil) subtitle:error.localizedDescription style:JFMinimalNotificationStyleError];

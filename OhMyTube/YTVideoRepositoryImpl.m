@@ -194,49 +194,60 @@ NSString *const YTVideoRepositoryEntityUpdateNotification = @"YTVideoRepositoryE
     NSError *error;
     
     if (video == nil || video.youTubeVideo == nil) {
-        error = [NSError errorWithDomain:YTVideoRepositoryErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Not enough data to download video"}];
+        error = [NSError errorWithDomain:YTVideoRepositoryErrorDomain code:-1
+                                userInfo:@{NSLocalizedDescriptionKey:NSLocalizedString(@"Not enough data to download video", nil)}];
         started(nil, error);
         return;
     }
     
+    BOOL isRedownloadingExisting = NO;
+    
     YTVideo *duplicateVideo = [self videoWithIdentifier:video.identifier];
+    
     if (duplicateVideo != nil) {
-        NSString *errorDescription;
         if (duplicateVideo.isDownloaded) {
-            errorDescription = @"This video is already downloaded";
+            error = [NSError errorWithDomain:YTVideoRepositoryErrorDomain code:-1
+                                    userInfo:@{NSLocalizedDescriptionKey:NSLocalizedString(@"This video is already downloaded", nil)}];
+            started(video, error);
+            return;
         }
         else {
-            errorDescription = @"This video is already downloading";
+            // this request is about continuing existing download
+            video = duplicateVideo;
+            isRedownloadingExisting = YES;
+            
+            [self stopDownloadForVideo:video];
         }
-        error = [NSError errorWithDomain:YTVideoRepositoryErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey:errorDescription}];
-        started(video, error);
-        return;
     }
     
     NSNumber *qualityNumber = [self bestPossibleQualityForVideo:video];
     if (qualityNumber == nil) {
-        error = [NSError errorWithDomain:YTVideoRepositoryErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Unable to pick quality"}];
+        error = [NSError errorWithDomain:YTVideoRepositoryErrorDomain code:-1
+                                userInfo:@{NSLocalizedDescriptionKey:NSLocalizedString(@"Unable to pick quality", nil)}];
         started(nil, error);
         return;
     }
     
     NSString *qualityString = [self qualityStringForQuality:qualityNumber.unsignedIntegerValue];
     if (qualityString == nil) {
-        error = [NSError errorWithDomain:YTVideoRepositoryErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Unable to convert qualty to string"}];
+        error = [NSError errorWithDomain:YTVideoRepositoryErrorDomain code:-1
+                                userInfo:@{NSLocalizedDescriptionKey:NSLocalizedString(@"Unable to convert qualty to string", nil)}];
         started(nil, error);
         return;
     }
     
     NSURL *streamURL = video.youTubeVideo.streamURLs[qualityNumber];
     if (streamURL == nil) {
-        error = [NSError errorWithDomain:YTVideoRepositoryErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Unable to find stream URL"}];
+        error = [NSError errorWithDomain:YTVideoRepositoryErrorDomain code:-1
+                                userInfo:@{NSLocalizedDescriptionKey:NSLocalizedString(@"Unable to find stream URL", nil)}];
         started(nil, error);
         return;
     }
     
     NSString *fileName = [self fileNameForVideo:video quality:qualityNumber.unsignedIntegerValue];
     if (fileName == nil) {
-        error = [NSError errorWithDomain:YTVideoRepositoryErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Unable to resolve file name"}];
+        error = [NSError errorWithDomain:YTVideoRepositoryErrorDomain code:-1
+                                userInfo:@{NSLocalizedDescriptionKey:NSLocalizedString(@"Unable to resolve file name", nil)}];
         started(nil, error);
         return;
     }
@@ -245,7 +256,8 @@ NSString *const YTVideoRepositoryEntityUpdateNotification = @"YTVideoRepositoryE
     NSURL *documentsURL = [paths lastObject];
     NSURL *fileURL = [documentsURL URLByAppendingPathComponent:fileName];
     if (fileURL == nil) {
-        error = [NSError errorWithDomain:YTVideoRepositoryErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Unable to resolve file URL"}];
+        error = [NSError errorWithDomain:YTVideoRepositoryErrorDomain code:-1
+                                userInfo:@{NSLocalizedDescriptionKey:NSLocalizedString(@"Unable to resolve file URL", nil)}];
         started(nil, error);
         return;
     }
@@ -260,7 +272,9 @@ NSString *const YTVideoRepositoryEntityUpdateNotification = @"YTVideoRepositoryE
     video.duration = duration;
     video.thumbnailURL = thumbnailURL;
     video.downloadProgress = @(0.0);
-    [self.collection addObject:video];
+    if (isRedownloadingExisting == NO) {
+        [self.collection addObject:video];
+    }
     [self saveCollection];
     
     YTVideoRepositoryImpl __weak *welf = self;
@@ -322,16 +336,6 @@ NSString *const YTVideoRepositoryEntityUpdateNotification = @"YTVideoRepositoryE
 
 - (NSArray *)allVideos {
     return [NSArray arrayWithArray:self.collection];
-}
-
-- (NSArray *)downloadingAndDownloadedVideos {
-    NSMutableArray *array = [NSMutableArray new];
-    for (YTVideo *video in self.collection) {
-        if (video.isDownloaded || video.downloadProgress.doubleValue > 0.0f) {
-            [array addObject:video];
-        }
-    }
-    return [NSArray arrayWithArray:array];
 }
 
 @end

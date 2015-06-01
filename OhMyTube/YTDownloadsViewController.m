@@ -61,6 +61,10 @@ objection_requires_sel(@selector(videoRepository))
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    NSIndexPath *selectedRowIndexPath = self.tableView.indexPathForSelectedRow;
+    if (selectedRowIndexPath) {
+        [self.tableView deselectRowAtIndexPath:selectedRowIndexPath animated:animated];
+    }
 }
 
 - (void)viewDidLoad {
@@ -87,18 +91,21 @@ objection_requires_sel(@selector(videoRepository))
     YTTableSection *firstSection = [[YTTableSection alloc] init];
     [self.sections addObject:firstSection];
     
-    NSArray *videos = [self.videoRepository downloadingAndDownloadedVideos];
+    NSArray *videos = [self.videoRepository allVideos];
     
     [firstSection.items addObjectsFromArray:videos];
     
     [self.tableView reloadData];
 }
 
-- (void)playVideoWithItem:(YTVideo*)item {
+- (BOOL)playVideoWithItem:(YTVideo*)item {
+    BOOL success = NO;
     if (item.isDownloaded) {
+        success = YES;
         self.selectedItem = item;
         [self performSegueWithIdentifier:@"Present_VideoViewController" sender:nil];
     }
+    return success;
 }
 
 - (IBAction)unwindFromVideo:(UIStoryboardSegue*)segue {
@@ -196,7 +203,10 @@ objection_requires_sel(@selector(videoRepository))
 #pragma mark - <UITableViewDelegate>
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self playVideoWithItem:[self itemAtIndex:indexPath]];
+    BOOL success = [self playVideoWithItem:[self itemAtIndex:indexPath]];
+    if (success == NO) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

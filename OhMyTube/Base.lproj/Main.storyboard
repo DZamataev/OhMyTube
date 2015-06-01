@@ -141,7 +141,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="R5r-KZ-vQp" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="3kC-t5-r92"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="QrU-gu-cCe" secondAttribute="bottom" id="4Fo-sF-XTE"/>
@@ -268,7 +268,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="te9-Oj-Xum" userLabel="&gt;">
-                                        <rect key="frame" x="111" y="11" width="26" height="26"/>
+                                        <rect key="frame" x="111" y="9" width="26" height="26"/>
                                         <state key="normal" image="arrow_right"/>
                                         <state key="disabled" image="arrow_right_noactive"/>
                                         <state key="selected" image="arrow_right_selected"/>
@@ -278,7 +278,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="80P-pB-F80" userLabel="download">
-                                        <rect key="frame" x="472" y="11" width="23" height="23"/>
+                                        <rect key="frame" x="472" y="9" width="23" height="23"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="23" id="alV-TJ-eNw"/>
                                             <constraint firstAttribute="height" constant="23" id="pda-uq-Xqg"/>
@@ -291,9 +291,6 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wOL-6S-d19" userLabel="refresh">
                                         <rect key="frame" x="545" y="12" width="20" height="20"/>
                                         <state key="normal" image="bar_refresh"/>
-                                        <state key="disabled" image="bar_refresh_noactive"/>
-                                        <state key="selected" image="bar_refresh_selected"/>
-                                        <state key="highlighted" image="bar_refresh_selected"/>
                                         <connections>
                                             <action selector="refreshPageAction:" destination="XIF-Il-m9a" eventType="touchUpInside" id="9D1-0E-8oM"/>
                                         </connections>
@@ -304,13 +301,13 @@
                                     <constraint firstItem="BqF-Ky-jhI" firstAttribute="top" secondItem="zEn-So-beC" secondAttribute="top" id="5wT-eU-nHd"/>
                                     <constraint firstItem="wOL-6S-d19" firstAttribute="leading" secondItem="80P-pB-F80" secondAttribute="trailing" constant="50" id="FcV-Mn-no1"/>
                                     <constraint firstAttribute="centerY" secondItem="ZgT-PG-roz" secondAttribute="centerY" id="Knw-hP-1ra"/>
-                                    <constraint firstAttribute="centerY" secondItem="te9-Oj-Xum" secondAttribute="centerY" constant="-2" id="L9X-zV-izE"/>
+                                    <constraint firstAttribute="centerY" secondItem="te9-Oj-Xum" secondAttribute="centerY" id="L9X-zV-izE"/>
                                     <constraint firstItem="80P-pB-F80" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="te9-Oj-Xum" secondAttribute="trailing" constant="20" id="UQo-UK-6hl"/>
                                     <constraint firstAttribute="trailing" secondItem="wOL-6S-d19" secondAttribute="trailing" constant="35" id="UjM-Qd-Mj3"/>
                                     <constraint firstAttribute="centerY" secondItem="wOL-6S-d19" secondAttribute="centerY" id="X3O-nP-NMN"/>
                                     <constraint firstItem="te9-Oj-Xum" firstAttribute="leading" secondItem="ZgT-PG-roz" secondAttribute="trailing" constant="50" id="Z2d-6R-oJd"/>
                                     <constraint firstAttribute="height" constant="44" id="cgm-9E-gZi"/>
-                                    <constraint firstAttribute="centerY" secondItem="80P-pB-F80" secondAttribute="centerY" id="euT-zU-R0q"/>
+                                    <constraint firstAttribute="centerY" secondItem="80P-pB-F80" secondAttribute="centerY" constant="2" id="euT-zU-R0q"/>
                                     <constraint firstItem="ZgT-PG-roz" firstAttribute="leading" secondItem="zEn-So-beC" secondAttribute="leading" constant="35" id="iRe-vB-XQO"/>
                                     <constraint firstItem="BqF-Ky-jhI" firstAttribute="leading" secondItem="zEn-So-beC" secondAttribute="leading" id="oBu-WV-d6F"/>
                                     <constraint firstAttribute="trailing" secondItem="BqF-Ky-jhI" secondAttribute="trailing" id="zS0-Fo-3qK"/>
@@ -463,12 +460,22 @@
                                     <outlet property="delegate" destination="Mge-BN-RJf" id="Wje-9e-NDd"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RKs-ko-wwB" userLabel="Separator View">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="1"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="Pjk-be-rWd"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="dHC-Gy-PMP" secondAttribute="trailing" id="2ap-E1-Q7P"/>
+                            <constraint firstItem="RKs-ko-wwB" firstAttribute="top" secondItem="NyV-gp-yZg" secondAttribute="bottom" id="8Cn-ox-cTM"/>
+                            <constraint firstAttribute="trailing" secondItem="RKs-ko-wwB" secondAttribute="trailing" id="Qfr-3P-seM"/>
                             <constraint firstItem="dHC-Gy-PMP" firstAttribute="leading" secondItem="pxC-uG-6od" secondAttribute="leading" id="S7G-H8-ccV"/>
                             <constraint firstItem="7ph-V6-IFy" firstAttribute="top" secondItem="dHC-Gy-PMP" secondAttribute="bottom" id="epI-a5-Z49"/>
+                            <constraint firstItem="RKs-ko-wwB" firstAttribute="leading" secondItem="pxC-uG-6od" secondAttribute="leading" id="p5L-k0-GKd"/>
                             <constraint firstItem="dHC-Gy-PMP" firstAttribute="top" secondItem="NyV-gp-yZg" secondAttribute="bottom" id="uJg-rM-ukp"/>
                         </constraints>
                     </view>
@@ -509,17 +516,14 @@
                                             <rect key="frame" x="16" y="6" width="33" height="33"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Fv-So-2dh">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Fv-So-2dh">
                                                     <rect key="frame" x="0.0" y="0.0" width="33" height="33"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="33" id="Vl3-2S-4UU"/>
                                                         <constraint firstAttribute="height" constant="33" id="WYS-Ut-YXv"/>
                                                     </constraints>
-                                                    <state key="normal" image="cross-64x64">
-                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
+                                                    <state key="normal" image="cross-64x64"/>
                                                     <connections>
                                                         <segue destination="jEw-0W-uyr" kind="unwind" unwindAction="unwindFromVideo:" id="bvN-YS-RnY"/>
                                                     </connections>
@@ -591,8 +595,6 @@
         <image name="arrow_right_selected" width="26" height="26"/>
         <image name="bar_download" width="128" height="128"/>
         <image name="bar_refresh" width="20" height="20"/>
-        <image name="bar_refresh_noactive" width="20" height="20"/>
-        <image name="bar_refresh_selected" width="20" height="20"/>
         <image name="cross-64x64" width="64" height="64"/>
     </resources>
 </document>
