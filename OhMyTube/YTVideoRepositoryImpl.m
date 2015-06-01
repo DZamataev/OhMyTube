@@ -254,8 +254,18 @@
     [self deleteVideo:video];
 }
 
-- (NSArray *)videos {
+- (NSArray *)allVideos {
     return [NSArray arrayWithArray:self.collection];
+}
+
+- (NSArray *)downloadingAndDownloadedVideos {
+    NSMutableArray *array = [NSMutableArray new];
+    for (YTVideo *video in self.collection) {
+        if (video.isDownloaded || video.downloadProgress.doubleValue > 0.0f) {
+            [array addObject:video];
+        }
+    }
+    return [NSArray arrayWithArray:array];
 }
 
 @end

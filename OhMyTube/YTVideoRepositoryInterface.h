@@ -20,5 +20,7 @@
 
 - (void)stopDownloadAndDeleteVideo:(YTVideo *)video;
 
-- (NSArray *)videos; // array of objects of type YTVideo
+- (NSArray *)allVideos; // array of objects of type YTVideo
+
+- (NSArray *)downloadingAndDownloadedVideos; // array of objects of type YTVideo
 @end

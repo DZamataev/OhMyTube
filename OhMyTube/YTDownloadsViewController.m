@@ -87,7 +87,7 @@ objection_requires_sel(@selector(videoRepository))
     YTTableSection *firstSection = [[YTTableSection alloc] init];
     [self.sections addObject:firstSection];
     
-    NSArray *videos = [self.videoRepository videos];
+    NSArray *videos = [self.videoRepository downloadingAndDownloadedVideos];
     
     [firstSection.items addObjectsFromArray:videos];
     

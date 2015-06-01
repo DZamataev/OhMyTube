@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -263,7 +263,7 @@
                                             <constraint firstAttribute="height" constant="1" id="jVr-VB-IbS"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZgT-PG-roz" userLabel="&lt;">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZgT-PG-roz" userLabel="&lt;">
                                         <rect key="frame" x="35" y="9" width="26" height="26"/>
                                         <state key="normal" image="arrow_left"/>
                                         <state key="disabled" image="arrow_left_noactive"/>
@@ -273,7 +273,7 @@
                                             <action selector="navigateBackAction:" destination="XIF-Il-m9a" eventType="touchUpInside" id="xIn-rD-4be"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="te9-Oj-Xum" userLabel="&gt;">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="te9-Oj-Xum" userLabel="&gt;">
                                         <rect key="frame" x="111" y="11" width="26" height="26"/>
                                         <state key="normal" image="arrow_right"/>
                                         <state key="disabled" image="arrow_right_noactive"/>
@@ -492,23 +492,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aGM-EP-n4K" userLabel="Video Container View">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aGM-EP-n4K" userLabel="Video Container View" customClass="DZVideoPlayerViewControllerContainerView">
                                 <rect key="frame" x="0.0" y="44" width="600" height="338"/>
-                                <subviews>
-                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yjc-U5-5Cv">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="338"/>
-                                        <connections>
-                                            <segue destination="2Wh-pG-U5v" kind="embed" identifier="Embed_VideoPlayerViewController" id="3wF-eL-CYT"/>
-                                        </connections>
-                                    </containerView>
-                                </subviews>
                                 <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="Yjc-U5-5Cv" secondAttribute="bottom" id="4VZ-Yz-g6y"/>
-                                    <constraint firstItem="Yjc-U5-5Cv" firstAttribute="leading" secondItem="aGM-EP-n4K" secondAttribute="leading" id="FoU-DB-J1l"/>
-                                    <constraint firstAttribute="trailing" secondItem="Yjc-U5-5Cv" secondAttribute="trailing" id="HAu-Pb-Lu3"/>
                                     <constraint firstAttribute="width" secondItem="aGM-EP-n4K" secondAttribute="height" multiplier="16:9" id="ZP2-d7-hp2"/>
-                                    <constraint firstItem="Yjc-U5-5Cv" firstAttribute="top" secondItem="aGM-EP-n4K" secondAttribute="top" id="kt1-ic-1Ln"/>
                                 </constraints>
                             </view>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eiz-0J-61l">
@@ -590,16 +578,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OP3-pR-E43" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2261" y="1214"/>
-        </scene>
-        <!--Video Player View Controller-->
-        <scene sceneID="ZxD-gx-SUs">
-            <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="2Wh-pG-U5v" customClass="DZVideoPlayerViewController" sceneMemberID="viewController">
-                    <toolbarItems/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ylc-5F-Dbc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3279" y="2665"/>
         </scene>
     </scenes>
     <resources>

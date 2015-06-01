@@ -9,9 +9,9 @@
 #import "YTVideoViewController.h"
 
 @interface YTVideoViewController () <DZVideoPlayerViewControllerDelegate>
-@property (weak, nonatomic) DZVideoPlayerViewController *videoPlayerViewController;
+@property (strong, nonatomic) DZVideoPlayerViewController *videoPlayerViewController;
 
-@property (weak, nonatomic) IBOutlet UIView *videoContainerView;
+@property (weak, nonatomic) IBOutlet DZVideoPlayerViewControllerContainerView *videoContainerView;
 
 @end
 
@@ -21,6 +21,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     NSAssert(self.video != nil, @"Video must be set beforehand");
+    
+    self.videoPlayerViewController = self.videoContainerView.videoPlayerViewController;
     self.videoPlayerViewController.videoURL = self.video.fileURL;
     self.videoPlayerViewController.isBackgroundPlaybackEnabled = YES;
     [self.videoPlayerViewController prepareAndPlayAutomatically:YES];
@@ -38,10 +40,6 @@
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"Embed_VideoPlayerViewController"]) {
-        self.videoPlayerViewController = segue.destinationViewController;
-        self.videoPlayerViewController.delegate = self;
-    }
 }
 
 #pragma mark - <DZVideoPlayerViewControllerDelegate>
