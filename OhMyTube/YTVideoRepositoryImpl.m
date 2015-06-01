@@ -8,6 +8,9 @@
 
 #import "YTVideoRepositoryImpl.h"
 
+NSString *const YTVideoRepositoryErrorDomain = @"YTVideoRepository";
+NSString *const YTVideoRepositoryEntityUpdateNotification = @"YTVideoRepositoryEntityUpdate";
+
 @interface YTVideoRepositoryImpl ()
 @property (strong, nonatomic) NSMutableArray *collection;
 @property (strong, nonatomic) NSMutableDictionary *downloadsInProgress;
@@ -123,7 +126,7 @@
 
 - (void)saveCollection {
     BOOL success = [NSKeyedArchiver archiveRootObject:self.collection toFile:[self collectionFilePath]];
-    NSAssert(success, @"Saving tabs must be successful");
+    NSAssert(success, @"Saving must be successful");
 }
 
 - (void)getYouTubeVideoForVideo:(YTVideo *)video completion:(void (^)(YTVideo *, NSError *))completion {
@@ -144,49 +147,108 @@
             YTVideoRepositoryImpl __weak *welf = self;
             [self getYouTubeVideoForVideo:video completion:^(YTVideo *video, NSError *error) {
                 if (error == nil) {
-                    [welf downloadVideo:video];
-                }
-                else {
-                    
+                    [welf downloadVideo:video started:^(YTVideo *video, NSError *error) {
+                        if (error == nil) {
+                            NSLog(@"Restarted download for video with identifier: %@", video.identifier);
+                        }
+                    }];
                 }
             }];
         }
     }
 }
 
-#pragma mark - <YTVideoRepositoryInterface>
-
-- (void)addVideoWithIdentifier:(NSString *)videoIdentifier completion:(void (^)(YTVideo *, NSError *))completion  {
-    NSAssert(videoIdentifier, @"Identifier must be non-nil");
-    
-    YTVideo *newRecord = [[YTVideo alloc] initWithIdentifier:videoIdentifier];
-    [self.collection addObject:newRecord];
-    [self saveCollection];
-    
-    [self getYouTubeVideoForVideo:newRecord completion:^(YTVideo *video, NSError *error) {
-        completion(video, error);
-    }];
+- (YTVideo *)videoWithIdentifier:(NSString*)identifier {
+    YTVideo *result;
+    for (YTVideo *video in self.collection) {
+        if ([video.identifier isEqualToString:identifier]) {
+            result = video;
+            break;
+        }
+    }
+    return result;
 }
 
-- (void)downloadVideo:(YTVideo *)video {
-    NSAssert(video, @"Video must be non-nil");
-    NSAssert(video.youTubeVideo, @"Video must have youTubeVideo property");
+#pragma mark - <YTVideoRepositoryInterface>
+
+- (void)prepareForDownloadVideoWithIdentifier:(NSString *)videoIdentifier completion:(void (^)(YTVideo *, NSError *))completion  {
+    NSAssert(videoIdentifier, @"Identifier must be non-nil");
+    
+    YTVideo *video = [self videoWithIdentifier:videoIdentifier];
+    
+    if (video == nil) {
+        video = [[YTVideo alloc] initWithIdentifier:videoIdentifier];
+    }
+    
+    if (video.youTubeVideo == nil) {
+        [self getYouTubeVideoForVideo:video completion:^(YTVideo *videoOnCompletion, NSError *error) {
+            completion(videoOnCompletion, error);
+        }];
+    }
+    else {
+        completion(video, nil);
+    }
+}
+
+- (void)downloadVideo:(YTVideo *)video started:(void (^)(YTVideo *, NSError *))started {
+    NSError *error;
+    
+    if (video == nil || video.youTubeVideo == nil) {
+        error = [NSError errorWithDomain:YTVideoRepositoryErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Not enough data to download video"}];
+        started(nil, error);
+        return;
+    }
+    
+    YTVideo *duplicateVideo = [self videoWithIdentifier:video.identifier];
+    if (duplicateVideo != nil) {
+        NSString *errorDescription;
+        if (duplicateVideo.isDownloaded) {
+            errorDescription = @"This video is already downloaded";
+        }
+        else {
+            errorDescription = @"This video is already downloading";
+        }
+        error = [NSError errorWithDomain:YTVideoRepositoryErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey:errorDescription}];
+        started(video, error);
+        return;
+    }
     
     NSNumber *qualityNumber = [self bestPossibleQualityForVideo:video];
-    NSAssert(qualityNumber, @"Quality number must be found");
+    if (qualityNumber == nil) {
+        error = [NSError errorWithDomain:YTVideoRepositoryErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Unable to pick quality"}];
+        started(nil, error);
+        return;
+    }
     
     NSString *qualityString = [self qualityStringForQuality:qualityNumber.unsignedIntegerValue];
-    NSAssert(qualityString, @"Quality string must be found");
+    if (qualityString == nil) {
+        error = [NSError errorWithDomain:YTVideoRepositoryErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Unable to convert qualty to string"}];
+        started(nil, error);
+        return;
+    }
     
     NSURL *streamURL = video.youTubeVideo.streamURLs[qualityNumber];
-    NSAssert(streamURL, @"There must be a stream URL");
+    if (streamURL == nil) {
+        error = [NSError errorWithDomain:YTVideoRepositoryErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Unable to find stream URL"}];
+        started(nil, error);
+        return;
+    }
     
     NSString *fileName = [self fileNameForVideo:video quality:qualityNumber.unsignedIntegerValue];
-    NSAssert(fileName, @"File name must be defined");
+    if (fileName == nil) {
+        error = [NSError errorWithDomain:YTVideoRepositoryErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Unable to resolve file name"}];
+        started(nil, error);
+        return;
+    }
     
     NSArray *paths = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
     NSURL *documentsURL = [paths lastObject];
     NSURL *fileURL = [documentsURL URLByAppendingPathComponent:fileName];
+    if (fileURL == nil) {
+        error = [NSError errorWithDomain:YTVideoRepositoryErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Unable to resolve file URL"}];
+        started(nil, error);
+        return;
+    }
     
     NSNumber *duration = @(video.youTubeVideo.duration);
     
@@ -197,6 +259,8 @@
     video.fileName = fileName;
     video.duration = duration;
     video.thumbnailURL = thumbnailURL;
+    video.downloadProgress = @(0.0);
+    [self.collection addObject:video];
     [self saveCollection];
     
     YTVideoRepositoryImpl __weak *welf = self;
@@ -219,6 +283,8 @@
     }];
     [self.downloadsInProgress setObject:@{@"task":downloadTask, @"video":video} forKey:@(downloadTask.taskIdentifier)];
     [downloadTask resume];
+    
+    started(video, nil);
 }
 
 - (void)stopDownloadForVideo:(YTVideo *)videoToStopDownload {

@@ -9,10 +9,14 @@
 #import <Foundation/Foundation.h>
 #import "YTVideo.h"
 
-@protocol YTVideoRepositoryInterface <NSObject>
-- (void)addVideoWithIdentifier:(NSString *)identifier completion:(void (^)(YTVideo *video, NSError *error))completion;
+FOUNDATION_EXPORT NSString *const YTVideoRepositoryErrorDomain;
 
-- (void)downloadVideo:(YTVideo *)video;
+FOUNDATION_EXPORT NSString *const YTVideoRepositoryEntityUpdateNotification;
+
+@protocol YTVideoRepositoryInterface <NSObject>
+- (void)prepareForDownloadVideoWithIdentifier:(NSString *)identifier completion:(void (^)(YTVideo *video, NSError *error))completion;
+
+- (void)downloadVideo:(YTVideo *)video started:(void (^)(YTVideo *video, NSError *error))started;
 
 - (void)stopDownloadForVideo:(YTVideo *)video;
 

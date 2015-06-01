@@ -187,7 +187,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BPB-TR-77t">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BPB-TR-77t" userLabel="WebViewController Container View">
                                 <rect key="frame" x="0.0" y="44" width="600" height="448"/>
                                 <subviews>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GPK-r2-XHY">
@@ -204,6 +204,10 @@
                                     <constraint firstAttribute="bottom" secondItem="GPK-r2-XHY" secondAttribute="bottom" id="OBl-BA-KB7"/>
                                     <constraint firstItem="GPK-r2-XHY" firstAttribute="top" secondItem="BPB-TR-77t" secondAttribute="top" id="zKV-cZ-VqL"/>
                                 </constraints>
+                            </view>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FN0-qv-oFW" userLabel="Notification Container View">
+                                <rect key="frame" x="0.0" y="44" width="600" height="448"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CYT-Hw-0FR" userLabel="topBarView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
@@ -227,20 +231,12 @@
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="amV-SH-Gzs" userLabel="progressBar" customClass="M13ProgressViewBar">
-                                        <rect key="frame" x="0.0" y="42" width="600" height="1"/>
-                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="ZTm-NN-vjX"/>
-                                        </constraints>
-                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="lzX-Db-pdF" secondAttribute="bottom" constant="4" id="2b4-Xb-vGq"/>
                                     <constraint firstItem="lzX-Db-pdF" firstAttribute="top" secondItem="GG3-Bb-W5q" secondAttribute="bottom" id="47K-hr-GYz"/>
                                     <constraint firstItem="uqS-rr-puz" firstAttribute="leading" secondItem="CYT-Hw-0FR" secondAttribute="leading" id="6YB-rS-eYo"/>
-                                    <constraint firstItem="uqS-rr-puz" firstAttribute="top" secondItem="amV-SH-Gzs" secondAttribute="bottom" id="76b-fs-3k9"/>
                                     <constraint firstAttribute="trailing" secondItem="uqS-rr-puz" secondAttribute="trailing" id="8Jr-sk-w8j"/>
                                     <constraint firstItem="GG3-Bb-W5q" firstAttribute="leading" secondItem="CYT-Hw-0FR" secondAttribute="leading" constant="35" id="IlZ-Ou-leA"/>
                                     <constraint firstItem="GG3-Bb-W5q" firstAttribute="top" secondItem="CYT-Hw-0FR" secondAttribute="top" constant="4" id="VVL-UC-Nxm"/>
@@ -249,8 +245,6 @@
                                     <constraint firstAttribute="height" constant="44" id="ecX-DL-AxK"/>
                                     <constraint firstItem="lzX-Db-pdF" firstAttribute="leading" secondItem="CYT-Hw-0FR" secondAttribute="leading" constant="35" id="jpe-xW-QcD"/>
                                     <constraint firstAttribute="trailing" secondItem="GG3-Bb-W5q" secondAttribute="trailing" constant="35" id="lsq-Ve-Dj6"/>
-                                    <constraint firstItem="amV-SH-Gzs" firstAttribute="leading" secondItem="CYT-Hw-0FR" secondAttribute="leading" id="tli-h9-9jI"/>
-                                    <constraint firstAttribute="trailing" secondItem="amV-SH-Gzs" secondAttribute="trailing" id="vCi-OM-A07"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zEn-So-beC" userLabel="toolbarView">
@@ -263,7 +257,7 @@
                                             <constraint firstAttribute="height" constant="1" id="jVr-VB-IbS"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZgT-PG-roz" userLabel="&lt;">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZgT-PG-roz" userLabel="&lt;">
                                         <rect key="frame" x="35" y="9" width="26" height="26"/>
                                         <state key="normal" image="arrow_left"/>
                                         <state key="disabled" image="arrow_left_noactive"/>
@@ -273,7 +267,7 @@
                                             <action selector="navigateBackAction:" destination="XIF-Il-m9a" eventType="touchUpInside" id="xIn-rD-4be"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="te9-Oj-Xum" userLabel="&gt;">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="te9-Oj-Xum" userLabel="&gt;">
                                         <rect key="frame" x="111" y="11" width="26" height="26"/>
                                         <state key="normal" image="arrow_right"/>
                                         <state key="disabled" image="arrow_right_noactive"/>
@@ -322,39 +316,47 @@
                                     <constraint firstAttribute="trailing" secondItem="BqF-Ky-jhI" secondAttribute="trailing" id="zS0-Fo-3qK"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="amV-SH-Gzs" userLabel="progressBar" customClass="M13ProgressViewBar">
+                                <rect key="frame" x="0.0" y="44" width="600" height="1"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="ZTm-NN-vjX"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="zEn-So-beC" secondAttribute="trailing" id="0Bl-Ql-gwj"/>
+                            <constraint firstAttribute="trailing" secondItem="amV-SH-Gzs" secondAttribute="trailing" id="4Ez-ZQ-QL8"/>
                             <constraint firstItem="zEn-So-beC" firstAttribute="leading" secondItem="uxp-Li-MpW" secondAttribute="leading" id="6TG-gb-2Fd"/>
                             <constraint firstAttribute="trailing" secondItem="BPB-TR-77t" secondAttribute="trailing" id="AmW-jg-ieL"/>
                             <constraint firstItem="BPB-TR-77t" firstAttribute="leading" secondItem="uxp-Li-MpW" secondAttribute="leading" id="Dft-6r-amD"/>
                             <constraint firstItem="CYT-Hw-0FR" firstAttribute="top" secondItem="mAm-Cc-4Gj" secondAttribute="bottom" id="ED8-0K-v2B"/>
+                            <constraint firstAttribute="trailing" secondItem="FN0-qv-oFW" secondAttribute="trailing" id="IT1-vk-Ig9"/>
+                            <constraint firstItem="zEn-So-beC" firstAttribute="top" secondItem="FN0-qv-oFW" secondAttribute="bottom" id="LDh-VK-Z6s"/>
                             <constraint firstAttribute="trailing" secondItem="CYT-Hw-0FR" secondAttribute="trailing" id="Lgx-D2-IzO"/>
+                            <constraint firstItem="FN0-qv-oFW" firstAttribute="top" secondItem="CYT-Hw-0FR" secondAttribute="bottom" id="T9C-MM-UTn"/>
                             <constraint firstItem="CYT-Hw-0FR" firstAttribute="leading" secondItem="uxp-Li-MpW" secondAttribute="leading" id="VIt-Rp-w0D"/>
                             <constraint firstItem="zEn-So-beC" firstAttribute="top" secondItem="BPB-TR-77t" secondAttribute="bottom" id="Vfo-lE-cpN"/>
-                            <constraint firstItem="8kT-Z5-U4A" firstAttribute="top" secondItem="BPB-TR-77t" secondAttribute="bottom" id="apC-h7-PE2"/>
-                            <constraint firstItem="BPB-TR-77t" firstAttribute="top" secondItem="mAm-Cc-4Gj" secondAttribute="bottom" id="dzK-Xg-fgf"/>
+                            <constraint firstItem="amV-SH-Gzs" firstAttribute="top" secondItem="CYT-Hw-0FR" secondAttribute="bottom" id="W2h-qS-65m"/>
+                            <constraint firstItem="amV-SH-Gzs" firstAttribute="leading" secondItem="uxp-Li-MpW" secondAttribute="leading" id="nOH-CN-eG9"/>
                             <constraint firstItem="8kT-Z5-U4A" firstAttribute="top" secondItem="zEn-So-beC" secondAttribute="bottom" id="qde-8h-Jka"/>
+                            <constraint firstItem="FN0-qv-oFW" firstAttribute="leading" secondItem="uxp-Li-MpW" secondAttribute="leading" id="vRw-hj-HFI"/>
                             <constraint firstItem="BPB-TR-77t" firstAttribute="top" secondItem="CYT-Hw-0FR" secondAttribute="bottom" id="vyF-bt-1fy"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="dzK-Xg-fgf"/>
-                                <exclude reference="apC-h7-PE2"/>
-                            </mask>
-                        </variation>
                     </view>
                     <toolbarItems/>
                     <connections>
                         <outlet property="downloadButton" destination="80P-pB-F80" id="6ue-0S-Iqe"/>
                         <outlet property="navigateBackButton" destination="ZgT-PG-roz" id="EeU-mR-HDp"/>
                         <outlet property="navigateForwardButton" destination="te9-Oj-Xum" id="5u4-xF-BTO"/>
+                        <outlet property="notificationContainerView" destination="FN0-qv-oFW" id="ggk-QX-8zp"/>
                         <outlet property="progressBar" destination="amV-SH-Gzs" id="fGg-uo-eq4"/>
                         <outlet property="refreshPageButton" destination="wOL-6S-d19" id="Z0E-18-zQC"/>
                         <outlet property="subtitleLabel" destination="lzX-Db-pdF" id="3vK-b6-CPn"/>
                         <outlet property="titleLabel" destination="GG3-Bb-W5q" id="4wb-Mh-Rc7"/>
                         <outlet property="toolbarView" destination="zEn-So-beC" id="SuZ-2n-6uU"/>
+                        <outlet property="topBarVerticalOffsetConstraint" destination="ED8-0K-v2B" id="wtQ-XN-vKl"/>
                         <outlet property="topBarView" destination="CYT-Hw-0FR" id="bnl-IG-ZgU"/>
                     </connections>
                 </viewController>

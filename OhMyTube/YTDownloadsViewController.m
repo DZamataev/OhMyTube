@@ -140,13 +140,19 @@ objection_requires_sel(@selector(videoRepository))
     cell.durationLabel.text = [self.dateComponentsFormatter stringFromTimeInterval:item.duration.doubleValue];
     cell.qualityLabel.text = item.qualityString;
     [cell.thumbnailImageView sd_setImageWithURL:item.thumbnailURL];
-    
+    if (item.downloadProgress.doubleValue < 1.0) {
+        [cell.progressBar setProgress:item.downloadProgress.doubleValue animated:NO];
+    }
+    else {
+        cell.progressBar.alpha = 0.0f;
+    }
+
     [cell.KVOController observe:item keyPath:@"downloadProgress"
-                        options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew
+                        options:NSKeyValueObservingOptionNew
                           block:^(YTDownloadsTableViewCell *cell, YTVideo *item, NSDictionary *change) {
                               NSNumber *downloadProgress = change[NSKeyValueChangeNewKey];
                               if (downloadProgress != nil && [downloadProgress respondsToSelector:@selector(floatValue)]) {
-                                  if (downloadProgress.floatValue < 1.0f) {
+                                  if (downloadProgress.doubleValue < 1.0) {
                                       [cell.progressBar setProgress:downloadProgress.floatValue animated:YES];
                                   }
                                   else {

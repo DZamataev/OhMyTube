@@ -24,9 +24,14 @@
 @property (weak, nonatomic) IBOutlet UIButton *downloadButton;
 
 @property (weak, nonatomic) IBOutlet UIView *topBarView;
-@property (weak, nonatomic) IBOutlet M13ProgressViewBar *progressBar;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *subtitleLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topBarVerticalOffsetConstraint;
+@property (assign, nonatomic) BOOL isTopBarDismissed;
+
+@property (weak, nonatomic) IBOutlet M13ProgressViewBar *progressBar;
+
+@property (weak, nonatomic) IBOutlet UIView *notificationContainerView;
 
 @property (strong, nonatomic) id <YTVideoRepositoryInterface> videoRepository;
 @property (strong, nonatomic) YTSettingsManager *settingsManager;
@@ -67,6 +72,8 @@ objection_requires_sel(@selector(videoRepository), @selector(settingsManager))
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.downloadButton.enabled = false;
+    self.titleLabel.text = NSLocalizedString(@"Loading YouTube...", nil);
+    self.subtitleLabel.text = nil;
     [self.progressBar setPrimaryColor:self.progressBar.tintColor];
     [self.progressBar setShowPercentage:NO];
     [self.webViewController loadURL:[NSURL URLWithString:@"http://youtube.com/"]];
@@ -101,14 +108,16 @@ objection_requires_sel(@selector(videoRepository), @selector(settingsManager))
 
 #pragma mark - Actions
 
-- (void)fireMinimalNotification:(NSString*)title subtitle:(NSString*)subtitle {
-    JFMinimalNotification *note = [JFMinimalNotification notificationWithStyle:JFMinimalNotificationStyleInfo
+- (void)fireMinimalNotification:(NSString*)title subtitle:(NSString*)subtitle style:(JFMinimalNotificationStytle)style {
+    JFMinimalNotification *note = [JFMinimalNotification notificationWithStyle:style
                                                                          title:title
                                                                       subTitle:subtitle
-                                                                dismissalDelay:0.3];
-    if (self.view) {
-        [self.view addSubview:note];
-        [note show];
+                                                                dismissalDelay:1.0];
+    if (self.notificationContainerView) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.notificationContainerView addSubview:note];
+            [note show];
+        });
     }
 }
 
@@ -128,7 +137,14 @@ objection_requires_sel(@selector(videoRepository), @selector(settingsManager))
 
 - (IBAction)downloadAction:(id)sender {
     if (self.videoToDownload) {
-        [self.videoRepository downloadVideo:self.videoToDownload];
+        [self.videoRepository downloadVideo:self.videoToDownload started:^(YTVideo *video, NSError *error) {
+            if (error == nil) {
+                [self fireMinimalNotification:NSLocalizedString(@"Video download started", nil) subtitle:nil style:JFMinimalNotificationStyleSuccess];
+            }
+            else {
+                [self fireMinimalNotification:NSLocalizedString(@"Error", bil) subtitle:error.localizedDescription style:JFMinimalNotificationStyleError];
+            }
+        }];
     }
 }
 
@@ -142,7 +158,7 @@ objection_requires_sel(@selector(videoRepository), @selector(settingsManager))
         NSString *identifier = parameters[@"v"];
         if (identifier && identifier.length > 0) {
             YTBrowserViewController __weak *welf = self;
-            [self.videoRepository addVideoWithIdentifier:identifier completion:^(YTVideo *video, NSError *error) {
+            [self.videoRepository prepareForDownloadVideoWithIdentifier:identifier completion:^(YTVideo *video, NSError *error) {
                 if (error == nil) {
                     welf.videoToDownload = video;
                 }
@@ -156,6 +172,16 @@ objection_requires_sel(@selector(videoRepository), @selector(settingsManager))
 
 - (void)resetVideoToDownload {
     self.videoToDownload = nil;
+}
+
+- (void)dismissTopBarIfNeeded {
+    if (!self.isTopBarDismissed) {
+        self.isTopBarDismissed = YES;
+        self.topBarVerticalOffsetConstraint.constant = - CGRectGetHeight(self.topBarView.bounds);
+        [UIView animateWithDuration:0.3f animations:^{
+            [self.topBarView layoutIfNeeded];
+        }];
+    }
 }
 
 #pragma mark - Helpers
@@ -180,7 +206,7 @@ objection_requires_sel(@selector(videoRepository), @selector(settingsManager))
 #pragma mark - <YTWebViewControllerDelegate>
 
 - (void)webViewController:(YTWebViewController *)webViewController fireNotification:(NSString *)title subtitle:(NSString *)subtitle {
-    [self fireMinimalNotification:title subtitle:subtitle];
+    [self fireMinimalNotification:title subtitle:subtitle style:JFMinimalNotificationStyleInfo];
 }
 
 - (void)webViewController:(YTWebViewController *)webViewController didUpdateURL:(NSURL *)URL {
@@ -208,10 +234,10 @@ objection_requires_sel(@selector(videoRepository), @selector(settingsManager))
 
 - (void)webViewController:(YTWebViewController *)webViewController didUpdateEstimatedProgress:(double)estimatedProgress {
     [self.progressBar setProgress:estimatedProgress animated:YES];
-    if (estimatedProgress == 1.0f) {
+    if (estimatedProgress == 1.0) {
+        [self dismissTopBarIfNeeded];
         YTBrowserViewController __weak *welf = self;
         [UIView animateWithDuration:0.2f animations:^{
-            
         } completion:^(BOOL finished) {
             [UIView animateWithDuration:0.1f animations:^{
                 welf.progressBar.alpha = 0.0f;
@@ -224,6 +250,8 @@ objection_requires_sel(@selector(videoRepository), @selector(settingsManager))
             welf.progressBar.alpha = 1.0f;
         }];
     }
+    
+    
 }
 
 - (BOOL)webViewController:(YTWebViewController *)webViewController shouldStopLoadingAndGoBackOnStateUpdateWithString:(NSString *)stateUpdate {
