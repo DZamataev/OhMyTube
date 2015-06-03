@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <DZVideoPlayerViewController.h>
 
+#import "YTVideoViewControllerDelegate.h"
+
 #import "YTVideoRepositoryInterface.h"
 
 @interface YTVideoViewController : UIViewController
+@property (nonatomic, weak) id <YTVideoViewControllerDelegate> delegate;
 @property (nonatomic, strong) YTVideo *video;
 @end

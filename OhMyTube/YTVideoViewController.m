@@ -8,6 +8,8 @@
 
 #import "YTVideoViewController.h"
 
+NSString *const kYTVideoViewControllerPlayNextEnabledUserDefaultsKey = @"PlayNextEnabled";
+
 @interface YTVideoViewController () <DZVideoPlayerViewControllerDelegate>
 @property (strong, nonatomic) DZVideoPlayerViewController *videoPlayerViewController;
 
@@ -16,6 +18,17 @@
 @property (weak, nonatomic) IBOutlet UIView *topToolbarView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topToolbarViewVerticalOffsetConstraint;
 
+@property (weak, nonatomic) IBOutlet UILabel *playNextLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *playNextSwitch;
+
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+
+@property (assign, nonatomic) BOOL isPlayNextEnabled;
+
+@property (strong, nonatomic) UIColor *initialBackgroundColor;
+
+- (IBAction)showNextSwitchAction:(UISwitch *)sender;
+- (IBAction)openInBrowserAction:(UIButton *)sender;
 @end
 
 @implementation YTVideoViewController
@@ -23,12 +36,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.initialBackgroundColor = self.view.backgroundColor;
+    
+    self.isPlayNextEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:kYTVideoViewControllerPlayNextEnabledUserDefaultsKey];
+    [self.playNextSwitch setOn:self.isPlayNextEnabled animated:NO];
+    
     NSAssert(self.video != nil, @"Video must be set beforehand");
     
     self.videoPlayerViewController = self.videoContainerView.videoPlayerViewController;
-    self.videoPlayerViewController.videoURL = self.video.fileURL;
+    self.videoPlayerViewController.delegate = self;
     self.videoPlayerViewController.isBackgroundPlaybackEnabled = YES;
-    [self.videoPlayerViewController prepareAndPlayAutomatically:YES];
+    self.videoPlayerViewController.shouldShowFullscreenExpandAndShrinkButtons = NO;
+    
+    [self playVideo];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -43,20 +63,69 @@
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    
-    if (size.width > size.height) {
-        // landscape-like size
-        self.topToolbarViewVerticalOffsetConstraint.constant = - CGRectGetHeight(self.topToolbarView.bounds);
+}
+
+#pragma mark - Actions
+
+- (void)playVideo {
+    self.titleLabel.text = self.video.title;
+    self.videoPlayerViewController.videoURL = self.video.fileURL;
+    [self.videoPlayerViewController prepareAndPlayAutomatically:YES];
+}
+
+- (void)playNextVideo {
+    YTVideo *nextVideo = (YTVideo*)[self.delegate videoViewControllerNeedsNextVideoToPlay:self];
+    if (nextVideo) {
+        self.video = nextVideo;
+        [self playVideo];
+    }
+}
+
+- (void)showTopToolbar:(BOOL)animated completion:(void (^)(BOOL finished))completion {
+    self.topToolbarViewVerticalOffsetConstraint.constant = 0;
+    if (animated) {
+        [UIView animateWithDuration:0.3f animations:^{
+            [self.topToolbarView layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            if (completion) {
+                completion(finished);
+            }
+        }];
     }
     else {
-        // portrait-like size
-        self.topToolbarViewVerticalOffsetConstraint.constant = 0;
+        [self.topToolbarView layoutIfNeeded];
+        if (completion) {
+            completion(YES);
+        }
+    }
+}
+
+- (void)hideTopToolbar:(BOOL)animated completion:(void (^)(BOOL finished))completion {
+    self.topToolbarViewVerticalOffsetConstraint.constant = - CGRectGetHeight(self.topToolbarView.bounds);
+    if (animated) {
+        [UIView animateWithDuration:0.3f animations:^{
+            [self.topToolbarView layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            if (completion) {
+                completion(finished);
+            }
+        }];
+    }
+    else {
+        [self.topToolbarView layoutIfNeeded];
+        if (completion) {
+            completion(YES);
+        }
     }
     
-    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-        [self.topToolbarView layoutIfNeeded];
-    } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-    }];
+}
+
+- (IBAction)showNextSwitchAction:(UISwitch *)sender {
+    self.isPlayNextEnabled = sender.isOn;
+    [[NSUserDefaults standardUserDefaults] setBool:self.isPlayNextEnabled forKey:kYTVideoViewControllerPlayNextEnabledUserDefaultsKey];
+}
+
+- (IBAction)openInBrowserAction:(UIButton *)sender {
     
 }
 
@@ -86,15 +155,17 @@
 
 - (void)playerDidToggleFullscreen {
     if (self.videoPlayerViewController.isFullscreen) {
-        // TODO: implement expand videoPlayerViewController to fullscreen
+        // expand videoPlayerViewController to fullscreen
+        
     }
     else {
-        // TODO: implement shrink videoPlayerViewController from fullscreen
+        // shrink videoPlayerViewController from fullscreen
+
     }
 }
 
 - (void)playerDidPlayToEndTime {
-    
+    [self playNextVideo];
 }
 
 - (void)playerFailedToPlayToEndTime {
@@ -103,6 +174,10 @@
 
 - (void)playerPlaybackStalled {
     
+}
+
+- (void)playerDoneButtonTouched {
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)playerGatherNowPlayingInfo:(NSMutableDictionary *)nowPlayingInfo {

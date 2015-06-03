@@ -1,8 +1,8 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
 target 'OhMyTube', :exclusive => true do
-  pod "DZVideoPlayerViewController"
-    
+  pod "DZVideoPlayerViewController", :git => "https://github.com/DZamataev/DZVideoPlayerViewController.git", :branch => "master"
+  
   pod "Objection"
   pod "UICKeyChainStore"
   pod "JFMinimalNotifications"

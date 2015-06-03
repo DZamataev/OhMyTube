@@ -11,11 +11,12 @@
 
 #import "YTDownloadsTableViewCell.h"
 
+#import "YTVideoViewControllerDelegate.h"
 #import "YTVideoViewController.h"
 
 #import "YTVideoRepositoryInterface.h"
 
-@interface YTDownloadsViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface YTDownloadsViewController () <UITableViewDataSource, UITableViewDelegate, YTVideoViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (strong, nonatomic) NSMutableArray *sections;
@@ -120,6 +121,7 @@ objection_requires_sel(@selector(videoRepository))
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"Present_VideoViewController"]) {
         self.videoViewController = segue.destinationViewController;
+        self.videoViewController.delegate = self;
         self.videoViewController.video = self.selectedItem;
     }
 }
@@ -219,6 +221,37 @@ objection_requires_sel(@selector(videoRepository))
         [self removeItemAtIndexPath:indexPath];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
     }
+}
+
+#pragma mark - <YTVideoViewControllerDelegate>
+
+- (id)videoViewControllerNeedsNextVideoToPlay:(YTVideoViewController *)videoViewController {
+    YTVideo *nextItem;
+    
+    YTVideo *currentItem = videoViewController.video;
+    
+    YTTableSection *section = self.sections.firstObject;
+    
+    NSInteger index = [section.items indexOfObject:currentItem];
+    
+    if (index != NSNotFound) {
+        while (true) {
+            index++;
+            if (section.items.count > index) {
+                YTVideo *video = section.items[index];
+                if (video.isDownloaded) {
+                    nextItem = video;
+                    break;
+                }
+            }
+            else {
+                // no more items
+                break;
+            }
+        }
+    }
+    
+    return nextItem;
 }
 
 @end

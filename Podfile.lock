@@ -20,7 +20,7 @@ PODS:
   - AFNetworking/UIKit (2.5.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - DZVideoPlayerViewController (0.1.5)
+  - DZVideoPlayerViewController (0.2.0)
   - Expecta (1.0.0)
   - JFMinimalNotifications (0.0.4)
   - KVOController (1.0.3)
@@ -35,7 +35,8 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
-  - DZVideoPlayerViewController
+  - DZVideoPlayerViewController (from `https://github.com/DZamataev/DZVideoPlayerViewController.git`,
+    branch `master`)
   - Expecta
   - JFMinimalNotifications
   - KVOController
@@ -46,9 +47,19 @@ DEPENDENCIES:
   - UICKeyChainStore
   - XCDYouTubeKit
 
+EXTERNAL SOURCES:
+  DZVideoPlayerViewController:
+    :branch: master
+    :git: https://github.com/DZamataev/DZVideoPlayerViewController.git
+
+CHECKOUT OPTIONS:
+  DZVideoPlayerViewController:
+    :commit: ab566974256f40d7a95b135d95e4794f5f978ca4
+    :git: https://github.com/DZamataev/DZVideoPlayerViewController.git
+
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
-  DZVideoPlayerViewController: 20c12c9e232ba4fdb41ee68c068cf34c6aded8e1
+  DZVideoPlayerViewController: b70535850e709ceb1766ec0268920939b65bc207
   Expecta: 32604574add2c46a36f8d2f716b6c5736eb75024
   JFMinimalNotifications: 2ab80fde6b8588a338be68d61763cc2085f8c938
   KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
