@@ -144,7 +144,7 @@ objection_requires_sel(@selector(videoRepository), @selector(settingsManager))
                 welf.downloadButton.enabled = NO;
             }
             else {
-                [self fireMinimalNotification:NSLocalizedString(@"Error", bil) subtitle:error.localizedDescription style:JFMinimalNotificationStyleError];
+                [self fireMinimalNotification:NSLocalizedString(@"Error", nil) subtitle:error.localizedDescription style:JFMinimalNotificationStyleError];
             }
         }];
     }
@@ -165,9 +165,17 @@ objection_requires_sel(@selector(videoRepository), @selector(settingsManager))
                     welf.videoToDownload = video;
                 }
                 else {
-                    
+                    [welf fireMinimalNotification:NSLocalizedString(@"Error", nil) subtitle:error.localizedDescription style:JFMinimalNotificationStyleError];
                 }
             }];
+            
+            BOOL isNativeVideoPlayerEnabled = self.settingsManager.isNativeVideoPlayerEnabled;
+            if (isNativeVideoPlayerEnabled) {
+                *allow = NO;
+                XCDYouTubeVideoPlayerViewController *videoPlayerViewController = [[XCDYouTubeVideoPlayerViewController alloc]
+                                                                                  initWithVideoIdentifier:identifier];
+                [welf presentMoviePlayerViewControllerAnimated:videoPlayerViewController];
+            }
         }
     }
 }
