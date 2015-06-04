@@ -30,7 +30,7 @@ PODS:
     - SDWebImage/Core (= 3.7.2)
   - SDWebImage/Core (3.7.2)
   - Specta (1.0.1)
-  - UICKeyChainStore (2.0.4)
+  - UICKeyChainStore (2.0.5)
   - XCDYouTubeKit (2.1.3)
 
 DEPENDENCIES:
@@ -54,7 +54,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   DZVideoPlayerViewController:
-    :commit: ab566974256f40d7a95b135d95e4794f5f978ca4
+    :commit: 8c1c7aa1941f142cd2a8f7c307a321d10dbfe390
     :git: https://github.com/DZamataev/DZVideoPlayerViewController.git
 
 SPEC CHECKSUMS:
@@ -67,7 +67,7 @@ SPEC CHECKSUMS:
   Objection: c016a7d5a2bd9d581f2ce5d40e5ecd83acea7cf9
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
   Specta: 097be314a75de103703a3bf9a529dc1a398509d7
-  UICKeyChainStore: 69eb0c3a6f669bccf16ba88de3b9069b71501361
+  UICKeyChainStore: a389515ca090d4d49780fd563fec961571caa92b
   XCDYouTubeKit: ca3120218413fdd141567ca98b5418df309b1ced
 
 COCOAPODS: 0.37.2

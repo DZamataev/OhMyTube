@@ -9,8 +9,13 @@
 #import "YTWebViewController.h"
 #import "YTWKScriptMessageHandlerTrampoline.h"
 
+//#define DEBUG_YTWebViewController
 #ifdef DEBUG
-#   define DLog(fmt, ...) NSLog((@"%s [Line %d] [URL %@]=>\n        " fmt), __PRETTY_FUNCTION__, __LINE__, self.webView.URL.absoluteString, ##__VA_ARGS__);
+#   ifdef DEBUG_YTWebViewController
+#     define DLog(fmt, ...) NSLog((@"%s [Line %d] [URL %@]=>\n        " fmt), __PRETTY_FUNCTION__, __LINE__, self.webView.URL.absoluteString, ##__VA_ARGS__);
+#   else
+#     define DLog(...)
+#   endif
 #else
 #   define DLog(...)
 #endif

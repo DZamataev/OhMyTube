@@ -46,7 +46,7 @@ NSString *const kYTVideoViewControllerPlayNextEnabledUserDefaultsKey = @"PlayNex
     self.videoPlayerViewController = self.videoContainerView.videoPlayerViewController;
     self.videoPlayerViewController.delegate = self;
     self.videoPlayerViewController.isBackgroundPlaybackEnabled = YES;
-    self.videoPlayerViewController.shouldShowFullscreenExpandAndShrinkButtons = NO;
+    self.videoPlayerViewController.isShowFullscreenExpandAndShrinkButtonsEnabled = NO;
     
     [self playVideo];
 }
@@ -79,45 +79,6 @@ NSString *const kYTVideoViewControllerPlayNextEnabledUserDefaultsKey = @"PlayNex
         self.video = nextVideo;
         [self playVideo];
     }
-}
-
-- (void)showTopToolbar:(BOOL)animated completion:(void (^)(BOOL finished))completion {
-    self.topToolbarViewVerticalOffsetConstraint.constant = 0;
-    if (animated) {
-        [UIView animateWithDuration:0.3f animations:^{
-            [self.topToolbarView layoutIfNeeded];
-        } completion:^(BOOL finished) {
-            if (completion) {
-                completion(finished);
-            }
-        }];
-    }
-    else {
-        [self.topToolbarView layoutIfNeeded];
-        if (completion) {
-            completion(YES);
-        }
-    }
-}
-
-- (void)hideTopToolbar:(BOOL)animated completion:(void (^)(BOOL finished))completion {
-    self.topToolbarViewVerticalOffsetConstraint.constant = - CGRectGetHeight(self.topToolbarView.bounds);
-    if (animated) {
-        [UIView animateWithDuration:0.3f animations:^{
-            [self.topToolbarView layoutIfNeeded];
-        } completion:^(BOOL finished) {
-            if (completion) {
-                completion(finished);
-            }
-        }];
-    }
-    else {
-        [self.topToolbarView layoutIfNeeded];
-        if (completion) {
-            completion(YES);
-        }
-    }
-    
 }
 
 - (IBAction)showNextSwitchAction:(UISwitch *)sender {
