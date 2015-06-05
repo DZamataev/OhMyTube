@@ -24,6 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self subscribeForNotifications];
     [self.browserButton addTarget:self action:@selector(showBrowser:) forControlEvents:UIControlEventTouchUpInside];
     [self.downloadsButton addTarget:self action:@selector(showDownloads:) forControlEvents:UIControlEventTouchUpInside];
     [self showBrowser:nil];
@@ -47,5 +48,20 @@
     if ([segue.identifier isEqualToString:@"Embed_DownloadsViewController"]) {
         self.downloadsViewController = segue.destinationViewController;
     }
+}
+
+- (void)dealloc {
+    [self unsubscribeFromNotifications];
+}
+
+- (void)subscribeForNotifications {
+    YTRootViewController __weak *welf = self;
+    [[NSNotificationCenter defaultCenter] addObserverForName:YTNotificaionsOpenInBrowser object:nil queue:nil usingBlock:^(NSNotification *note) {
+        [welf showBrowser:note];
+    }];
+}
+
+- (void)unsubscribeFromNotifications {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:YTNotificaionsOpenInBrowser object:nil];
 }
 @end

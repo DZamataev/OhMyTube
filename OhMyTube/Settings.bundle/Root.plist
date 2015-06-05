@@ -5,6 +5,36 @@
 	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>View</string>
+		</dict>
+		<dict>
+			<key>Titles</key>
+			<array>
+				<string>Blue</string>
+				<string>Cyan</string>
+				<string>Red</string>
+				<string>Orange</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<string>Blue</string>
+				<string>Cyan</string>
+				<string>Red</string>
+				<string>Orange</string>
+			</array>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Color theme</string>
+			<key>Key</key>
+			<string>color_theme</string>
+			<key>DefaultValue</key>
+			<string>Blue</string>
+		</dict>
+		<dict>
 			<key>Title</key>
 			<string>Playback</string>
 			<key>Type</key>

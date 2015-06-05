@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "YTNotifications.h"
+
 @interface YTRootViewController : UIViewController
 
 

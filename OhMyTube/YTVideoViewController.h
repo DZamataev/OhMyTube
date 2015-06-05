@@ -13,6 +13,8 @@
 
 #import "YTVideoRepositoryInterface.h"
 
+#import "YTNotifications.h"
+
 @interface YTVideoViewController : UIViewController
 @property (nonatomic, weak) id <YTVideoViewControllerDelegate> delegate;
 @property (nonatomic, strong) YTVideo *video;

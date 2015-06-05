@@ -9,21 +9,19 @@
 /* Begin PBXBuildFile section */
 		703AB10BA81A1D3B0A82D83F /* libPods-OhMyTubeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 64F5B8CA923FBD236F9E8A8F /* libPods-OhMyTubeTests.a */; };
 		8F45CE1BCAE74DE5224876B1 /* libPods-OhMyTube.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B24B8D9CF43D234FB48D900D /* libPods-OhMyTube.a */; };
-		9242E1C51B14E17300F891F2 /* ActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9242E1C41B14E17300F891F2 /* ActionViewController.m */; };
-		9242E1C71B14E17300F891F2 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9242E1C61B14E17300F891F2 /* MainInterface.storyboard */; };
-		9242E1CA1B14E17300F891F2 /* OpenInExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9242E1BF1B14E17300F891F2 /* OpenInExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9242E1D11B14E4D000F891F2 /* YTAppModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 9242E1D01B14E4D000F891F2 /* YTAppModule.m */; };
 		9242E1D31B15CE7500F891F2 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9242E1D21B15CE7500F891F2 /* Settings.bundle */; };
 		9242E1D61B15E1C000F891F2 /* YTSettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9242E1D51B15E1C000F891F2 /* YTSettingsManager.m */; };
 		9242E1D91B15F8F700F891F2 /* YTTableSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9242E1D81B15F8F700F891F2 /* YTTableSection.m */; };
 		9242E1DF1B16087B00F891F2 /* YTDownloadsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9242E1DE1B16087B00F891F2 /* YTDownloadsTableViewCell.m */; };
+		9249F09E1B21AAA20092EEFA /* YTNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 9249F09D1B21AAA20092EEFA /* YTNotifications.m */; };
+		9249F0A01B21ECBE0092EEFA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9249F09F1B21ECBE0092EEFA /* Images.xcassets */; };
 		924C30D61B14DDB7008802BC /* YTVideoRepositoryImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 924C30D51B14DDB7008802BC /* YTVideoRepositoryImpl.m */; };
 		924C30DE1B14DE9A008802BC /* YTVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 924C30DD1B14DE9A008802BC /* YTVideo.m */; };
 		92738A0A1B146C9E005E75DF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 92738A091B146C9E005E75DF /* main.m */; };
 		92738A0D1B146C9E005E75DF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 92738A0C1B146C9E005E75DF /* AppDelegate.m */; };
 		92738A101B146C9E005E75DF /* YTRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92738A0F1B146C9E005E75DF /* YTRootViewController.m */; };
 		92738A131B146C9E005E75DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92738A111B146C9E005E75DF /* Main.storyboard */; };
-		92738A151B146C9E005E75DF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92738A141B146C9E005E75DF /* Images.xcassets */; };
 		92738A181B146C9E005E75DF /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92738A161B146C9E005E75DF /* LaunchScreen.xib */; };
 		92738A241B146C9E005E75DF /* OhMyTubeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 92738A231B146C9E005E75DF /* OhMyTubeTests.m */; };
 		92738A321B14756A005E75DF /* YTWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92738A2E1B14756A005E75DF /* YTWebViewController.m */; };
@@ -35,13 +33,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		9242E1C81B14E17300F891F2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 927389FC1B146C9E005E75DF /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9242E1BE1B14E17300F891F2;
-			remoteInfo = OpenInExtension;
-		};
 		92738A1E1B146C9E005E75DF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 927389FC1B146C9E005E75DF /* Project object */;
@@ -58,7 +49,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				9242E1CA1B14E17300F891F2 /* OpenInExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -69,7 +59,6 @@
 		46801ECDAFAB7FF40D3C4CB0 /* Pods-OhMyTube.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OhMyTube.release.xcconfig"; path = "Pods/Target Support Files/Pods-OhMyTube/Pods-OhMyTube.release.xcconfig"; sourceTree = "<group>"; };
 		64F5B8CA923FBD236F9E8A8F /* libPods-OhMyTubeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OhMyTubeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6512C7DBACC56925184BE7EA /* Pods-OhMyTube.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OhMyTube.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OhMyTube/Pods-OhMyTube.debug.xcconfig"; sourceTree = "<group>"; };
-		9242E1BF1B14E17300F891F2 /* OpenInExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OpenInExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		9242E1C21B14E17300F891F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9242E1C31B14E17300F891F2 /* ActionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActionViewController.h; sourceTree = "<group>"; };
 		9242E1C41B14E17300F891F2 /* ActionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActionViewController.m; sourceTree = "<group>"; };
@@ -83,6 +72,9 @@
 		9242E1D81B15F8F700F891F2 /* YTTableSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTTableSection.m; sourceTree = "<group>"; };
 		9242E1DD1B16087B00F891F2 /* YTDownloadsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTDownloadsTableViewCell.h; sourceTree = "<group>"; };
 		9242E1DE1B16087B00F891F2 /* YTDownloadsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTDownloadsTableViewCell.m; sourceTree = "<group>"; };
+		9249F09C1B21AA860092EEFA /* YTNotifications.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YTNotifications.h; sourceTree = "<group>"; };
+		9249F09D1B21AAA20092EEFA /* YTNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTNotifications.m; sourceTree = "<group>"; };
+		9249F09F1B21ECBE0092EEFA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		924C30D41B14DDB7008802BC /* YTVideoRepositoryImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTVideoRepositoryImpl.h; sourceTree = "<group>"; };
 		924C30D51B14DDB7008802BC /* YTVideoRepositoryImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTVideoRepositoryImpl.m; sourceTree = "<group>"; };
 		924C30DB1B14DE07008802BC /* YTVideoRepositoryInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTVideoRepositoryInterface.h; sourceTree = "<group>"; };
@@ -96,7 +88,6 @@
 		92738A0E1B146C9E005E75DF /* YTRootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YTRootViewController.h; sourceTree = "<group>"; };
 		92738A0F1B146C9E005E75DF /* YTRootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YTRootViewController.m; sourceTree = "<group>"; };
 		92738A121B146C9E005E75DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		92738A141B146C9E005E75DF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		92738A171B146C9E005E75DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		92738A1D1B146C9E005E75DF /* OhMyTubeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OhMyTubeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		92738A221B146C9E005E75DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -120,13 +111,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		9242E1BC1B14E17300F891F2 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		92738A011B146C9E005E75DF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -205,7 +189,6 @@
 			children = (
 				92738A041B146C9E005E75DF /* OhMyTube.app */,
 				92738A1D1B146C9E005E75DF /* OhMyTubeTests.xctest */,
-				9242E1BF1B14E17300F891F2 /* OpenInExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -213,8 +196,8 @@
 		92738A061B146C9E005E75DF /* OhMyTube */ = {
 			isa = PBXGroup;
 			children = (
+				9249F09F1B21ECBE0092EEFA /* Images.xcassets */,
 				92738A111B146C9E005E75DF /* Main.storyboard */,
-				92738A141B146C9E005E75DF /* Images.xcassets */,
 				92738A161B146C9E005E75DF /* LaunchScreen.xib */,
 				92738A0B1B146C9E005E75DF /* AppDelegate.h */,
 				92738A0C1B146C9E005E75DF /* AppDelegate.m */,
@@ -224,10 +207,12 @@
 				92738A0F1B146C9E005E75DF /* YTRootViewController.m */,
 				9242E1D41B15E1C000F891F2 /* YTSettingsManager.h */,
 				9242E1D51B15E1C000F891F2 /* YTSettingsManager.m */,
+				9249F09C1B21AA860092EEFA /* YTNotifications.h */,
+				9249F09D1B21AAA20092EEFA /* YTNotifications.m */,
 				924C30DA1B14DDE3008802BC /* Video Repository */,
-				92738A341B147639005E75DF /* Browser */,
-				92738A381B14767B005E75DF /* Downloads */,
-				92FD2CF91B1C9BA800B7836B /* Video */,
+				92738A341B147639005E75DF /* Browser Scene */,
+				92738A381B14767B005E75DF /* Downloads Scene */,
+				92FD2CF91B1C9BA800B7836B /* Video Scene */,
 				92738A071B146C9E005E75DF /* Supporting Files */,
 				9242E1D21B15CE7500F891F2 /* Settings.bundle */,
 			);
@@ -260,7 +245,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		92738A341B147639005E75DF /* Browser */ = {
+		92738A341B147639005E75DF /* Browser Scene */ = {
 			isa = PBXGroup;
 			children = (
 				92738A441B14B61C005E75DF /* __yt_history.js */,
@@ -272,10 +257,10 @@
 				92738A2F1B14756A005E75DF /* YTWKScriptMessageHandlerTrampoline.h */,
 				92738A301B14756A005E75DF /* YTWKScriptMessageHandlerTrampoline.m */,
 			);
-			name = Browser;
+			name = "Browser Scene";
 			sourceTree = "<group>";
 		};
-		92738A381B14767B005E75DF /* Downloads */ = {
+		92738A381B14767B005E75DF /* Downloads Scene */ = {
 			isa = PBXGroup;
 			children = (
 				92738A391B147692005E75DF /* YTDownloadsViewController.h */,
@@ -285,17 +270,17 @@
 				9242E1DD1B16087B00F891F2 /* YTDownloadsTableViewCell.h */,
 				9242E1DE1B16087B00F891F2 /* YTDownloadsTableViewCell.m */,
 			);
-			name = Downloads;
+			name = "Downloads Scene";
 			sourceTree = "<group>";
 		};
-		92FD2CF91B1C9BA800B7836B /* Video */ = {
+		92FD2CF91B1C9BA800B7836B /* Video Scene */ = {
 			isa = PBXGroup;
 			children = (
 				92F8391B1B1DE7B6006BC177 /* YTVideoViewControllerDelegate.h */,
 				9276A77B1B1876260029072C /* YTVideoViewController.h */,
 				9276A77C1B1876260029072C /* YTVideoViewController.m */,
 			);
-			name = Video;
+			name = "Video Scene";
 			sourceTree = "<group>";
 		};
 		D05369310A9FDE7D1098F240 /* Frameworks */ = {
@@ -310,23 +295,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9242E1BE1B14E17300F891F2 /* OpenInExtension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9242E1CD1B14E17300F891F2 /* Build configuration list for PBXNativeTarget "OpenInExtension" */;
-			buildPhases = (
-				9242E1BB1B14E17300F891F2 /* Sources */,
-				9242E1BC1B14E17300F891F2 /* Frameworks */,
-				9242E1BD1B14E17300F891F2 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = OpenInExtension;
-			productName = OpenInExtension;
-			productReference = 9242E1BF1B14E17300F891F2 /* OpenInExtension.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 		92738A031B146C9E005E75DF /* OhMyTube */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 92738A271B146C9E005E75DF /* Build configuration list for PBXNativeTarget "OhMyTube" */;
@@ -341,7 +309,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				9242E1C91B14E17300F891F2 /* PBXTargetDependency */,
 			);
 			name = OhMyTube;
 			productName = OhMyTube;
@@ -377,9 +344,6 @@
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Mysterious Organization";
 				TargetAttributes = {
-					9242E1BE1B14E17300F891F2 = {
-						CreatedOnToolsVersion = 6.3.1;
-					};
 					92738A031B146C9E005E75DF = {
 						CreatedOnToolsVersion = 6.3.1;
 					};
@@ -404,29 +368,20 @@
 			targets = (
 				92738A031B146C9E005E75DF /* OhMyTube */,
 				92738A1C1B146C9E005E75DF /* OhMyTubeTests */,
-				9242E1BE1B14E17300F891F2 /* OpenInExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		9242E1BD1B14E17300F891F2 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9242E1C71B14E17300F891F2 /* MainInterface.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		92738A021B146C9E005E75DF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				92738A131B146C9E005E75DF /* Main.storyboard in Resources */,
+				9249F0A01B21ECBE0092EEFA /* Images.xcassets in Resources */,
 				92738A181B146C9E005E75DF /* LaunchScreen.xib in Resources */,
 				9242E1D31B15CE7500F891F2 /* Settings.bundle in Resources */,
 				92738A451B14B61C005E75DF /* __yt_history.js in Resources */,
-				92738A151B146C9E005E75DF /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -503,14 +458,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		9242E1BB1B14E17300F891F2 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9242E1C51B14E17300F891F2 /* ActionViewController.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		92738A001B146C9E005E75DF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -525,6 +472,7 @@
 				9242E1DF1B16087B00F891F2 /* YTDownloadsTableViewCell.m in Sources */,
 				92738A0D1B146C9E005E75DF /* AppDelegate.m in Sources */,
 				9276A77D1B1876260029072C /* YTVideoViewController.m in Sources */,
+				9249F09E1B21AAA20092EEFA /* YTNotifications.m in Sources */,
 				924C30DE1B14DE9A008802BC /* YTVideo.m in Sources */,
 				92738A321B14756A005E75DF /* YTWebViewController.m in Sources */,
 				92738A0A1B146C9E005E75DF /* main.m in Sources */,
@@ -543,11 +491,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		9242E1C91B14E17300F891F2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9242E1BE1B14E17300F891F2 /* OpenInExtension */;
-			targetProxy = 9242E1C81B14E17300F891F2 /* PBXContainerItemProxy */;
-		};
 		92738A1F1B146C9E005E75DF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 92738A031B146C9E005E75DF /* OhMyTube */;
@@ -575,30 +518,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		9242E1CB1B14E17300F891F2 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = OpenInExtension/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		9242E1CC1B14E17300F891F2 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = OpenInExtension/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
 		92738A251B146C9E005E75DF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -742,15 +661,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9242E1CD1B14E17300F891F2 /* Build configuration list for PBXNativeTarget "OpenInExtension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9242E1CB1B14E17300F891F2 /* Debug */,
-				9242E1CC1B14E17300F891F2 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		927389FF1B146C9E005E75DF /* Build configuration list for PBXProject "OhMyTube" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

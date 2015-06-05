@@ -67,4 +67,9 @@
     }
     return nil;
 }
+
+- (NSURL *)youTubeVideoURL {
+    NSString *URLString = [@"http://youtube.com/watch?v=" stringByAppendingString:self.identifier];
+    return [NSURL URLWithString:URLString];
+}
 @end

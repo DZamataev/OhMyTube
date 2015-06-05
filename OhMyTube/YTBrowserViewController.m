@@ -66,6 +66,7 @@ objection_requires_sel(@selector(videoRepository), @selector(settingsManager))
 
 - (void)commonInit {
     [[JSObjection defaultInjector] injectDependencies:self];
+    [self subscribeForNotifications];
 }
 
 - (void)viewDidLoad {
@@ -82,6 +83,10 @@ objection_requires_sel(@selector(videoRepository), @selector(settingsManager))
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc {
+    [self unsubscribeFromNotifications];
 }
 
 #pragma mark - Properties
@@ -107,6 +112,17 @@ objection_requires_sel(@selector(videoRepository), @selector(settingsManager))
 }
 
 #pragma mark - Actions
+
+- (void)subscribeForNotifications {
+    YTBrowserViewController __weak *welf = self;
+    [[NSNotificationCenter defaultCenter] addObserverForName:YTNotificaionsOpenInBrowser object:nil queue:nil usingBlock:^(NSNotification *note) {
+        [welf.webViewController loadURL:note.userInfo[@"URL"]];
+    }];
+}
+
+- (void)unsubscribeFromNotifications {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:YTNotificaionsOpenInBrowser object:nil];
+}
 
 - (void)fireMinimalNotification:(NSString*)title subtitle:(NSString*)subtitle style:(JFMinimalNotificationStytle)style {
     JFMinimalNotification *note = [JFMinimalNotification notificationWithStyle:style
@@ -154,7 +170,7 @@ objection_requires_sel(@selector(videoRepository), @selector(settingsManager))
     *allow = YES;
     [self resetVideoToDownload];
     
-    if ([URL.absoluteString hasPrefix:@"http://m.youtube.com/watch?"]) {
+    if ([URL.absoluteString hasPrefix:@"http://m.youtube.com/watch?"] || [URL.absoluteString hasPrefix:@"http://youtube.com/watch?"]) {
         NSDictionary *parameters = [self dictionaryByParsingParametersFromURL:URL];
         
         NSString *identifier = parameters[@"v"];

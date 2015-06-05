@@ -7,8 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import <Objection.h>
 
 @interface YTSettingsManager : NSObject
 - (BOOL)isNativeVideoPlayerEnabled;
+- (UIColor *)colorTheme;
 @end

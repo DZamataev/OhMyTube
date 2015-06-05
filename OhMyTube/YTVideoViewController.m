@@ -15,8 +15,7 @@ NSString *const kYTVideoViewControllerPlayNextEnabledUserDefaultsKey = @"PlayNex
 
 @property (weak, nonatomic) IBOutlet DZVideoPlayerViewControllerContainerView *videoContainerView;
 
-@property (weak, nonatomic) IBOutlet UIView *topToolbarView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topToolbarViewVerticalOffsetConstraint;
+@property (weak, nonatomic) IBOutlet UIView *contentContainerView;
 
 @property (weak, nonatomic) IBOutlet UILabel *playNextLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *playNextSwitch;
@@ -33,6 +32,11 @@ NSString *const kYTVideoViewControllerPlayNextEnabledUserDefaultsKey = @"PlayNex
 
 @implementation YTVideoViewController
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self updateControlsWhenEnteringInterfaceOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -40,6 +44,10 @@ NSString *const kYTVideoViewControllerPlayNextEnabledUserDefaultsKey = @"PlayNex
     
     self.isPlayNextEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:kYTVideoViewControllerPlayNextEnabledUserDefaultsKey];
     [self.playNextSwitch setOn:self.isPlayNextEnabled animated:NO];
+    
+    UISwipeGestureRecognizer *swipeUpDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleUpDownSwipeGesture:)];
+    [swipeUpDown setDirection:(UISwipeGestureRecognizerDirectionUp | UISwipeGestureRecognizerDirectionDown )];
+    [self.videoContainerView addGestureRecognizer:swipeUpDown];
     
     NSAssert(self.video != nil, @"Video must be set beforehand");
     
@@ -63,9 +71,21 @@ NSString *const kYTVideoViewControllerPlayNextEnabledUserDefaultsKey = @"PlayNex
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    //The device has already rotated, that's why this method is being called.
+    UIInterfaceOrientation toOrientation   = [[UIDevice currentDevice] orientation];
+    //fixes orientation mismatch (between UIDeviceOrientation and UIInterfaceOrientation)
+    if (toOrientation == UIInterfaceOrientationLandscapeRight) toOrientation = UIInterfaceOrientationLandscapeLeft;
+    else if (toOrientation == UIInterfaceOrientationLandscapeLeft) toOrientation = UIInterfaceOrientationLandscapeRight;
+    
+//    UIInterfaceOrientation fromOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+    [self updateControlsWhenEnteringInterfaceOrientation:toOrientation];
 }
 
 #pragma mark - Actions
+
+- (void)dismiss {
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+}
 
 - (void)playVideo {
     self.titleLabel.text = self.video.title;
@@ -87,13 +107,42 @@ NSString *const kYTVideoViewControllerPlayNextEnabledUserDefaultsKey = @"PlayNex
 }
 
 - (IBAction)openInBrowserAction:(UIButton *)sender {
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:YTNotificaionsOpenInBrowser object:nil userInfo:@{@"URL":self.video.youTubeVideoURL}];
+    [self dismiss];
+}
+
+- (IBAction)shareAction:(UIButton *)sender {
+    NSArray *activityItems = @[self.video.youTubeVideoURL];
+    UIActivityViewController *actVC = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        UIPopoverController *popoverController = [[UIPopoverController alloc] initWithContentViewController:actVC];
+        [popoverController presentPopoverFromRect:[sender frame] inView:[sender superview] permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
+    else {
+        [self presentViewController:actVC animated:YES completion:nil];
+    }
+}
+
+- (void)handleUpDownSwipeGesture:(UISwipeGestureRecognizer*)swipeGestureRecognizer {
+    if (swipeGestureRecognizer.state == UIGestureRecognizerStateRecognized) {
+        [self dismiss];
+    }
+}
+
+- (void)updateControlsWhenEnteringInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    if (UIInterfaceOrientationIsPortrait(interfaceOrientation)) {
+        self.contentContainerView.alpha = 1.0f;
+    }
+    else {
+        self.contentContainerView.alpha = 0.0f;
+    }
 }
 
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    [super prepareForSegue:segue sender:sender];
 }
 
 #pragma mark - <DZVideoPlayerViewControllerDelegate>
@@ -138,7 +187,7 @@ NSString *const kYTVideoViewControllerPlayNextEnabledUserDefaultsKey = @"PlayNex
 }
 
 - (void)playerDoneButtonTouched {
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    [self dismiss];
 }
 
 - (void)playerGatherNowPlayingInfo:(NSMutableDictionary *)nowPlayingInfo {

@@ -11,6 +11,8 @@
 #import <JFMinimalNotification.h>
 #import <M13ProgressSuite/M13ProgressViewBar.h>
 
+#import "YTNotifications.h"
+
 @interface YTBrowserViewController : UIViewController
 
 @end

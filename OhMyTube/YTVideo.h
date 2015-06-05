@@ -24,6 +24,7 @@
 @property (readonly, nonatomic) BOOL isDownloaded;
 @property (readonly, nonatomic) NSString *filePath;
 @property (readonly, nonatomic) NSURL *fileURL;
+@property (readonly, nonatomic) NSURL *youTubeVideoURL;
 
 - (instancetype)initWithIdentifier:(NSString*)identifier;
 
