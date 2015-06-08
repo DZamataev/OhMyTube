@@ -10,6 +10,8 @@
 
 #import "YTDownloadsViewController.h"
 
+#import "YTSettingsManager.h"
+
 @interface YTRootViewController ()
 @property (weak, nonatomic) IBOutlet YTDownloadsViewController *downloadsViewController;
 
@@ -18,16 +20,59 @@
 @property (weak, nonatomic) IBOutlet UIView *tabsView;
 @property (weak, nonatomic) IBOutlet UIButton *browserButton;
 @property (weak, nonatomic) IBOutlet UIButton *downloadsButton;
+
+@property (strong, nonatomic) YTSettingsManager *settingsManager;
 @end
 
 @implementation YTRootViewController
 
+objection_requires_sel(@selector(settingsManager))
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        [self commonInit];
+    }
+    return self;
+}
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        [self commonInit];
+    }
+    return self;
+}
+
+-(void)awakeFromNib {
+    [super awakeFromNib];
+    [self commonInit];
+}
+
+- (void)commonInit {
+    [[JSObjection defaultInjector] injectDependencies:self];
+    [self subscribeForNotifications];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self subscribeForNotifications];
     [self.browserButton addTarget:self action:@selector(showBrowser:) forControlEvents:UIControlEventTouchUpInside];
     [self.downloadsButton addTarget:self action:@selector(showDownloads:) forControlEvents:UIControlEventTouchUpInside];
-    [self showBrowser:nil];
+    
+    YTSettingsManagerLastViewedScene lastViewedScene = [self.settingsManager lastViewedScene];
+    switch (lastViewedScene) {
+        case YTSettingsManagerLastViewedSceneBrowser:
+            [self showBrowser:nil];
+            break;
+            
+        case YTSettingsManagerLastViewedSceneDownloads:
+            [self showDownloads:nil];
+            break;
+            
+        default:
+            [self showBrowser:nil];
+            break;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -37,10 +82,12 @@
 
 - (void)showBrowser:(id)sender {
     [self.view bringSubviewToFront:self.browserContainerView];
+    [self.settingsManager setLastViewedScene:YTSettingsManagerLastViewedSceneBrowser];
 }
 
 - (void)showDownloads:(id)sender {
     [self.view bringSubviewToFront:self.downloadsContainerView];
+    [self.settingsManager setLastViewedScene:YTSettingsManagerLastViewedSceneDownloads];
     [self.downloadsViewController populateSections];
 }
 

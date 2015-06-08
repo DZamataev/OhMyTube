@@ -1,50 +1,23 @@
 //
 //  AppDelegate.m
-//  OhMyTube
+//  LaunchScreenTemplate
 //
-//  Created by Denis Zamataev on 26/05/15.
+//  Created by Denis Zamataev on 08/06/15.
 //  Copyright (c) 2015 Mysterious Organization. All rights reserved.
 //
 
 #import "AppDelegate.h"
-#import <Objection.h>
-#import "YTAppModule.h"
-
-#import "YTSettingsManager.h"
-
-#import "YTLaunchAnimationHelper.h"
 
 @interface AppDelegate ()
-@property (strong, nonatomic) YTSettingsManager *settingsManager;
+
 @end
 
 @implementation AppDelegate
 
-objection_requires_sel(@selector(settingsManager))
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    JSObjectionInjector *injector = [JSObjection createInjector:[[YTAppModule alloc] init]];
-    [JSObjection setDefaultInjector:injector];
-    [[JSObjection defaultInjector] injectDependencies:self];
-    
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    [self.window makeKeyAndVisible];
-    
-    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:[[NSBundle mainBundle].infoDictionary objectForKey:@"UIMainStoryboardFile"] bundle:[NSBundle mainBundle]];
-    UIViewController *initialViewController = [mainStoryboard instantiateInitialViewController];
-    self.window.rootViewController = initialViewController;
-    
-    [YTLaunchAnimationHelper setupAndStartAnimationInWindow:self.window withInitialViewController:initialViewController completion:^{
-    }];
-    
-    [self performSelector:@selector(darketStatusBar) withObject:nil afterDelay:1.6];
-    
     return YES;
-}
-
-- (void)darketStatusBar {
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -63,7 +36,6 @@ objection_requires_sel(@selector(settingsManager))
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    [self.window setTintColor:[self.settingsManager colorTheme]];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

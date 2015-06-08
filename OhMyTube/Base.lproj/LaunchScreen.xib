@@ -10,18 +10,25 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Default.png" translatesAutoresizingMaskIntoConstraints="NO" id="R5B-YC-YVM">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_graphics_1024" translatesAutoresizingMaskIntoConstraints="NO" id="SfQ-qs-jCK">
-                    <rect key="frame" x="205" y="205" width="70" height="70"/>
+                    <rect key="frame" x="170" y="170" width="140" height="140"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="70" id="4aB-bg-5pr"/>
-                        <constraint firstAttribute="height" constant="70" id="jDz-uM-t7O"/>
+                        <constraint firstAttribute="width" constant="140" id="4aB-bg-5pr"/>
+                        <constraint firstAttribute="height" constant="140" id="jDz-uM-t7O"/>
                     </constraints>
                 </imageView>
             </subviews>
             <color key="backgroundColor" red="0.21568627450980393" green="0.38823529411764707" blue="0.88235294117647056" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="R5B-YC-YVM" secondAttribute="trailing" id="2j4-Y6-04e"/>
                 <constraint firstAttribute="centerY" secondItem="SfQ-qs-jCK" secondAttribute="centerY" id="8YO-TD-KXY"/>
                 <constraint firstAttribute="centerX" secondItem="SfQ-qs-jCK" secondAttribute="centerX" id="AiT-Oe-2Q5"/>
+                <constraint firstAttribute="bottom" secondItem="R5B-YC-YVM" secondAttribute="bottom" id="Dhy-2R-Xav"/>
+                <constraint firstItem="R5B-YC-YVM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="S28-nw-USe"/>
+                <constraint firstItem="R5B-YC-YVM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="WhQ-ZZ-QSe"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -29,6 +36,7 @@
         </view>
     </objects>
     <resources>
+        <image name="Default.png" width="640" height="960"/>
         <image name="logo_graphics_1024" width="1024" height="1024"/>
     </resources>
 </document>

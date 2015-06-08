@@ -17,6 +17,7 @@
 				<string>Cyan</string>
 				<string>Red</string>
 				<string>Orange</string>
+				<string>Purple</string>
 			</array>
 			<key>Values</key>
 			<array>
@@ -24,6 +25,7 @@
 				<string>Cyan</string>
 				<string>Red</string>
 				<string>Orange</string>
+				<string>Purple</string>
 			</array>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>

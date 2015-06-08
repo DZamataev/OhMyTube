@@ -30,6 +30,12 @@
 		92738A3B1B147692005E75DF /* YTDownloadsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92738A3A1B147692005E75DF /* YTDownloadsViewController.m */; };
 		92738A451B14B61C005E75DF /* __yt_history.js in Resources */ = {isa = PBXBuildFile; fileRef = 92738A441B14B61C005E75DF /* __yt_history.js */; };
 		9276A77D1B1876260029072C /* YTVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9276A77C1B1876260029072C /* YTVideoViewController.m */; };
+		92F7B48F1B25DEF5007919DC /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F7B48A1B25DEF5007919DC /* Default.png */; };
+		92F7B4901B25DEF5007919DC /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F7B48B1B25DEF5007919DC /* Default@2x.png */; };
+		92F7B4911B25DEF5007919DC /* Default@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F7B48C1B25DEF5007919DC /* Default@2x~ipad.png */; };
+		92F7B4921B25DEF5007919DC /* Default@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F7B48D1B25DEF5007919DC /* Default@3x.png */; };
+		92F7B4931B25DEF5007919DC /* Default~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F7B48E1B25DEF5007919DC /* Default~ipad.png */; };
+		92F7B4961B25E07F007919DC /* YTLaunchAnimationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F7B4951B25E07F007919DC /* YTLaunchAnimationHelper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +110,13 @@
 		92738A441B14B61C005E75DF /* __yt_history.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = __yt_history.js; sourceTree = "<group>"; };
 		9276A77B1B1876260029072C /* YTVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTVideoViewController.h; sourceTree = "<group>"; };
 		9276A77C1B1876260029072C /* YTVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTVideoViewController.m; sourceTree = "<group>"; };
+		92F7B48A1B25DEF5007919DC /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		92F7B48B1B25DEF5007919DC /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		92F7B48C1B25DEF5007919DC /* Default@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x~ipad.png"; sourceTree = "<group>"; };
+		92F7B48D1B25DEF5007919DC /* Default@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@3x.png"; sourceTree = "<group>"; };
+		92F7B48E1B25DEF5007919DC /* Default~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default~ipad.png"; sourceTree = "<group>"; };
+		92F7B4941B25E07F007919DC /* YTLaunchAnimationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTLaunchAnimationHelper.h; sourceTree = "<group>"; };
+		92F7B4951B25E07F007919DC /* YTLaunchAnimationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTLaunchAnimationHelper.m; sourceTree = "<group>"; };
 		92F8391B1B1DE7B6006BC177 /* YTVideoViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTVideoViewControllerDelegate.h; sourceTree = "<group>"; };
 		B24B8D9CF43D234FB48D900D /* libPods-OhMyTube.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OhMyTube.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE1DB224DEE6B04465472B29 /* Pods-OhMyTubeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OhMyTubeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-OhMyTubeTests/Pods-OhMyTubeTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -196,11 +209,14 @@
 		92738A061B146C9E005E75DF /* OhMyTube */ = {
 			isa = PBXGroup;
 			children = (
+				92F7B4891B25DEF5007919DC /* LaunchImages */,
 				9249F09F1B21ECBE0092EEFA /* Images.xcassets */,
 				92738A111B146C9E005E75DF /* Main.storyboard */,
 				92738A161B146C9E005E75DF /* LaunchScreen.xib */,
 				92738A0B1B146C9E005E75DF /* AppDelegate.h */,
 				92738A0C1B146C9E005E75DF /* AppDelegate.m */,
+				92F7B4941B25E07F007919DC /* YTLaunchAnimationHelper.h */,
+				92F7B4951B25E07F007919DC /* YTLaunchAnimationHelper.m */,
 				9242E1CF1B14E4D000F891F2 /* YTAppModule.h */,
 				9242E1D01B14E4D000F891F2 /* YTAppModule.m */,
 				92738A0E1B146C9E005E75DF /* YTRootViewController.h */,
@@ -271,6 +287,18 @@
 				9242E1DE1B16087B00F891F2 /* YTDownloadsTableViewCell.m */,
 			);
 			name = "Downloads Scene";
+			sourceTree = "<group>";
+		};
+		92F7B4891B25DEF5007919DC /* LaunchImages */ = {
+			isa = PBXGroup;
+			children = (
+				92F7B48A1B25DEF5007919DC /* Default.png */,
+				92F7B48B1B25DEF5007919DC /* Default@2x.png */,
+				92F7B48C1B25DEF5007919DC /* Default@2x~ipad.png */,
+				92F7B48D1B25DEF5007919DC /* Default@3x.png */,
+				92F7B48E1B25DEF5007919DC /* Default~ipad.png */,
+			);
+			path = LaunchImages;
 			sourceTree = "<group>";
 		};
 		92FD2CF91B1C9BA800B7836B /* Video Scene */ = {
@@ -378,9 +406,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				92738A131B146C9E005E75DF /* Main.storyboard in Resources */,
+				92F7B4911B25DEF5007919DC /* Default@2x~ipad.png in Resources */,
+				92F7B48F1B25DEF5007919DC /* Default.png in Resources */,
 				9249F0A01B21ECBE0092EEFA /* Images.xcassets in Resources */,
+				92F7B4921B25DEF5007919DC /* Default@3x.png in Resources */,
 				92738A181B146C9E005E75DF /* LaunchScreen.xib in Resources */,
+				92F7B4931B25DEF5007919DC /* Default~ipad.png in Resources */,
 				9242E1D31B15CE7500F891F2 /* Settings.bundle in Resources */,
+				92F7B4901B25DEF5007919DC /* Default@2x.png in Resources */,
 				92738A451B14B61C005E75DF /* __yt_history.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -474,6 +507,7 @@
 				9276A77D1B1876260029072C /* YTVideoViewController.m in Sources */,
 				9249F09E1B21AAA20092EEFA /* YTNotifications.m in Sources */,
 				924C30DE1B14DE9A008802BC /* YTVideo.m in Sources */,
+				92F7B4961B25E07F007919DC /* YTLaunchAnimationHelper.m in Sources */,
 				92738A321B14756A005E75DF /* YTWebViewController.m in Sources */,
 				92738A0A1B146C9E005E75DF /* main.m in Sources */,
 				9242E1D61B15E1C000F891F2 /* YTSettingsManager.m in Sources */,

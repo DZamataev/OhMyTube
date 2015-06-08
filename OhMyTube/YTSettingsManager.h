@@ -10,7 +10,16 @@
 #import <UIKit/UIKit.h>
 #import <Objection.h>
 
+typedef NS_ENUM(NSInteger, YTSettingsManagerLastViewedScene) {
+    YTSettingsManagerLastViewedSceneDefault = 1,
+    YTSettingsManagerLastViewedSceneBrowser = 1,
+    YTSettingsManagerLastViewedSceneDownloads = 2
+};
+
 @interface YTSettingsManager : NSObject
 - (BOOL)isNativeVideoPlayerEnabled;
 - (UIColor *)colorTheme;
+
+- (void)setLastViewedScene:(YTSettingsManagerLastViewedScene)lastViewedScene;
+- (YTSettingsManagerLastViewedScene)lastViewedScene;
 @end

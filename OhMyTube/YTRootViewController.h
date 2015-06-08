@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Objection/Objection.h>
 
 #import "YTNotifications.h"
 
