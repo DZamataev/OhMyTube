@@ -9,9 +9,8 @@
 #import "AppDelegate.h"
 #import <Objection.h>
 #import "YTAppModule.h"
-
+#import "YTNotifications.h"
 #import "YTSettingsManager.h"
-
 #import "YTLaunchAnimationHelper.h"
 
 @interface AppDelegate ()
@@ -38,13 +37,43 @@ objection_requires_sel(@selector(settingsManager))
     [YTLaunchAnimationHelper setupAndStartAnimationInWindow:self.window withInitialViewController:initialViewController completion:^{
     }];
     
-    [self performSelector:@selector(darketStatusBar) withObject:nil afterDelay:1.6];
+    [self performSelector:@selector(darkenStatusBar) withObject:nil afterDelay:1.6];
     
     return YES;
 }
 
-- (void)darketStatusBar {
+- (void)darkenStatusBar {
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    if ([url.absoluteString hasPrefix:@"ohmytube://x-callback-url/open/"]) {
+        // handle open with url to show in browser
+        NSDictionary *parameters = [self dictionaryByParsingParametersFromURL:url];
+        NSString *urlString = parameters[@"url"];
+        if (urlString && urlString.length > 0) {
+            NSURL *URL = [NSURL URLWithString:urlString];
+            if (URL) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:YTNotificaionsOpenInBrowser object:nil userInfo:@{@"URL":URL}];
+            }
+        }
+    }
+    return YES;
+}
+
+- (NSDictionary*)dictionaryByParsingParametersFromURL:(NSURL*)URL {
+    NSMutableDictionary *queryStrings = [[NSMutableDictionary alloc] init];
+    for (NSString *qs in [URL.query componentsSeparatedByString:@"&"]) {
+        // Get the parameter name
+        NSString *key = [[qs componentsSeparatedByString:@"="] objectAtIndex:0];
+        // Get the parameter value
+        NSString *value = [[qs componentsSeparatedByString:@"="] objectAtIndex:1];
+        value = [value stringByReplacingOccurrencesOfString:@"+" withString:@" "];
+        value = [value stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        queryStrings[key] = value;
+    }
+    return queryStrings;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

@@ -22,4 +22,7 @@ typedef NS_ENUM(NSInteger, YTSettingsManagerLastViewedScene) {
 
 - (void)setLastViewedScene:(YTSettingsManagerLastViewedScene)lastViewedScene;
 - (YTSettingsManagerLastViewedScene)lastViewedScene;
+
+- (void)setLastVisitedURL:(NSURL*)URL;
+- (NSURL *)lastVisitedURL;
 @end

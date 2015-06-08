@@ -10,7 +10,8 @@
 
 NSString *kYTSettingsNativeVideoPlayerEnabledKey = @"native_video_player_enabled";
 NSString *kYTSettingsColorThemeKey = @"color_theme";
-NSString *kYTSettingsLastViewedSceneKey = @"color_theme";
+NSString *kYTSettingsLastViewedSceneKey = @"last_viewed_scene";
+NSString *kYTSettingsLastVisitedURLKey = @"last_visited_URL";
 
 @implementation YTSettingsManager
 
@@ -63,5 +64,16 @@ objection_register_singleton(YTSettingsManager)
         result = [userDefaultsValue integerValue];
     }
     return result;
+}
+
+- (void)setLastVisitedURL:(NSURL*)URL {
+    NSString *URLString = [URL absoluteString];
+    [[NSUserDefaults standardUserDefaults] setObject:URLString forKey:kYTSettingsLastVisitedURLKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSURL *)lastVisitedURL {
+    NSString *URLString = [[NSUserDefaults standardUserDefaults] objectForKey:kYTSettingsLastVisitedURLKey];
+    return [NSURL URLWithString:URLString];
 }
 @end

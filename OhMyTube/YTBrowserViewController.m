@@ -77,7 +77,7 @@ objection_requires_sel(@selector(videoRepository), @selector(settingsManager))
     self.subtitleLabel.text = nil;
     [self.progressBar setPrimaryColor:self.progressBar.tintColor];
     [self.progressBar setShowPercentage:NO];
-    [self.webViewController loadURL:[NSURL URLWithString:@"http://youtube.com/"]];
+    [self loadLastVisitedURLOrHomePage];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -112,6 +112,24 @@ objection_requires_sel(@selector(videoRepository), @selector(settingsManager))
 }
 
 #pragma mark - Actions
+
+- (void)loadLastVisitedURLOrHomePage {
+    NSURL *lastVisitedURL = [self.settingsManager lastVisitedURL];
+    if (lastVisitedURL) {
+        [self loadPageWithURL:lastVisitedURL];
+    }
+    else {
+        [self loadHomePage];
+    }
+}
+
+- (void)loadHomePage {
+    [self loadPageWithURL:[NSURL URLWithString:@"http://youtube.com/"]];
+}
+
+- (void)loadPageWithURL:(NSURL*)URL {
+    [self.webViewController loadURL:URL];
+}
 
 - (void)subscribeForNotifications {
     YTBrowserViewController __weak *welf = self;
@@ -148,7 +166,12 @@ objection_requires_sel(@selector(videoRepository), @selector(settingsManager))
 }
 
 - (IBAction)refreshPageAction:(id)sender {
-    [self.webViewController refresh];
+    if (self.subtitleLabel.text && self.subtitleLabel.text.length > 0) {
+        [self.webViewController refresh];
+    }
+    else {
+        [self loadLastVisitedURLOrHomePage];
+    }
 }
 
 - (IBAction)downloadAction:(id)sender {
@@ -237,6 +260,9 @@ objection_requires_sel(@selector(videoRepository), @selector(settingsManager))
 
 - (void)webViewController:(YTWebViewController *)webViewController didUpdateURL:(NSURL *)URL {
     self.subtitleLabel.text = URL.absoluteString;
+    if (URL != nil) {
+        [self.settingsManager setLastVisitedURL:URL];
+    }
 }
 
 - (void)webViewController:(YTWebViewController *)webViewController didUpdateTitle:(NSString *)title {

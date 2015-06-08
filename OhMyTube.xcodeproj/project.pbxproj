@@ -36,6 +36,11 @@
 		92F7B4921B25DEF5007919DC /* Default@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F7B48D1B25DEF5007919DC /* Default@3x.png */; };
 		92F7B4931B25DEF5007919DC /* Default~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F7B48E1B25DEF5007919DC /* Default~ipad.png */; };
 		92F7B4961B25E07F007919DC /* YTLaunchAnimationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F7B4951B25E07F007919DC /* YTLaunchAnimationHelper.m */; };
+		92F7B4AB1B25F0C7007919DC /* OpenInExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 92F7B4A01B25F0C6007919DC /* OpenInExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		92F7B4B61B25F0F2007919DC /* ActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F7B4B11B25F0F2007919DC /* ActionViewController.m */; };
+		92F7B4B91B25F0F2007919DC /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92F7B4B51B25F0F2007919DC /* MainInterface.storyboard */; };
+		92F7B4BF1B25F2F3007919DC /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 92F7B4BE1B25F2F3007919DC /* Info.plist */; };
+		92F7B4C01B25F58C007919DC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9249F09F1B21ECBE0092EEFA /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +51,13 @@
 			remoteGlobalIDString = 92738A031B146C9E005E75DF;
 			remoteInfo = OhMyTube;
 		};
+		92F7B4A91B25F0C7007919DC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 927389FC1B146C9E005E75DF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 92F7B49F1B25F0C6007919DC;
+			remoteInfo = OpenInExtension;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -55,6 +67,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				92F7B4AB1B25F0C7007919DC /* OpenInExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -65,10 +78,6 @@
 		46801ECDAFAB7FF40D3C4CB0 /* Pods-OhMyTube.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OhMyTube.release.xcconfig"; path = "Pods/Target Support Files/Pods-OhMyTube/Pods-OhMyTube.release.xcconfig"; sourceTree = "<group>"; };
 		64F5B8CA923FBD236F9E8A8F /* libPods-OhMyTubeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OhMyTubeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6512C7DBACC56925184BE7EA /* Pods-OhMyTube.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OhMyTube.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OhMyTube/Pods-OhMyTube.debug.xcconfig"; sourceTree = "<group>"; };
-		9242E1C21B14E17300F891F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9242E1C31B14E17300F891F2 /* ActionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActionViewController.h; sourceTree = "<group>"; };
-		9242E1C41B14E17300F891F2 /* ActionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActionViewController.m; sourceTree = "<group>"; };
-		9242E1C61B14E17300F891F2 /* MainInterface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
 		9242E1CF1B14E4D000F891F2 /* YTAppModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTAppModule.h; sourceTree = "<group>"; };
 		9242E1D01B14E4D000F891F2 /* YTAppModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTAppModule.m; sourceTree = "<group>"; };
 		9242E1D21B15CE7500F891F2 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -117,6 +126,11 @@
 		92F7B48E1B25DEF5007919DC /* Default~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default~ipad.png"; sourceTree = "<group>"; };
 		92F7B4941B25E07F007919DC /* YTLaunchAnimationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTLaunchAnimationHelper.h; sourceTree = "<group>"; };
 		92F7B4951B25E07F007919DC /* YTLaunchAnimationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTLaunchAnimationHelper.m; sourceTree = "<group>"; };
+		92F7B4A01B25F0C6007919DC /* OpenInExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OpenInExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		92F7B4B01B25F0F2007919DC /* ActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionViewController.h; sourceTree = "<group>"; };
+		92F7B4B11B25F0F2007919DC /* ActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionViewController.m; sourceTree = "<group>"; };
+		92F7B4B51B25F0F2007919DC /* MainInterface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
+		92F7B4BE1B25F2F3007919DC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		92F8391B1B1DE7B6006BC177 /* YTVideoViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTVideoViewControllerDelegate.h; sourceTree = "<group>"; };
 		B24B8D9CF43D234FB48D900D /* libPods-OhMyTube.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OhMyTube.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE1DB224DEE6B04465472B29 /* Pods-OhMyTubeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OhMyTubeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-OhMyTubeTests/Pods-OhMyTubeTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -140,6 +154,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		92F7B49D1B25F0C6007919DC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -152,25 +173,6 @@
 				BE1DB224DEE6B04465472B29 /* Pods-OhMyTubeTests.release.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		9242E1C01B14E17300F891F2 /* OpenInExtension */ = {
-			isa = PBXGroup;
-			children = (
-				9242E1C31B14E17300F891F2 /* ActionViewController.h */,
-				9242E1C41B14E17300F891F2 /* ActionViewController.m */,
-				9242E1C61B14E17300F891F2 /* MainInterface.storyboard */,
-				9242E1C11B14E17300F891F2 /* Supporting Files */,
-			);
-			path = OpenInExtension;
-			sourceTree = "<group>";
-		};
-		9242E1C11B14E17300F891F2 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				9242E1C21B14E17300F891F2 /* Info.plist */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		924C30DA1B14DDE3008802BC /* Video Repository */ = {
@@ -189,8 +191,8 @@
 			isa = PBXGroup;
 			children = (
 				92738A061B146C9E005E75DF /* OhMyTube */,
+				92F7B4AF1B25F0F2007919DC /* OpenInExtension */,
 				92738A201B146C9E005E75DF /* OhMyTubeTests */,
-				9242E1C01B14E17300F891F2 /* OpenInExtension */,
 				92738A051B146C9E005E75DF /* Products */,
 				7ADC835A1F9832FB0E7EC473 /* Pods */,
 				D05369310A9FDE7D1098F240 /* Frameworks */,
@@ -202,6 +204,7 @@
 			children = (
 				92738A041B146C9E005E75DF /* OhMyTube.app */,
 				92738A1D1B146C9E005E75DF /* OhMyTubeTests.xctest */,
+				92F7B4A01B25F0C6007919DC /* OpenInExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -301,6 +304,17 @@
 			path = LaunchImages;
 			sourceTree = "<group>";
 		};
+		92F7B4AF1B25F0F2007919DC /* OpenInExtension */ = {
+			isa = PBXGroup;
+			children = (
+				92F7B4BE1B25F2F3007919DC /* Info.plist */,
+				92F7B4B01B25F0F2007919DC /* ActionViewController.h */,
+				92F7B4B11B25F0F2007919DC /* ActionViewController.m */,
+				92F7B4B51B25F0F2007919DC /* MainInterface.storyboard */,
+			);
+			path = OpenInExtension;
+			sourceTree = SOURCE_ROOT;
+		};
 		92FD2CF91B1C9BA800B7836B /* Video Scene */ = {
 			isa = PBXGroup;
 			children = (
@@ -337,6 +351,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				92F7B4AA1B25F0C7007919DC /* PBXTargetDependency */,
 			);
 			name = OhMyTube;
 			productName = OhMyTube;
@@ -363,6 +378,23 @@
 			productReference = 92738A1D1B146C9E005E75DF /* OhMyTubeTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		92F7B49F1B25F0C6007919DC /* OpenInExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 92F7B4AC1B25F0C7007919DC /* Build configuration list for PBXNativeTarget "OpenInExtension" */;
+			buildPhases = (
+				92F7B49C1B25F0C6007919DC /* Sources */,
+				92F7B49D1B25F0C6007919DC /* Frameworks */,
+				92F7B49E1B25F0C6007919DC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OpenInExtension;
+			productName = OpenInExtension;
+			productReference = 92F7B4A01B25F0C6007919DC /* OpenInExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -378,6 +410,9 @@
 					92738A1C1B146C9E005E75DF = {
 						CreatedOnToolsVersion = 6.3.1;
 						TestTargetID = 92738A031B146C9E005E75DF;
+					};
+					92F7B49F1B25F0C6007919DC = {
+						CreatedOnToolsVersion = 6.3.1;
 					};
 				};
 			};
@@ -396,6 +431,7 @@
 			targets = (
 				92738A031B146C9E005E75DF /* OhMyTube */,
 				92738A1C1B146C9E005E75DF /* OhMyTubeTests */,
+				92F7B49F1B25F0C6007919DC /* OpenInExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -409,6 +445,7 @@
 				92F7B4911B25DEF5007919DC /* Default@2x~ipad.png in Resources */,
 				92F7B48F1B25DEF5007919DC /* Default.png in Resources */,
 				9249F0A01B21ECBE0092EEFA /* Images.xcassets in Resources */,
+				92F7B4B91B25F0F2007919DC /* MainInterface.storyboard in Resources */,
 				92F7B4921B25DEF5007919DC /* Default@3x.png in Resources */,
 				92738A181B146C9E005E75DF /* LaunchScreen.xib in Resources */,
 				92F7B4931B25DEF5007919DC /* Default~ipad.png in Resources */,
@@ -422,6 +459,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		92F7B49E1B25F0C6007919DC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92F7B4C01B25F58C007919DC /* Images.xcassets in Resources */,
+				92F7B4BF1B25F2F3007919DC /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -506,6 +552,7 @@
 				92738A0D1B146C9E005E75DF /* AppDelegate.m in Sources */,
 				9276A77D1B1876260029072C /* YTVideoViewController.m in Sources */,
 				9249F09E1B21AAA20092EEFA /* YTNotifications.m in Sources */,
+				92F7B4B61B25F0F2007919DC /* ActionViewController.m in Sources */,
 				924C30DE1B14DE9A008802BC /* YTVideo.m in Sources */,
 				92F7B4961B25E07F007919DC /* YTLaunchAnimationHelper.m in Sources */,
 				92738A321B14756A005E75DF /* YTWebViewController.m in Sources */,
@@ -522,6 +569,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		92F7B49C1B25F0C6007919DC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -529,6 +583,11 @@
 			isa = PBXTargetDependency;
 			target = 92738A031B146C9E005E75DF /* OhMyTube */;
 			targetProxy = 92738A1E1B146C9E005E75DF /* PBXContainerItemProxy */;
+		};
+		92F7B4AA1B25F0C7007919DC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 92F7B49F1B25F0C6007919DC /* OpenInExtension */;
+			targetProxy = 92F7B4A91B25F0C7007919DC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -692,6 +751,32 @@
 			};
 			name = Release;
 		};
+		92F7B4AD1B25F0C7007919DC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = OpenInExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		92F7B4AE1B25F0C7007919DC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				INFOPLIST_FILE = OpenInExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -721,6 +806,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		92F7B4AC1B25F0C7007919DC /* Build configuration list for PBXNativeTarget "OpenInExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				92F7B4AD1B25F0C7007919DC /* Debug */,
+				92F7B4AE1B25F0C7007919DC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
