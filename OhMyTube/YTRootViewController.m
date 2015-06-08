@@ -81,12 +81,14 @@ objection_requires_sel(@selector(settingsManager))
 }
 
 - (void)showBrowser:(id)sender {
-    [self.view bringSubviewToFront:self.browserContainerView];
+    self.browserContainerView.hidden = NO;
+    self.downloadsContainerView.hidden = YES;
     [self.settingsManager setLastViewedScene:YTSettingsManagerLastViewedSceneBrowser];
 }
 
 - (void)showDownloads:(id)sender {
-    [self.view bringSubviewToFront:self.downloadsContainerView];
+    self.browserContainerView.hidden = YES;
+    self.downloadsContainerView.hidden = NO;
     [self.settingsManager setLastViewedScene:YTSettingsManagerLastViewedSceneDownloads];
     [self.downloadsViewController populateSections];
 }

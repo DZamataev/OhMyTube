@@ -186,6 +186,10 @@ static NSString * const kTitleChangedScriptMessageName = @"TitleChanged";
     [self.webView reload];
 }
 
+- (void)setContentInset:(UIEdgeInsets)inset {
+    [self.webView.scrollView setContentInset:inset];
+    [self.webView.scrollView setScrollIndicatorInsets:inset];
+}
 
 #pragma mark - Actions
 

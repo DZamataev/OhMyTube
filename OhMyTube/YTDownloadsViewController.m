@@ -72,6 +72,9 @@ objection_requires_sel(@selector(videoRepository))
     [super viewDidLoad];
     self.tableView.estimatedRowHeight = 120;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
+    UIEdgeInsets inset =  UIEdgeInsetsMake(0, 0, 44, 0);
+    self.tableView.contentInset = inset;
+    self.tableView.scrollIndicatorInsets = inset;
     // Do any additional setup after loading the view.
 }
 

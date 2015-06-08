@@ -18,4 +18,5 @@
 - (void)navigateBack;
 - (void)navigateForward;
 - (void)refresh;
+- (void)setContentInset:(UIEdgeInsets)inset;
 @end

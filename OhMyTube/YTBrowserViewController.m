@@ -14,7 +14,8 @@
 
 #import "YTSettingsManager.h"
 
-@interface YTBrowserViewController () <YTWebViewControllerDelegate>
+@interface YTBrowserViewController () <YTWebViewControllerDelegate, JFMinimalNotificationDelegate>
+@property (weak, nonatomic) IBOutlet UIView *webViewControllerContainerView;
 @property (weak, nonatomic) YTWebViewController *webViewController;
 
 @property (weak, nonatomic) IBOutlet UIView *toolbarView;
@@ -77,6 +78,8 @@ objection_requires_sel(@selector(videoRepository), @selector(settingsManager))
     self.subtitleLabel.text = nil;
     [self.progressBar setPrimaryColor:self.progressBar.tintColor];
     [self.progressBar setShowPercentage:NO];
+    [self.webViewController setContentInset:UIEdgeInsetsMake(0, 0, 88, 0)];
+    [self.view sendSubviewToBack:self.webViewControllerContainerView];
     [self loadLastVisitedURLOrHomePage];
 }
 
@@ -150,6 +153,7 @@ objection_requires_sel(@selector(videoRepository), @selector(settingsManager))
     if (self.notificationContainerView) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.notificationContainerView addSubview:note];
+            note.delegate = self;
             [note show];
         });
     }
@@ -250,7 +254,17 @@ objection_requires_sel(@selector(videoRepository), @selector(settingsManager))
     return queryStrings;
 }
 
+#pragma mark - <JFMinimalNotificationDelegate>
 
+- (void)minimalNotificationWillDisimissNotification:(JFMinimalNotification *)notification {
+    [UIView animateWithDuration:0.3f animations:^{
+        notification.alpha = 0.0f;
+    }];
+}
+
+- (void)minimalNotificationDidDismissNotification:(JFMinimalNotification *)notification {
+    [notification removeFromSuperview];
+}
 
 #pragma mark - <YTWebViewControllerDelegate>
 
