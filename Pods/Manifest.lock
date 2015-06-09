@@ -54,7 +54,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   DZVideoPlayerViewController:
-    :commit: 8c1c7aa1941f142cd2a8f7c307a321d10dbfe390
+    :commit: 1cea51ec0e551541d3f2dfde3e8bf2ffe434e7b7
     :git: https://github.com/DZamataev/DZVideoPlayerViewController.git
 
 SPEC CHECKSUMS:

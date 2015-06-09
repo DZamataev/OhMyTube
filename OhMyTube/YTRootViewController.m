@@ -13,11 +13,12 @@
 #import "YTSettingsManager.h"
 
 @interface YTRootViewController ()
-@property (weak, nonatomic) IBOutlet YTDownloadsViewController *downloadsViewController;
+@property (weak, nonatomic) YTDownloadsViewController *downloadsViewController;
 
 @property (weak, nonatomic) IBOutlet UIView *browserContainerView;
 @property (weak, nonatomic) IBOutlet UIView *downloadsContainerView;
 @property (weak, nonatomic) IBOutlet UIView *tabsView;
+@property (weak, nonatomic) IBOutlet UIView *tabsVisualEffectView;
 @property (weak, nonatomic) IBOutlet UIButton *browserButton;
 @property (weak, nonatomic) IBOutlet UIButton *downloadsButton;
 
@@ -83,12 +84,14 @@ objection_requires_sel(@selector(settingsManager))
 - (void)showBrowser:(id)sender {
     self.browserContainerView.hidden = NO;
     self.downloadsContainerView.hidden = YES;
+    self.tabsVisualEffectView.hidden = YES;
     [self.settingsManager setLastViewedScene:YTSettingsManagerLastViewedSceneBrowser];
 }
 
 - (void)showDownloads:(id)sender {
     self.browserContainerView.hidden = YES;
     self.downloadsContainerView.hidden = NO;
+    self.tabsVisualEffectView.hidden = NO;
     [self.settingsManager setLastViewedScene:YTSettingsManagerLastViewedSceneDownloads];
     [self.downloadsViewController populateSections];
 }

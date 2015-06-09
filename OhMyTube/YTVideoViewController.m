@@ -131,9 +131,13 @@ NSString *const kYTVideoViewControllerPlayNextEnabledUserDefaultsKey = @"PlayNex
 
 - (void)updateControlsWhenEnteringInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     if (UIInterfaceOrientationIsPortrait(interfaceOrientation)) {
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+            [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
+        }
         self.contentContainerView.alpha = 1.0f;
     }
     else {
+        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
         self.contentContainerView.alpha = 0.0f;
     }
 }
@@ -163,6 +167,14 @@ NSString *const kYTVideoViewControllerPlayNextEnabledUserDefaultsKey = @"PlayNex
     
 }
 
+- (void)playerRequireNextTrack {
+    
+}
+
+- (void)playerRequirePreviousTrack {
+    
+}
+
 - (void)playerDidToggleFullscreen {
     if (self.videoPlayerViewController.isFullscreen) {
         // expand videoPlayerViewController to fullscreen
@@ -175,7 +187,9 @@ NSString *const kYTVideoViewControllerPlayNextEnabledUserDefaultsKey = @"PlayNex
 }
 
 - (void)playerDidPlayToEndTime {
-    [self playNextVideo];
+    if (self.isPlayNextEnabled) {
+        [self playNextVideo];
+    }
 }
 
 - (void)playerFailedToPlayToEndTime {

@@ -21,7 +21,8 @@ iOS Video Player control that features
 * play online or offline videos
 * playback controls: play, pause, toggle fullscreen, current time and left time labels
 * progress indicator that shows downloaded amount and allows the user to rewind
-* remote control center commands 
+* remote command center support
+* remote control (headset) support
 * background playback
 * now playing info updates
 * easy customization with Interface Builder 
@@ -89,7 +90,8 @@ Implement DZVideoPlayerViewControllerDelegate
 
 ## Requirements
 
-Runs on iOS 7.0 and later
+Version 0.2.* and above runs on iOS 8.0 and later.
+Version 0.1.* - 0.2.* runs on iOS 7.0 and later.
 
 ## Customization
 
