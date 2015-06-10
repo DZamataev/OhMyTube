@@ -25,6 +25,9 @@
 @property (readonly, nonatomic) NSString *filePath;
 @property (readonly, nonatomic) NSURL *fileURL;
 @property (readonly, nonatomic) NSURL *youTubeVideoURL;
+@property (readonly, nonatomic) NSURL *youTubeVideoStreamWithBestQualityURL;
+@property (readonly, nonatomic) NSNumber *bestPossibleQuality;
+@property (readonly, nonatomic) NSURL *bestPossibleThumbnailURL;
 
 - (instancetype)initWithIdentifier:(NSString*)identifier;
 

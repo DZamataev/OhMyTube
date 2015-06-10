@@ -88,33 +88,6 @@ NSString *const YTVideoRepositoryEntityUpdateNotification = @"YTVideoRepositoryE
     return fileName;
 }
 
-- (NSNumber*)bestPossibleQualityForVideo:(YTVideo *)video {
-    NSNumber *quality;
-    NSArray *qualityOptionsArray = @[@(XCDYouTubeVideoQualityHD720), @(XCDYouTubeVideoQualityMedium360), @(XCDYouTubeVideoQualitySmall240)];
-    for (NSNumber *qualityNumber in qualityOptionsArray) {
-        NSURL *streamURL = video.youTubeVideo.streamURLs[qualityNumber];
-        if (streamURL != nil) {
-            quality = qualityNumber;
-            break;
-        }
-    }
-    return quality;
-}
-
-- (NSURL*)bestPossibleThumbnailURLForVideo:(YTVideo *)video {
-    NSURL *thumbnailURL;
-    if (video.youTubeVideo.largeThumbnailURL != nil) {
-        thumbnailURL = video.youTubeVideo.largeThumbnailURL;
-    }
-    else if (video.youTubeVideo.mediumThumbnailURL != nil) {
-        thumbnailURL = video.youTubeVideo.mediumThumbnailURL;
-    }
-    else if (video.youTubeVideo.smallThumbnailURL != nil) {
-        thumbnailURL = video.youTubeVideo.smallThumbnailURL;
-    }
-    return thumbnailURL;
-}
-
 - (NSString*)collectionFilePath {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -220,7 +193,7 @@ NSString *const YTVideoRepositoryEntityUpdateNotification = @"YTVideoRepositoryE
         }
     }
     
-    NSNumber *qualityNumber = [self bestPossibleQualityForVideo:video];
+    NSNumber *qualityNumber = [video bestPossibleQuality];
     if (qualityNumber == nil) {
         error = [NSError errorWithDomain:YTVideoRepositoryErrorDomain code:-1
                                 userInfo:@{NSLocalizedDescriptionKey:NSLocalizedString(@"Unable to pick quality", nil)}];
@@ -264,7 +237,7 @@ NSString *const YTVideoRepositoryEntityUpdateNotification = @"YTVideoRepositoryE
     
     NSNumber *duration = @(video.youTubeVideo.duration);
     
-    NSURL *thumbnailURL = [self bestPossibleThumbnailURLForVideo:video];
+    NSURL *thumbnailURL = [video bestPossibleThumbnailURL];
     
     video.title = video.youTubeVideo.title;
     video.qualityString = qualityString;

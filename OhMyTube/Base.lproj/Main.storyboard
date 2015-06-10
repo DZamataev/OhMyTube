@@ -405,6 +405,7 @@
                         <outlet property="topBarVerticalOffsetConstraint" destination="ED8-0K-v2B" id="wtQ-XN-vKl"/>
                         <outlet property="topBarView" destination="CYT-Hw-0FR" id="bnl-IG-ZgU"/>
                         <outlet property="webViewControllerContainerView" destination="BPB-TR-77t" id="dpW-7S-DBd"/>
+                        <segue destination="04d-WS-mSQ" kind="presentation" identifier="Present_VideoViewController" id="LU8-ds-9eA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eYM-m5-D37" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1034,7 +1035,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BjS-EO-MfH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2518" y="2754"/>
+            <point key="canvasLocation" x="2525" y="2775"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="6YT-Lh-jcq">
@@ -1066,4 +1067,7 @@
         <image name="bar_download" width="128" height="128"/>
         <image name="bar_refresh" width="20" height="20"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="LU8-ds-9eA"/>
+    </inferredMetricsTieBreakers>
 </document>

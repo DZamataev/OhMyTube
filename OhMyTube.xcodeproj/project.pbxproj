@@ -39,7 +39,6 @@
 		92F7B4AB1B25F0C7007919DC /* OpenInExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 92F7B4A01B25F0C6007919DC /* OpenInExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		92F7B4B61B25F0F2007919DC /* ActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F7B4B11B25F0F2007919DC /* ActionViewController.m */; };
 		92F7B4B91B25F0F2007919DC /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92F7B4B51B25F0F2007919DC /* MainInterface.storyboard */; };
-		92F7B4BF1B25F2F3007919DC /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 92F7B4BE1B25F2F3007919DC /* Info.plist */; };
 		92F7B4C01B25F58C007919DC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9249F09F1B21ECBE0092EEFA /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -406,6 +405,7 @@
 				TargetAttributes = {
 					92738A031B146C9E005E75DF = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = 68QJJA7HK9;
 					};
 					92738A1C1B146C9E005E75DF = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -413,6 +413,7 @@
 					};
 					92F7B49F1B25F0C6007919DC = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = 68QJJA7HK9;
 					};
 				};
 			};
@@ -467,7 +468,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				92F7B4C01B25F58C007919DC /* Images.xcassets in Resources */,
-				92F7B4BF1B25F2F3007919DC /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -698,6 +698,7 @@
 			baseConfigurationReference = 6512C7DBACC56925184BE7EA /* Pods-OhMyTube.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = OhMyTube/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -709,6 +710,7 @@
 			baseConfigurationReference = 46801ECDAFAB7FF40D3C4CB0 /* Pods-OhMyTube.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = OhMyTube/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -755,6 +757,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -770,6 +773,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = OpenInExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -814,6 +818,7 @@
 				92F7B4AE1B25F0C7007919DC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

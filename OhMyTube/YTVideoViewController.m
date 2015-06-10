@@ -53,7 +53,7 @@ NSString *const kYTVideoViewControllerPlayNextEnabledUserDefaultsKey = @"PlayNex
     
     self.videoPlayerViewController = self.videoContainerView.videoPlayerViewController;
     self.videoPlayerViewController.delegate = self;
-    self.videoPlayerViewController.isBackgroundPlaybackEnabled = YES;
+    self.videoPlayerViewController.isBackgroundPlaybackEnabled = NO;
     self.videoPlayerViewController.isShowFullscreenExpandAndShrinkButtonsEnabled = NO;
     
     [self playVideo];
@@ -89,7 +89,11 @@ NSString *const kYTVideoViewControllerPlayNextEnabledUserDefaultsKey = @"PlayNex
 
 - (void)playVideo {
     self.titleLabel.text = self.video.title;
-    self.videoPlayerViewController.videoURL = self.video.fileURL;
+    NSURL *url = self.video.fileURL;
+    if (url == nil) {
+        url = self.video.youTubeVideoStreamWithBestQualityURL;
+    }
+    self.videoPlayerViewController.videoURL = url;
     [self.videoPlayerViewController prepareAndPlayAutomatically:YES];
 }
 
@@ -152,30 +156,31 @@ NSString *const kYTVideoViewControllerPlayNextEnabledUserDefaultsKey = @"PlayNex
 #pragma mark - <DZVideoPlayerViewControllerDelegate>
 
 - (void)playerFailedToLoadAssetWithError:(NSError *)error {
-
+    NSLog(@"Failed to load asset with error: %@", error);
 }
 
 - (void)playerDidPlay {
-    
+    NSLog(@"Player did play");
 }
 
 - (void)playerDidPause {
-    
+    NSLog(@"Player did pause");
 }
 
 - (void)playerDidStop {
-    
+    NSLog(@"Player did stop");
 }
 
 - (void)playerRequireNextTrack {
-    
+    NSLog(@"Player require next track");
 }
 
 - (void)playerRequirePreviousTrack {
-    
+    NSLog(@"Player require previous track");
 }
 
 - (void)playerDidToggleFullscreen {
+    NSLog(@"Player did toggle fullscreen");
     if (self.videoPlayerViewController.isFullscreen) {
         // expand videoPlayerViewController to fullscreen
         
@@ -187,26 +192,31 @@ NSString *const kYTVideoViewControllerPlayNextEnabledUserDefaultsKey = @"PlayNex
 }
 
 - (void)playerDidPlayToEndTime {
+    NSLog(@"Player did play to end time");
     if (self.isPlayNextEnabled) {
         [self playNextVideo];
     }
 }
 
 - (void)playerFailedToPlayToEndTime {
-    
+    NSLog(@"Player failed to play to end time");
 }
 
 - (void)playerPlaybackStalled {
-    
+    NSLog(@"Player playback stalled");
 }
 
 - (void)playerDoneButtonTouched {
+    NSLog(@"Player done button touched");
     [self dismiss];
 }
 
 - (void)playerGatherNowPlayingInfo:(NSMutableDictionary *)nowPlayingInfo {
+    NSLog(@"Player gather now playing info");
 //    [nowPlayingInfo setObject:self.video.author forKey:MPMediaItemPropertyArtist];
-    [nowPlayingInfo setObject:self.video.title forKey:MPMediaItemPropertyTitle];
+    if (self.video.title && self.video.title.length > 0) {
+        [nowPlayingInfo setObject:self.video.title forKey:MPMediaItemPropertyTitle];
+    }
 }
 
 

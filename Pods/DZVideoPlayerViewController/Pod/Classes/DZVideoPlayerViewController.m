@@ -107,6 +107,7 @@ static const NSString *PlayerStatusContext;
     [self setupNotifications];
     [self setupAudioSession];
     [self setupPlayer];
+    [self setupPlayerTimeObservation];
     [self setupRemoteCommandCenter];
     [self syncUI];
 }
@@ -114,6 +115,11 @@ static const NSString *PlayerStatusContext;
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self setupRemoteControlEvents];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self resignRemoteControlEvents];
 }
 
 - (void)viewWillLayoutSubviews {
@@ -130,6 +136,7 @@ static const NSString *PlayerStatusContext;
     [self resignKVO];
     [self resignRemoteCommandCenter];
     [self resignPlayer];
+    [self resignAudioSession];
     [self resetNowPlayingInfo];
 }
 
@@ -437,20 +444,41 @@ static const NSString *PlayerStatusContext;
     [self.player addObserver:self forKeyPath:@"status"
                      options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:&PlayerStatusContext];
     
-    DZVideoPlayerViewController __weak *welf = self;
-    self.playerTimeObservationTarget = [self.player addPeriodicTimeObserverForInterval:CMTimeMake(1, 1)  queue:nil usingBlock:^(CMTime time) {
-        [welf updateProgressIndicator:welf];
-        [welf syncUI];
-    }];
-    
     self.playerView.player = self.player;
     self.playerView.videoFillMode = AVLayerVideoGravityResizeAspect;
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAVPlayerItemDidPlayToEndTime:)
+                                                 name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAVPlayerItemFailedToPlayToEndTime:)
+                                                 name:AVPlayerItemFailedToPlayToEndTimeNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAVPlayerItemPlaybackStalled:)
+                                                 name:AVPlayerItemPlaybackStalledNotification object:nil];
 }
 
 - (void)resignPlayer {
-    [self.player removeTimeObserver:self.playerTimeObservationTarget];
-    self.playerTimeObservationTarget = nil;
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemFailedToPlayToEndTimeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemPlaybackStalledNotification object:nil];
+}
+
+- (void)setupPlayerTimeObservation {
+    if (self.player) {
+        DZVideoPlayerViewController __weak *welf = self;
+        self.playerTimeObservationTarget = [self.player addPeriodicTimeObserverForInterval:CMTimeMake(1, 1)  queue:nil usingBlock:^(CMTime time) {
+            [welf updateProgressIndicator:welf];
+            [welf syncUI];
+        }];
+    }
+}
+
+- (void)resignPlayerTimeObservation {
+    if (self.player) {
+        [self.player removeTimeObserver:self.playerTimeObservationTarget];
+        self.playerTimeObservationTarget = nil;
+    }
 }
 
 - (void)setupAudioSession {
@@ -482,9 +510,31 @@ static const NSString *PlayerStatusContext;
                                                object:audioSession];
 }
 
+- (void)resignAudioSession {
+//    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+//    
+//    NSError *setCategoryError = nil;
+//    BOOL success = [audioSession setCategory:nil error:&setCategoryError];
+//    if (!success) { /* handle the error condition */ }
+//    
+//    NSError *activationError = nil;
+//    success = [audioSession setActive:NO error:&activationError];
+//    if (!success) { /* handle the error condition */ }
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVAudioSessionInterruptionNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVAudioSessionRouteChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVAudioSessionMediaServicesWereLostNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVAudioSessionMediaServicesWereResetNotification object:nil];
+}
+
 - (void)setupRemoteControlEvents {
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     [self becomeFirstResponder];
+}
+
+- (void)resignRemoteControlEvents {
+    [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
+    [self resignFirstResponder];
 }
 
 - (void)setupActions {
@@ -532,15 +582,6 @@ static const NSString *PlayerStatusContext;
 }
 
 - (void)setupNotifications {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAVPlayerItemDidPlayToEndTime:)
-                                                 name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAVPlayerItemFailedToPlayToEndTime:)
-                                                 name:AVPlayerItemFailedToPlayToEndTimeNotification object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAVPlayerItemPlaybackStalled:)
-                                                 name:AVPlayerItemPlaybackStalledNotification object:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleApplicationDidEnterBackground:)
                                                  name:UIApplicationDidEnterBackgroundNotification object:nil];
     
@@ -549,9 +590,6 @@ static const NSString *PlayerStatusContext;
 }
 
 - (void)resignNotifications {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemFailedToPlayToEndTimeNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemPlaybackStalledNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
 }
@@ -592,31 +630,74 @@ static const NSString *PlayerStatusContext;
 }
 
 - (void)handleApplicationDidEnterBackground:(NSNotification *)notification {
+    [self resignPlayerTimeObservation];
+    
     if (self.isBackgroundPlaybackEnabled) {
         self.playerView.player = nil;
+        
+        AVPlayerItem *playerItem = self.playerItem;
+        
+        NSArray *tracks = [playerItem tracks];
+        for (AVPlayerItemTrack *playerItemTrack in tracks)
+        {
+            // find video tracks
+            if ([playerItemTrack.assetTrack hasMediaCharacteristic:AVMediaCharacteristicVisual])
+            {
+                playerItemTrack.enabled = NO; // disable the track
+            }
+        }
+
     }
 }
 
 - (void)handleApplicationDidBecomeActive:(NSNotification *)notification {
+    [self setupPlayerTimeObservation];
+    
     if (self.isBackgroundPlaybackEnabled) {
         self.playerView.player = self.player;
+        
+        AVPlayerItem *playerItem = self.playerItem;
+        
+        NSArray *tracks = [playerItem tracks];
+        for (AVPlayerItemTrack *playerItemTrack in tracks)
+        {
+            // find video tracks
+            if ([playerItemTrack.assetTrack hasMediaCharacteristic:AVMediaCharacteristicVisual])
+            {
+                playerItemTrack.enabled = YES; // disable the track
+            }
+        }
     }
 }
 
 - (void)handleAVAudioSessionInterruptionNotification:(NSNotification *)notification {
+    NSNumber *typeNum = notification.userInfo[AVAudioSessionInterruptionTypeKey];
+    AVAudioSessionInterruptionType type = typeNum.unsignedIntegerValue;
     
+    if (type == AVAudioSessionInterruptionTypeEnded) {
+        NSNumber *optionNum = notification.userInfo[AVAudioSessionInterruptionOptionKey];
+        AVAudioSessionInterruptionOptions options = optionNum.unsignedIntegerValue;
+        if (options == AVAudioSessionInterruptionOptionShouldResume) {
+            [self play];
+        }
+    }
 }
 
 - (void)handleAVAudioSessionRouteChangeNotification:(NSNotification *)notification {
-    
+    AVAudioSessionRouteChangeReason reason = [notification.userInfo[AVAudioSessionRouteChangeReasonKey] unsignedIntegerValue];
+//    AVAudioSessionRouteDescription *previousRoute = notification.userInfo[AVAudioSessionRouteChangePreviousRouteKey];
+    if (reason == AVAudioSessionRouteChangeReasonOldDeviceUnavailable) {
+        // The old device is unavailable == headphones have been unplugged
+        [self pause];
+    }
 }
 
 - (void)handleAVAudioSessionMediaServicesWereLostNotification:(NSNotification *)notification {
-    
+    NSLog(@"%@: AVAudioSession media services were lost.", NSStringFromClass([DZVideoPlayerViewController class]));
 }
 
 - (void)handleAVAudioSessionMediaServicesWereResetNotification:(NSNotification *)notification {
-    
+    NSLog(@"%@: AVAudioSession media services were reset.", NSStringFromClass([DZVideoPlayerViewController class]));
 }
 
 #pragma mark - Remote Control Events

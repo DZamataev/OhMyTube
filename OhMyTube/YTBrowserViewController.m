@@ -9,6 +9,7 @@
 #import "YTBrowserViewController.h"
 #import "YTWebViewControllerDelegate.h"
 #import "YTWebViewController.h"
+#import "YTVideoViewController.h"
 
 #import "YTVideoRepositoryInterface.h"
 
@@ -112,6 +113,10 @@ objection_requires_sel(@selector(videoRepository), @selector(settingsManager))
         self.webViewController = segue.destinationViewController;
         self.webViewController.delegate = self;
     }
+    else if ([segue.identifier isEqualToString:@"Present_VideoViewController"]) {
+        YTVideoViewController *videoVC = segue.destinationViewController;
+        videoVC.video = sender;
+    }
 }
 
 #pragma mark - Actions
@@ -202,23 +207,24 @@ objection_requires_sel(@selector(videoRepository), @selector(settingsManager))
         
         NSString *identifier = parameters[@"v"];
         if (identifier && identifier.length > 0) {
+            
+            BOOL isNativeVideoPlayerEnabled = self.settingsManager.isNativeVideoPlayerEnabled;
+            if (isNativeVideoPlayerEnabled) {
+                *allow = NO;
+            }
+            
             YTBrowserViewController __weak *welf = self;
             [self.videoRepository prepareForDownloadVideoWithIdentifier:identifier completion:^(YTVideo *video, NSError *error) {
                 if (error == nil) {
                     welf.videoToDownload = video;
+                    if (isNativeVideoPlayerEnabled) {
+                        [self performSegueWithIdentifier:@"Present_VideoViewController" sender:video];
+                    }
                 }
                 else {
                     [welf fireMinimalNotification:NSLocalizedString(@"Error", nil) subtitle:error.localizedDescription style:JFMinimalNotificationStyleError];
                 }
             }];
-            
-            BOOL isNativeVideoPlayerEnabled = self.settingsManager.isNativeVideoPlayerEnabled;
-            if (isNativeVideoPlayerEnabled) {
-                *allow = NO;
-                XCDYouTubeVideoPlayerViewController *videoPlayerViewController = [[XCDYouTubeVideoPlayerViewController alloc]
-                                                                                  initWithVideoIdentifier:identifier];
-                [welf presentMoviePlayerViewControllerAnimated:videoPlayerViewController];
-            }
         }
     }
 }
