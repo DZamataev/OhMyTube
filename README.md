@@ -1,7 +1,7 @@
 About
 =====
 
-This project is an Open Source iOS Application that features download videos from YouTube and watch them offline, e.g. YouTube viedo downloader for iOS.
+This project is an Open Source iOS Application that features download videos from YouTube and watch them offline, e.g. YouTube video downloader for iOS.
 
 The application consists of two main parts (tabs):
 * Browser that lets you browse YouTube website and pick videos to download. 
